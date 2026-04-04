@@ -57,18 +57,25 @@ export default function HomeHero() {
         }
         .template-card { transition: transform 0.3s ease; }
         .template-card:hover { transform: translateY(-8px); }
+        @media (max-width: 768px) {
+          .h-hero { flex-direction: column !important; height: auto !important; padding: 30px 20px 60px !important; text-align: center; }
+          .h-hero-right { display: none !important; }
+          .h-hero-left { max-width: 100% !important; }
+          .h-stats { justify-content: center !important; gap: 24px !important; flex-wrap: wrap !important; }
+          .h-cta { padding: 14px 48px !important; margin-top: 32px !important; margin-bottom: 32px !important; }
+        }
       `}</style>
 
       <section
-        className="hero-glow relative flex justify-between items-center"
+        className="hero-glow h-hero relative flex justify-between items-center"
         style={{
-          padding: "80px 80px",
-          height: "100vh",
+          padding: "clamp(20px,6vw,80px) clamp(20px,6vw,80px)",
+          minHeight: "100vh",
           background: "#ffffff",
         }}
       >
         {/* Left text */}
-        <div style={{ maxWidth: 600, zIndex: 10 }}>
+        <div className="h-hero-left" style={{ maxWidth: 600, zIndex: 10 }}>
           <h1
             style={{
               fontSize: "clamp(32px,4vw,52px)",
@@ -88,6 +95,7 @@ export default function HomeHero() {
 
           <Link
             href="/register"
+            className="h-cta"
             style={{
               display: "inline-block",
               marginTop: 60,
@@ -116,7 +124,7 @@ export default function HomeHero() {
           </Link>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: 50 }}>
+          <div className="h-stats" style={{ display: "flex", gap: 50, flexWrap: "wrap" }}>
             {[
               { val: "500+", label: "Colleges" },
               { val: "10K+", label: "Students Placed" },
@@ -134,11 +142,12 @@ export default function HomeHero() {
 
         {/* Right — flowing card stack */}
         <div
+          className="h-hero-right"
           style={{
             position: "relative",
             width: "clamp(280px,30vw,420px)",
             height: "clamp(350px,40vw,520px)",
-            marginRight: 50,
+            marginRight: "clamp(0px,3vw,50px)",
             flexShrink: 0,
             perspective: "1000px",
             zIndex: 10,

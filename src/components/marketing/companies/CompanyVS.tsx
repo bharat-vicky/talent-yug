@@ -43,6 +43,13 @@ export default function CompanyVS() {
         paddingBottom: 80,
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .covs-container { height: 420px !important; }
+          .covs-dot { display: none !important; }
+          .covs-backdrop { max-width: min(160px,42vw) !important; }
+        }
+      `}</style>
       {/* Title */}
       <div
         ref={titleRef}
@@ -66,6 +73,7 @@ export default function CompanyVS() {
 
       {/* VS layout */}
       <div
+        className="covs-container"
         style={{
           position: "relative",
           height: 760,
@@ -80,6 +88,7 @@ export default function CompanyVS() {
           alt="Without TalentYug"
           width={800}
           height={700}
+          className="covs-backdrop"
           style={{
             position: "absolute",
             top: 90,
@@ -96,6 +105,7 @@ export default function CompanyVS() {
           alt="With TalentYug"
           width={800}
           height={700}
+          className="covs-backdrop"
           style={{
             position: "absolute",
             top: 90,
@@ -149,6 +159,7 @@ export default function CompanyVS() {
             alt={d.alt}
             width={350}
             height={200}
+            className="covs-dot"
             style={{
               position: "absolute",
               top: d.top,
@@ -167,6 +178,7 @@ export default function CompanyVS() {
             alt={d.alt}
             width={350}
             height={200}
+            className="covs-dot"
             style={{
               position: "absolute",
               top: d.top,

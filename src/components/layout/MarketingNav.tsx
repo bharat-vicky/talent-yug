@@ -148,7 +148,7 @@ export default function MarketingNav() {
         {/* Logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
           <Image src="/home-img/logo.png" alt="TalentYug" width={40} height={40} style={{ height: 40, width: "auto" }} />
-          <span style={{ fontSize: 26, fontWeight: 700, color: "#1F3F68" }}>TalentYug</span>
+          <span style={{ fontSize: "clamp(18px,2.5vw,26px)", fontWeight: 700, color: "#1F3F68" }}>TalentYug</span>
         </Link>
 
         {/* Desktop nav + buttons */}

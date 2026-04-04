@@ -15,7 +15,6 @@ import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useAuth } from "@/contexts/AuthContext";
 import { TalentEvent, PreRegistrationForm, FormField, FieldType } from "@/types";
 import { KEYS } from "@/lib/storage";
 import { generateId } from "@/lib/utils";
@@ -138,7 +137,6 @@ function FieldEditor({
 }
 
 export default function PreRegistrationPage() {
-  useAuth();
   const [events] = useLocalStorage<TalentEvent[]>(KEYS.EVENTS, []);
   const [forms, setForms] = useLocalStorage<PreRegistrationForm[]>(KEYS.FORMS, []);
 
@@ -150,6 +148,7 @@ export default function PreRegistrationPage() {
     { id: generateId(), type: "phone", label: "Phone Number", placeholder: "+91 XXXXX XXXXX", required: false },
   ]);
   const [saved, setSaved] = useState(false);
+  const [eventError, setEventError] = useState("");
 
   const eventOptions = useMemo(
     () =>
@@ -160,6 +159,7 @@ export default function PreRegistrationPage() {
   // Load existing form when event changes
   function handleEventChange(eventId: string) {
     setSelectedEventId(eventId);
+    setEventError("");
     const existing = forms.find((f) => f.eventId === eventId);
     if (existing) {
       setFormTitle(existing.title);
@@ -194,9 +194,10 @@ export default function PreRegistrationPage() {
 
   function handleSave() {
     if (!selectedEventId) {
-      alert("Please select an event first.");
+      setEventError("Please select an event before saving.");
       return;
     }
+    setEventError("");
 
     const form: PreRegistrationForm = {
       id: forms.find((f) => f.eventId === selectedEventId)?.id ?? generateId(),
@@ -245,13 +246,18 @@ export default function PreRegistrationPage() {
         <div className="lg:col-span-2 space-y-4">
           <Card>
             <div className="space-y-4">
-              <Select
-                label="Event"
-                value={selectedEventId}
-                onChange={(e) => handleEventChange(e.target.value)}
-                options={eventOptions}
-                placeholder="Select an event…"
-              />
+              <div>
+                <Select
+                  label="Event"
+                  value={selectedEventId}
+                  onChange={(e) => handleEventChange(e.target.value)}
+                  options={eventOptions}
+                  placeholder="Select an event…"
+                />
+                {eventError && (
+                  <p className="mt-1.5 text-xs text-danger">{eventError}</p>
+                )}
+              </div>
               <Input
                 label="Form Title"
                 value={formTitle}

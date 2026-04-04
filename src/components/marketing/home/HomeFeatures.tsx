@@ -2,11 +2,17 @@ export default function HomeFeatures() {
   return (
     <section
       style={{
-        padding: "80px 60px",
+        padding: "clamp(40px,5vw,80px) clamp(20px,5vw,60px)",
         background: "#ffffff",
       }}
     >
+      <style>{`
+        @media (max-width: 640px) {
+          .hf-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       <div
+        className="hf-grid"
         style={{
           maxWidth: 1200,
           margin: "0 auto",

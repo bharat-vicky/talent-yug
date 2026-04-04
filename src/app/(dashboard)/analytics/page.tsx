@@ -50,21 +50,22 @@ export default function AnalyticsPage() {
       .slice(0, 8);
   }, [events, guests]);
 
-  // Build chart data from last 6 months
+  // Build chart data from last 6 months using real guest data
   const chartData = useMemo(() => {
-    const months: string[] = [];
     const now = new Date();
-    for (let i = 5; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      months.push(d.toLocaleString("en-IN", { month: "short" }));
-    }
-
-    return months.map((month) => ({
-      month,
-      registered: Math.floor(Math.random() * 80 + 20),
-      placed: Math.floor(Math.random() * 40 + 10),
-    }));
-  }, []);
+    return Array.from({ length: 6 }, (_, i) => {
+      const monthStart = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1);
+      const monthEnd = new Date(now.getFullYear(), now.getMonth() - (5 - i) + 1, 1);
+      const month = monthStart.toLocaleString("en-IN", { month: "short" });
+      const registered = guests.filter(
+        (g) => g.registeredAt >= monthStart.getTime() && g.registeredAt < monthEnd.getTime()
+      ).length;
+      const placed = guests.filter(
+        (g) => g.checkedInAt != null && g.checkedInAt >= monthStart.getTime() && g.checkedInAt < monthEnd.getTime()
+      ).length;
+      return { month, registered, placed };
+    });
+  }, [guests]);
 
   return (
     <>

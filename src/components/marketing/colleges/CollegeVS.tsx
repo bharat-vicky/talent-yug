@@ -43,6 +43,13 @@ export default function CollegeVS() {
         paddingBottom: 80,
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .cvs-container { height: 420px !important; }
+          .cvs-dot { display: none !important; }
+          .cvs-backdrop { max-width: min(160px,42vw) !important; }
+        }
+      `}</style>
       {/* Title */}
       <div
         ref={titleRef}
@@ -66,6 +73,7 @@ export default function CollegeVS() {
 
       {/* VS layout */}
       <div
+        className="cvs-container"
         style={{
           position: "relative",
           height: 760,
@@ -80,6 +88,7 @@ export default function CollegeVS() {
           alt="Without TalentYug"
           width={800}
           height={700}
+          className="cvs-backdrop"
           style={{
             position: "absolute",
             top: 90,
@@ -96,6 +105,7 @@ export default function CollegeVS() {
           alt="With TalentYug"
           width={800}
           height={700}
+          className="cvs-backdrop"
           style={{
             position: "absolute",
             top: 90,
@@ -149,6 +159,7 @@ export default function CollegeVS() {
             alt={d.alt}
             width={420}
             height={200}
+            className="cvs-dot"
             style={{
               position: "absolute",
               top: d.top,
@@ -167,6 +178,7 @@ export default function CollegeVS() {
             alt={d.alt}
             width={360}
             height={200}
+            className="cvs-dot"
             style={{
               position: "absolute",
               top: d.top,

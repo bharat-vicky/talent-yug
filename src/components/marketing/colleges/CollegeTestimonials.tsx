@@ -39,12 +39,19 @@ export default function CollegeTestimonials() {
   return (
     <section
       style={{
-        padding: "160px 0",
+        padding: "clamp(60px,8vw,160px) 0",
         background: "#FEF2DD",
         position: "relative",
         zIndex: 11,
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .ct-inner { gap: 30px !important; flex-direction: column !important; }
+          .ct-left { max-width: 100% !important; }
+          .ct-card-wrap { min-width: 100% !important; }
+        }
+      `}</style>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 100, padding: "0 20px" }}>
         <p style={{ fontSize: 28, color: "#666" }}>Read Reviews,</p>
@@ -59,17 +66,18 @@ export default function CollegeTestimonials() {
       </div>
 
       <div
+        className="ct-inner"
         style={{
           maxWidth: 1310,
           margin: "auto",
           display: "flex",
           gap: 80,
-          padding: "0 40px",
+          padding: "0 clamp(20px,4vw,40px)",
           flexWrap: "wrap",
         }}
       >
         {/* Left quote */}
-        <div style={{ maxWidth: 280, flexShrink: 0 }}>
+        <div className="ct-left" style={{ maxWidth: 280, flexShrink: 0 }}>
           <Image
             src="/college-img/college/comma_c.png"
             alt="quote"
@@ -100,7 +108,7 @@ export default function CollegeTestimonials() {
         <div style={{ flex: 1, overflow: "hidden" }}>
           <div style={{ display: "flex", gap: 30, flexWrap: "wrap" }}>
             {visible.map((t) => (
-              <div key={t.name} style={{ minWidth: 300, flex: 1 }}>
+              <div key={t.name} className="ct-card-wrap" style={{ minWidth: 300, flex: 1 }}>
                 <div
                   style={{
                     background: "#fff",
@@ -108,7 +116,7 @@ export default function CollegeTestimonials() {
                     border: "1px solid rgba(0,0,0,0.2)",
                     borderRadius: "20px 20px 20px 0",
                     boxShadow: "10px 10px 10px 0 rgba(0,0,0,0.4)",
-                    height: 180,
+                    minHeight: 180,
                     display: "flex",
                     alignItems: "flex-start",
                   }}

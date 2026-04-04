@@ -45,6 +45,13 @@ export default function StudentVS() {
         paddingBottom: 80,
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .svs-container { height: 420px !important; }
+          .svs-dot { display: none !important; }
+          .svs-backdrop { max-width: min(160px,42vw) !important; }
+        }
+      `}</style>
       {/* Title */}
       <div
         ref={titleRef}
@@ -68,6 +75,7 @@ export default function StudentVS() {
 
       {/* Problem / Solution big backdrop images + floating comparison dots */}
       <div
+        className="svs-container"
         style={{
           position: "relative",
           height: 760,
@@ -82,6 +90,7 @@ export default function StudentVS() {
           alt="Without TalentYug"
           width={800}
           height={700}
+          className="svs-backdrop"
           style={{
             position: "absolute",
             top: 90,
@@ -98,6 +107,7 @@ export default function StudentVS() {
           alt="With TalentYug"
           width={800}
           height={700}
+          className="svs-backdrop"
           style={{
             position: "absolute",
             top: 90,
@@ -151,6 +161,7 @@ export default function StudentVS() {
             alt={d.alt}
             width={350}
             height={200}
+            className="svs-dot"
             style={{
               position: "absolute",
               top: d.cls.top,
@@ -170,6 +181,7 @@ export default function StudentVS() {
             alt={d.alt}
             width={370}
             height={200}
+            className="svs-dot"
             style={{
               position: "absolute",
               top: d.cls.top,

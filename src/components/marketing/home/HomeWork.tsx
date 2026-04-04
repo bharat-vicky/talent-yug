@@ -35,7 +35,7 @@ const WORK_CARDS = [
 export default function HomeWork() {
   return (
     <section style={{ padding: "30px 0", background: "#ffffff" }}>
-      <div style={{ maxWidth: 1200, margin: "auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: 1200, margin: "auto", padding: "0 clamp(20px,4vw,40px)" }}>
         {/* Section title banner */}
         <div
           style={{

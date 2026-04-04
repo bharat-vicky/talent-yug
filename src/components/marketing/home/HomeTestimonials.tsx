@@ -38,12 +38,19 @@ export default function HomeTestimonials() {
   return (
     <section
       style={{
-        padding: "160px 0",
+        padding: "clamp(60px,8vw,160px) 0",
         background: "#ffffff",
         position: "relative",
         zIndex: 11,
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .ht-inner { gap: 30px !important; flex-direction: column !important; }
+          .ht-left { max-width: 100% !important; }
+          .ht-card-wrap { min-width: 100% !important; }
+        }
+      `}</style>
       <div style={{ textAlign: "center", marginBottom: 100 }}>
         <p style={{ fontSize: 28, color: "#666" }}>What people say</p>
         <h2 style={{ fontSize: 48, fontWeight: 800, margin: "10px 0 20px" }}>
@@ -57,17 +64,18 @@ export default function HomeTestimonials() {
       </div>
 
       <div
+        className="ht-inner"
         style={{
           maxWidth: 1310,
           margin: "auto",
           display: "flex",
           gap: 80,
-          padding: "0 40px",
+          padding: "0 clamp(20px,4vw,40px)",
           flexWrap: "wrap",
         }}
       >
         {/* Left quote side */}
-        <div style={{ maxWidth: 280, flexShrink: 0 }}>
+        <div className="ht-left" style={{ maxWidth: 280, flexShrink: 0 }}>
           <Image
             src="/home-img/landing/commaa.png"
             alt="quote"
@@ -121,7 +129,7 @@ export default function HomeTestimonials() {
             }}
           >
             {visible.map((t) => (
-              <div key={t.name} style={{ minWidth: 340, flex: 1 }}>
+              <div key={t.name} className="ht-card-wrap" style={{ minWidth: 300, flex: 1 }}>
                 <div
                   style={{
                     background: "#fff",
@@ -129,7 +137,7 @@ export default function HomeTestimonials() {
                     border: "1px solid rgba(0,0,0,0.2)",
                     borderRadius: "20px 20px 20px 0px",
                     boxShadow: "10px 10px 10px 0px rgba(0,0,0,0.2)",
-                    height: 180,
+                    minHeight: 180,
                     display: "flex",
                     alignItems: "flex-start",
                   }}

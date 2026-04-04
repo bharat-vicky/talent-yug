@@ -9,6 +9,8 @@ export interface User {
   role: UserRole;
   provider: "local" | "google";
   createdAt: number;
+  approved: boolean;    // true = can access dashboard
+  createdBy?: string;  // admin email who created this user
 }
 
 export interface Session {
@@ -16,6 +18,7 @@ export interface Session {
   email: string;
   role: UserRole;
   provider: "local" | "google";
+  approved: boolean;
 }
 
 // ─── Events ─────────────────────────────────────────────────────────────────
@@ -49,6 +52,7 @@ export interface Guest {
   registeredAt: number;
   checkedInAt?: number;
   qrToken: string;
+  qrSerial?: string;    // linked batch QR serial
 }
 
 // ─── Pre-registration ────────────────────────────────────────────────────────
@@ -124,6 +128,39 @@ export interface QROptions {
   margin: number;
   quantity: number;
 }
+
+// ─── Batch QR Codes (Idnetify-style) ────────────────────────────────────────
+export type QRCodeStatus = "new" | "used";
+export type QRDotPattern =
+  | "square"
+  | "dots"
+  | "rounded"
+  | "extra-rounded"
+  | "classy"
+  | "classy-rounded";
+export type QRCornerFrame = "square" | "extra-rounded" | "dot";
+export type QRCornerDot = "square" | "dot";
+export type QRGenerationMode = "standard" | "circle";
+
+export interface QRCodeRecord {
+  id: string;
+  serial: string;       // e.g. "XN480UR3RRM9"
+  eventId: string;
+  status: QRCodeStatus;
+  generatedAt: number;
+  usedAt?: number;
+  usedBy?: string;      // guest.id when scanned
+  mode: QRGenerationMode;
+  dotPattern: QRDotPattern;
+  cornerFrame: QRCornerFrame;
+  cornerDot: QRCornerDot;
+  fgColor: string;
+  bgColor: string;
+}
+
+// ─── Guest Fields (extended) ─────────────────────────────────────────────────
+// qrSerial links a guest to a batch QR code
+// (qrToken remains for backwards-compat with scanner)
 
 // ─── Analytics ───────────────────────────────────────────────────────────────
 export interface PlacementDataPoint {

@@ -65,7 +65,7 @@ export default function CollegeHero() {
         }
       `}</style>
 
-      <div style={{ height: 60 }} />
+      <div style={{ height: 60, background: "#FFFAF6" }} />
 
       <section
         className="c-hero"
@@ -74,18 +74,18 @@ export default function CollegeHero() {
           zIndex: 5,
           background: "#FFFAF6",
           width: "100%",
-          maxWidth: 1728,
+          maxWidth: "100%",
           margin: "auto",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "50px 100px 100px",
+          padding: "50px clamp(20px,8vw,100px) 100px",
           flexWrap: "wrap",
           gap: 40,
         }}
       >
         {/* Left text */}
-        <div style={{ flex: 1, minWidth: 280, zIndex: 10 }}>
+        <div className="c-hero-left" style={{ flex: 1, minWidth: 280, zIndex: 10 }}>
           <h1
             style={{
               fontSize: "clamp(36px, 5vw, 60px)",
@@ -106,7 +106,7 @@ export default function CollegeHero() {
           </Link>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: 50, marginTop: 40, flexWrap: "wrap" }}>
+          <div className="c-stats" style={{ display: "flex", gap: 50, marginTop: 40, flexWrap: "wrap" }}>
             {[
               { val: "500+", label: "Colleges Onboarded" },
               { val: "1200+", label: "Hiring Companies" },
@@ -124,6 +124,7 @@ export default function CollegeHero() {
 
         {/* Right — scrolling image marquee */}
         <div
+          className="c-hero-marquee"
           style={{
             flex: 1,
             minWidth: 280,

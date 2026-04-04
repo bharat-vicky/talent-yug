@@ -5,10 +5,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Calendar,
-  BarChart2,
-  ClipboardList,
-  Scan,
+  LayoutDashboard,
   QrCode,
+  Scan,
+  Users,
   Settings,
   LogOut,
   Menu,
@@ -18,13 +18,19 @@ import {
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 
-const navItems = [
-  { href: "/events", label: "Events", icon: Calendar },
-  { href: "/analytics", label: "Analytics", icon: BarChart2 },
-  { href: "/pre-registration", label: "Pre-Registration", icon: ClipboardList },
-  { href: "/scanner", label: "Scanner", icon: Scan },
-  { href: "/qr", label: "QR Generator", icon: QrCode },
-  { href: "/settings", label: "Settings", icon: Settings },
+const mainNav = [
+  { href: "/events",         label: "My Events",  icon: Calendar },
+  { href: "/analytics",      label: "Dashboard",  icon: LayoutDashboard },
+  { href: "/qr",             label: "Manage QR",  icon: QrCode },
+  { href: "/scanner",        label: "Scanner",    icon: Scan },
+  { href: "/guests",         label: "Guest List", icon: Users },
+];
+
+const settingsNav = [
+  { href: "/settings",        label: "Account Settings" },
+  { href: "/event-settings",  label: "Event Settings" },
+  { href: "/scanner/settings", label: "Scanner Settings" },
+  { href: "/pre-registration", label: "Pre-Registration" },
 ];
 
 export default function DashboardNav() {
@@ -32,7 +38,7 @@ export default function DashboardNav() {
   const router = useRouter();
   const { session, logout } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   function handleLogout() {
     logout();
@@ -43,9 +49,12 @@ export default function DashboardNav() {
     ? session.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)
     : "U";
 
+  const isSettingsActive = settingsNav.some(
+    (s) => pathname === s.href || pathname.startsWith(s.href + "/")
+  );
+
   return (
     <>
-      {/* Top nav bar */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6">
           <div className="flex items-center h-14 gap-4">
@@ -59,11 +68,10 @@ export default function DashboardNav() {
               </span>
             </Link>
 
-            {/* Desktop nav links */}
-            <nav className="hidden lg:flex items-center gap-1 flex-1 ml-4">
-              {navItems.map(({ href, label, icon: Icon }) => {
-                const active =
-                  pathname === href || pathname.startsWith(href + "/");
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-0.5 flex-1 ml-4">
+              {mainNav.map(({ href, label, icon: Icon }) => {
+                const active = pathname === href || pathname.startsWith(href + "/");
                 return (
                   <Link
                     key={href}
@@ -80,68 +88,70 @@ export default function DashboardNav() {
                   </Link>
                 );
               })}
-            </nav>
 
-            {/* Right side */}
-            <div className="ml-auto flex items-center gap-2">
-              {/* User menu */}
+              {/* Settings dropdown */}
               <div className="relative">
                 <button
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl hover:bg-gray-100 transition-colors"
+                  onClick={() => setSettingsOpen(!settingsOpen)}
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                    isSettingsActive
+                      ? "text-primary bg-accent/10"
+                      : "text-gray-600 hover:text-primary hover:bg-gray-50"
+                  )}
                 >
-                  <div className="w-7 h-7 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">
-                    {initials}
-                  </div>
-                  <span className="hidden sm:block text-sm font-medium text-gray-700 max-w-[120px] truncate">
-                    {session?.name}
-                  </span>
+                  <Settings size={15} />
+                  Settings
                   <ChevronDown
-                    size={14}
-                    className={cn(
-                      "text-gray-400 transition-transform",
-                      userMenuOpen && "rotate-180"
-                    )}
+                    size={13}
+                    className={cn("text-gray-400 transition-transform", settingsOpen && "rotate-180")}
                   />
                 </button>
-
-                {userMenuOpen && (
+                {settingsOpen && (
                   <>
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={() => setUserMenuOpen(false)}
-                    />
-                    <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-100 rounded-2xl shadow-lg z-50 overflow-hidden">
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <p className="text-sm font-semibold text-gray-900 truncate">
-                          {session?.name}
-                        </p>
-                        <p className="text-xs text-gray-500 truncate">
-                          {session?.email}
-                        </p>
-                        <span className="mt-1 inline-block px-2 py-0.5 bg-accent/20 text-primary text-xs font-semibold rounded-full capitalize">
-                          {session?.role}
-                        </span>
-                      </div>
-                      <Link
-                        href="/settings"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
-                      >
-                        <Settings size={15} /> Settings
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-danger hover:bg-red-50 w-full border-t border-gray-100"
-                      >
-                        <LogOut size={15} /> Log Out
-                      </button>
+                    <div className="fixed inset-0 z-40" onClick={() => setSettingsOpen(false)} />
+                    <div className="absolute top-full left-0 mt-1 w-52 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1">
+                      {settingsNav.map((s) => (
+                        <Link
+                          key={s.href}
+                          href={s.href}
+                          onClick={() => setSettingsOpen(false)}
+                          className={cn(
+                            "block px-4 py-2.5 text-sm transition",
+                            pathname === s.href || pathname.startsWith(s.href + "/")
+                              ? "text-primary bg-accent/10 font-semibold"
+                              : "text-gray-700 hover:bg-gray-50"
+                          )}
+                        >
+                          {s.label}
+                        </Link>
+                      ))}
                     </div>
                   </>
                 )}
               </div>
+            </nav>
 
-              {/* Mobile menu toggle */}
+            {/* Right: user + logout */}
+            <div className="ml-auto flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">
+                  {initials}
+                </div>
+                <span className="text-sm font-medium text-gray-700 max-w-[100px] truncate">
+                  {session?.name}
+                </span>
+              </div>
+
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold text-danger border border-red-100 hover:bg-red-50 transition"
+              >
+                <LogOut size={14} />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+
+              {/* Mobile toggle */}
               <button
                 className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -163,17 +173,13 @@ export default function DashboardNav() {
           <div className="absolute left-0 top-0 h-full w-72 bg-white shadow-2xl flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-gray-100">
               <span className="font-bold text-primary text-lg">TalentYug</span>
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-gray-100"
-              >
+              <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100">
                 <X size={18} />
               </button>
             </div>
             <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-              {navItems.map(({ href, label, icon: Icon }) => {
-                const active =
-                  pathname === href || pathname.startsWith(href + "/");
+              {mainNav.map(({ href, label, icon: Icon }) => {
+                const active = pathname === href || pathname.startsWith(href + "/");
                 return (
                   <Link
                     key={href}
@@ -181,9 +187,7 @@ export default function DashboardNav() {
                     onClick={() => setMobileOpen(false)}
                     className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition",
-                      active
-                        ? "bg-accent/10 text-primary"
-                        : "text-gray-700 hover:bg-gray-50"
+                      active ? "bg-accent/10 text-primary" : "text-gray-700 hover:bg-gray-50"
                     )}
                   >
                     <Icon size={18} />
@@ -191,6 +195,23 @@ export default function DashboardNav() {
                   </Link>
                 );
               })}
+              <div className="border-t border-gray-100 pt-2 mt-2">
+                <p className="px-4 py-1 text-xs text-gray-400 font-semibold uppercase tracking-wide">Settings</p>
+                {settingsNav.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition",
+                      pathname === s.href ? "bg-accent/10 text-primary" : "text-gray-700 hover:bg-gray-50"
+                    )}
+                  >
+                    <Settings size={16} />
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
             </nav>
             <div className="p-3 border-t border-gray-100">
               <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Plus, Search, Trash2, Edit2, Calendar, Filter } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -42,6 +42,18 @@ function EventFormModal({
   const [status, setStatus] = useState<EventStatus>(initial?.status ?? "draft");
   const [error, setError] = useState("");
 
+  // Reset form fields when the event being edited changes
+  useEffect(() => {
+    setName(initial?.name ?? "");
+    setDescription(initial?.description ?? "");
+    setStartDate(initial?.startDate ?? "");
+    setEndDate(initial?.endDate ?? "");
+    setLocation(initial?.location ?? "");
+    setCapacity(String(initial?.capacity ?? ""));
+    setStatus(initial?.status ?? "draft");
+    setError("");
+  }, [initial]);
+
   function handleSave() {
     setError("");
     if (!name.trim() || !startDate || !endDate) {
@@ -50,6 +62,10 @@ function EventFormModal({
     }
     if (endDate < startDate) {
       setError("End date must be after start date.");
+      return;
+    }
+    if (capacity && Number(capacity) < 1) {
+      setError("Capacity must be at least 1.");
       return;
     }
     const event: TalentEvent = {
@@ -122,6 +138,7 @@ function EventFormModal({
             type="number"
             placeholder="e.g. 200"
             value={capacity}
+            min={1}
             onChange={(e) => setCapacity(e.target.value)}
           />
         </div>

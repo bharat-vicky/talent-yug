@@ -11,7 +11,7 @@ export default function StudentFooter() {
           position: "relative",
           overflow: "hidden",
           zIndex: 11,
-          paddingTop: 200,
+          paddingTop: "clamp(60px,12vw,200px)",
         }}
         id="footer"
       >
@@ -48,7 +48,7 @@ export default function StudentFooter() {
           >
             {/* Social */}
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <h3 style={{ fontSize: 25, fontWeight: 700, margin: 0 }}>Social</h3>
+              <h3 style={{ fontSize: "clamp(18px,2vw,25px)", fontWeight: 700, margin: 0 }}>Social</h3>
               <Link href="https://www.instagram.com/talentyug.in" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>Instagram</Link>
               <Link href="https://x.com/talentyugpvtltd" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>Twitter(X)</Link>
               <Link href="https://www.linkedin.com/company/talentyug-private-limited/" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>LinkedIn</Link>
@@ -57,7 +57,7 @@ export default function StudentFooter() {
 
             {/* Quick Links */}
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <h3 style={{ fontSize: 25, fontWeight: 700, margin: 0 }}>Quick Links</h3>
+              <h3 style={{ fontSize: "clamp(18px,2vw,25px)", fontWeight: 700, margin: 0 }}>Quick Links</h3>
               <Link href="/colleges" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>For Colleges</Link>
               <Link href="/companies" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>For Companies</Link>
               <Link href="/students" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>For Students</Link>
@@ -66,7 +66,7 @@ export default function StudentFooter() {
 
             {/* Contact */}
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }} id="contact">
-              <h3 style={{ fontSize: 25, fontWeight: 700, margin: 0 }}>Contacts</h3>
+              <h3 style={{ fontSize: "clamp(18px,2vw,25px)", fontWeight: 700, margin: 0 }}>Contacts</h3>
               <p style={{ fontSize: 18, color: "#f8ffff", margin: 0 }}>Call <a href="tel:+918210597576" style={{ color: "#f8ffff" }}>+91 8210597576</a></p>
               <p style={{ fontSize: 18, color: "#f8ffff", margin: 0 }}>Email <a href="mailto:connect@talentyug.in" style={{ color: "#f8ffff" }}>connect@talentyug.in</a></p>
               <p style={{ fontSize: 18, color: "#f8ffff", margin: 0 }}>Bihta, Patna, Bihar-801103</p>
@@ -75,7 +75,7 @@ export default function StudentFooter() {
             {/* Logo */}
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <Image src="/student-img/logo.png" alt="TalentYug" width={60} height={60} style={{ maxWidth: 60 }} />
-              <span style={{ fontSize: 38, fontWeight: 700, color: "#1F3F68" }}>TalentYug</span>
+              <span style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 700, color: "#1F3F68" }}>TalentYug</span>
             </div>
           </div>
 

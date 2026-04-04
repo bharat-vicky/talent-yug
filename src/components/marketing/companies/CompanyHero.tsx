@@ -42,9 +42,16 @@ export default function CompanyHero() {
           transform: translateY(-2px);
           box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
         }
+        @media (max-width: 768px) {
+          .co-hero { padding: 30px 20px 60px !important; flex-direction: column !important; text-align: center; }
+          .co-hero-right { display: none !important; }
+          .co-hero-left { min-width: unset !important; width: 100% !important; }
+          .co-stats { justify-content: center !important; gap: 24px !important; }
+          .co-cta { padding: 14px 48px !important; }
+        }
       `}</style>
 
-      <div style={{ height: 60 }} />
+      <div style={{ height: 60, background: "#E4FBF8" }} />
 
       <section
         className="co-hero"
@@ -53,18 +60,18 @@ export default function CompanyHero() {
           zIndex: 5,
           background: "#E4FBF8",
           width: "100%",
-          maxWidth: 1728,
+          maxWidth: "100%",
           margin: "auto",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "50px 100px 100px",
+          padding: "50px clamp(20px,8vw,100px) 100px",
           flexWrap: "wrap",
           gap: 40,
         }}
       >
         {/* Left text */}
-        <div style={{ flex: 1, minWidth: 280, zIndex: 10 }}>
+        <div className="co-hero-left" style={{ flex: 1, minWidth: 280, zIndex: 10 }}>
           <h1
             style={{
               fontSize: "clamp(36px, 5vw, 60px)",
@@ -88,7 +95,7 @@ export default function CompanyHero() {
           </Link>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: 50, marginTop: 40, flexWrap: "wrap" }}>
+          <div className="co-stats" style={{ display: "flex", gap: 50, marginTop: 40, flexWrap: "wrap" }}>
             {[
               { val: "1200+", label: "Hiring Companies" },
               { val: "500+", label: "Partner Colleges" },
@@ -116,6 +123,7 @@ export default function CompanyHero() {
 
         {/* Right — hero image */}
         <div
+          className="co-hero-right"
           style={{
             flex: 1,
             minWidth: 280,

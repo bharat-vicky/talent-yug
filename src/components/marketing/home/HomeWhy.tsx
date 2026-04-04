@@ -40,11 +40,16 @@ export default function HomeWhy() {
   return (
     <section
       style={{
-        padding: "60px 60px",
+        padding: "clamp(30px,5vw,60px) clamp(20px,5vw,60px)",
         background: "#ffffff",
         minHeight: "80vh",
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .hw-diagram { flex-direction: column !important; gap: 30px !important; }
+        }
+      `}</style>
       <style>{`
         .template-card {
           position:relative;
@@ -83,6 +88,7 @@ export default function HomeWhy() {
 
         {/* Feature diagram */}
         <div
+          className="hw-diagram"
           style={{
             display: "flex",
             alignItems: "center",
