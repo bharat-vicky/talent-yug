@@ -6,9 +6,9 @@ import Image from "next/image";
 const TESTIMONIALS = [
   {
     img: "/home-img/testimonials/s2.jpeg",
-    name: "Priya Sharma",
-    role: "Placement Officer · IIT Roorkee",
-    text: "TalentYug reduced our placement event chaos by 80%. QR check-ins that used to take 2 hours now finish in 15 minutes.",
+    name: "Abhay Chourasia",
+    role: "Final Year · IIT Patna",
+    text: "The QR pass made check-in super smooth. I didn't have to wait in long queues at all!",
   },
   {
     img: "/home-img/testimonials/U2.webp",
@@ -19,8 +19,8 @@ const TESTIMONIALS = [
   {
     img: "/home-img/testimonials/U3.webp",
     name: "Anjali Verma",
-    role: "Final Year · NIT Trichy",
-    text: "The QR pass made check-in super smooth. I didn't have to wait in long queues at all!",
+    role: "Placement Officer · NIT Trichy",
+    text: "TalentYug reduced our placement event chaos by 80%. QR check-ins that used to take 2 hours now finish in 15 minutes.",
   },
   {
     img: "/home-img/testimonials/U1.webp",
