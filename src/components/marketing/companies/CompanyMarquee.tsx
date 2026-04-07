@@ -1,66 +1,65 @@
 "use client";
 
 export default function CompanyMarquee() {
-  const text = "Connect Talent & Create Future · ";
-  const repeated = text.repeat(8);
+  const text = "Connect Talent & Create Future";
 
   return (
     <>
       <style>{`
-        @keyframes scrollInfiniteCompany {
+        @keyframes scrollInfiniteC {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        .co-marquee-track {
+        .cm-track {
           display: flex;
           width: max-content;
-          animation: scrollInfiniteCompany 12s linear infinite;
+          animation: scrollInfiniteC 6s linear infinite;
         }
-        .co-marquee-wrapper:hover .co-marquee-track {
+        .cm-wrapper:hover .cm-track {
           animation-play-state: paused;
+        }
+        .cm-group {
+          display: flex;
+        }
+        .cm-group span {
+          font-size: clamp(3rem, 8vw, 6rem);
+          font-weight: 800;
+          color: #006F5F;
+          white-space: nowrap;
+          padding-right: 80px;
         }
       `}</style>
 
-      <div
+      <section
         style={{
           position: "sticky",
-          top: 56,
+          top: "11.5vh",
           height: "15vh",
-          maxHeight: 90,
+          maxWidth: "100%",
           background: "#5ED3C1",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
           zIndex: 99,
           overflow: "hidden",
           cursor: "pointer",
         }}
       >
-        <div className="co-marquee-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
-          <div className="co-marquee-track">
-            <span
-              style={{
-                fontSize: "clamp(2rem,6vw,4.5rem)",
-                fontWeight: 800,
-                color: "#006F5F",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {repeated}
-            </span>
-            <span
-              style={{
-                fontSize: "clamp(2rem,6vw,4.5rem)",
-                fontWeight: 800,
-                color: "#006F5F",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {repeated}
-            </span>
+        <div className="cm-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
+          <div className="cm-track">
+            <div className="cm-group">
+              <span>{text}</span>
+              <span>{text}</span>
+              <span>{text}</span>
+            </div>
+            <div className="cm-group">
+              <span>{text}</span>
+              <span>{text}</span>
+              <span>{text}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

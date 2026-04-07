@@ -1,68 +1,65 @@
 "use client";
 
-// Sticky marquee banner — matches original scrollInfinite animation
 export default function StudentMarquee() {
-  const text = "FOR STUDENTS · PLACEMENT DRIVES · QR PASS · REGISTER NOW · ";
-  const repeated = text.repeat(4);
+  const text = "Connect Talent & Create Future";
 
   return (
     <>
       <style>{`
-        @keyframes scrollInfinite {
+        @keyframes scrollInfiniteS {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        .marquee-track {
+        .sm-track {
           display: flex;
           width: max-content;
-          animation: scrollInfinite 10s linear infinite;
+          animation: scrollInfiniteS 6s linear infinite;
         }
-        .marquee-wrapper:hover .marquee-track {
+        .sm-wrapper:hover .sm-track {
           animation-play-state: paused;
+        }
+        .sm-group {
+          display: flex;
+        }
+        .sm-group span {
+          font-size: clamp(3rem, 8vw, 6rem);
+          font-weight: 800;
+          color: #7E0101;
+          white-space: nowrap;
+          padding-right: 80px;
         }
       `}</style>
 
-      <div
+      <section
         style={{
           position: "sticky",
-          top: 56,               /* below fixed nav */
+          top: "11.5vh",
           height: "15vh",
-          maxHeight: 90,
+          maxWidth: "100%",
           background: "#EE6983",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
           zIndex: 99,
           overflow: "hidden",
           cursor: "pointer",
         }}
       >
-        <div className="marquee-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
-          <div className="marquee-track">
-            <span
-              style={{
-                fontSize: "clamp(2rem,6vw,4.5rem)",
-                fontWeight: 800,
-                color: "#7E0101",
-                whiteSpace: "nowrap",
-                paddingRight: 0,
-              }}
-            >
-              {repeated}
-            </span>
-            <span
-              style={{
-                fontSize: "clamp(2rem,6vw,4.5rem)",
-                fontWeight: 800,
-                color: "#7E0101",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {repeated}
-            </span>
+        <div className="sm-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
+          <div className="sm-track">
+            <div className="sm-group">
+              <span>{text}</span>
+              <span>{text}</span>
+              <span>{text}</span>
+            </div>
+            <div className="sm-group">
+              <span>{text}</span>
+              <span>{text}</span>
+              <span>{text}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
