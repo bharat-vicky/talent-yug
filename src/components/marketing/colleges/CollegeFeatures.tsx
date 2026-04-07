@@ -82,6 +82,13 @@ export default function CollegeFeatures() {
         @media (max-width: 768px) {
           .clf2-section { padding: 80px 16px 60px; }
           .clf2-card { padding: 28px; }
+          .clf2-container { width: 100%; }
+        }
+        @media (max-width: 500px) {
+          .clf2-section { padding: 60px 12px 60px; }
+          .clf2-bg { font-size: 60px; }
+          .clf2-card h3 { font-size: 20px; margin-bottom: 16px; }
+          .clf2-card ul { font-size: 14px; }
         }
       `}</style>
 
@@ -130,6 +137,7 @@ export default function CollegeFeatures() {
                   right: 75,
                   maxWidth: "25%",
                   height: "auto",
+                  width: "auto",
                 }}
               />
             </div>

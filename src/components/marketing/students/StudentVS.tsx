@@ -46,10 +46,14 @@ export default function StudentVS() {
       }}
     >
       <style>{`
-        @media (max-width: 768px) {
-          .svs-container { height: 420px !important; }
+        @media (max-width: 1024px) {
+          .svs-container { height: 500px !important; }
           .svs-dot { display: none !important; }
-          .svs-backdrop { max-width: min(160px,42vw) !important; }
+          .svs-backdrop { max-width: min(220px,30vw) !important; }
+        }
+        @media (max-width: 480px) {
+          .svs-container { height: 360px !important; }
+          .svs-backdrop { max-width: min(140px,38vw) !important; }
         }
       `}</style>
       {/* Title */}
@@ -97,6 +101,7 @@ export default function StudentVS() {
             left: 0,
             maxWidth: "min(360px,38vw)",
             height: "auto",
+            width: "auto",
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
           }}
         />
@@ -114,6 +119,7 @@ export default function StudentVS() {
             right: 0,
             maxWidth: "min(360px,38vw)",
             height: "auto",
+            width: "auto",
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
           }}
         />
@@ -168,6 +174,7 @@ export default function StudentVS() {
               left: d.cls.left,
               maxWidth: d.cls.maxWidth,
               height: "auto",
+              width: "auto",
               transition: "all 0.1s linear",
             }}
           />
@@ -188,6 +195,7 @@ export default function StudentVS() {
               right: d.cls.right,
               maxWidth: d.cls.maxWidth,
               height: "auto",
+              width: "auto",
               transition: "all 0.1s linear",
             }}
           />

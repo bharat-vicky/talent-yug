@@ -142,6 +142,7 @@ export default function CompanyHero() {
             style={{
               maxWidth: "100%",
               height: "auto",
+              width: "auto",
               borderRadius: 24,
             }}
           />

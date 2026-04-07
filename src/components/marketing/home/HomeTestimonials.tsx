@@ -103,7 +103,7 @@ export default function HomeTestimonials() {
             alt="quote"
             width={90}
             height={90}
-            style={{ marginBottom: 20, opacity: 0.8 }}
+            style={{ marginBottom: 20, opacity: 0.8, width: "auto" }}
           />
           <p style={{ fontSize: 26, lineHeight: 1.4 }}>
             Real stories from real people using TalentYug every placement
@@ -202,7 +202,7 @@ export default function HomeTestimonials() {
                     alt={t.name}
                     width={50}
                     height={50}
-                    style={{ borderRadius: "50%", objectFit: "cover" }}
+                    style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }}
                   />
                   <div>
                     <p style={{ fontWeight: 700, fontSize: 15 }}>{t.name}</p>

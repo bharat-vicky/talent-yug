@@ -33,8 +33,9 @@ export default function CompanyMarquee() {
       <section
         style={{
           position: "sticky",
-          top: "11.5vh",
+          top: 60,
           height: "15vh",
+          maxHeight: 90,
           maxWidth: "100%",
           background: "#5ED3C1",
           display: "flex",

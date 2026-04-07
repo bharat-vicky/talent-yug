@@ -153,6 +153,21 @@ export default function CollegePricing() {
             font-size: 90px;
           }
         }
+
+        @media (max-width: 500px) {
+          .clp2-section { padding: 70px 0 70px; }
+          .clp2-bg-text { font-size: 65px; }
+          .clp2-card { border-radius: 25px; }
+          .clp2-cta {
+            display: block;
+            width: 100%;
+            max-width: 260px;
+            margin: 18px auto;
+            padding: 14px 0;
+            text-align: center;
+            font-size: 14px;
+          }
+        }
       `}</style>
 
       <section className="clp2-section">

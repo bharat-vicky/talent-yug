@@ -131,9 +131,16 @@ export default function CompanyFeatures() {
           .cft-bg { font-size: 90px; }
         }
 
+        @media (max-width: 768px) {
+          .cft-section { padding: 80px 16px; }
+          .cft-container { width: 100%; }
+          .cft-light { padding: 36px; }
+          .cft-dark { padding: 36px; }
+        }
+
         @media (max-width: 500px) {
-          .cft-section { padding: 60px 0 80px; }
-          .cft-bg { font-size: 65px; }
+          .cft-section { padding: 60px 12px 80px; }
+          .cft-bg { font-size: 60px; }
           .cft-card-h3 { font-size: 22px; }
           .cft-card-ul { font-size: 14px; }
         }
@@ -173,7 +180,7 @@ export default function CompanyFeatures() {
                   alt=""
                   width={160}
                   height={120}
-                  style={{ display: "block", height: "auto" }}
+                  style={{ display: "block", height: "auto", width: "auto" }}
                 />
               </div>
             </div>

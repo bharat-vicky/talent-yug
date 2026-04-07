@@ -46,14 +46,18 @@ export default function CompanyTestimonials() {
       }}
     >
       <style>{`
+        @media (max-width: 1024px) {
+          .cot-inner { gap: 40px !important; }
+        }
         @media (max-width: 768px) {
+          .cot-header { margin-bottom: 50px !important; }
           .cot-inner { gap: 30px !important; flex-direction: column !important; }
           .cot-left { max-width: 100% !important; }
-          .cot-card-wrap { min-width: 100% !important; }
+          .cot-card-wrap { min-width: unset !important; width: 100% !important; }
         }
       `}</style>
       {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 100, padding: "0 20px" }}>
+      <div className="cot-header" style={{ textAlign: "center", marginBottom: 100, padding: "0 20px" }}>
         <p style={{ fontSize: 28, color: "#666" }}>Client Stories</p>
         <h2 style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 800, margin: "10px 0 20px" }}>
           Companies that hired smarter with TalentYug
@@ -83,7 +87,7 @@ export default function CompanyTestimonials() {
             alt="quote"
             width={90}
             height={90}
-            style={{ marginBottom: 20, opacity: 0.8 }}
+            style={{ marginBottom: 20, opacity: 0.8, width: "auto" }}
           />
           <p style={{ fontSize: 26, lineHeight: 1.4 }}>
             Real companies. Real hires. Real results.
@@ -141,7 +145,7 @@ export default function CompanyTestimonials() {
                     alt={t.name}
                     width={50}
                     height={50}
-                    style={{ borderRadius: "50%", objectFit: "cover" }}
+                    style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }}
                   />
                   <div>
                     <p style={{ fontWeight: 700, fontSize: 15, margin: 0 }}>{t.name}</p>

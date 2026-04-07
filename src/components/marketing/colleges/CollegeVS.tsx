@@ -44,10 +44,14 @@ export default function CollegeVS() {
       }}
     >
       <style>{`
-        @media (max-width: 768px) {
-          .cvs-container { height: 420px !important; }
+        @media (max-width: 1024px) {
+          .cvs-container { height: 500px !important; }
           .cvs-dot { display: none !important; }
-          .cvs-backdrop { max-width: min(160px,42vw) !important; }
+          .cvs-backdrop { max-width: min(220px,30vw) !important; }
+        }
+        @media (max-width: 480px) {
+          .cvs-container { height: 360px !important; }
+          .cvs-backdrop { max-width: min(140px,38vw) !important; }
         }
       `}</style>
       {/* Title */}
@@ -95,6 +99,7 @@ export default function CollegeVS() {
             left: 0,
             maxWidth: "min(360px,38vw)",
             height: "auto",
+            width: "auto",
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
           }}
         />
@@ -112,6 +117,7 @@ export default function CollegeVS() {
             right: 0,
             maxWidth: "min(360px,38vw)",
             height: "auto",
+            width: "auto",
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
           }}
         />
@@ -166,6 +172,7 @@ export default function CollegeVS() {
               left: d.left,
               maxWidth: d.maxWidth,
               height: "auto",
+              width: "auto",
             }}
           />
         ))}
@@ -185,6 +192,7 @@ export default function CollegeVS() {
               right: d.right,
               maxWidth: d.maxWidth,
               height: "auto",
+              width: "auto",
             }}
           />
         ))}

@@ -76,14 +76,14 @@ export default function CompanyProcess() {
       <style>{`
         .cop-card { transition: transform 0.55s cubic-bezier(.22,1,.36,1), box-shadow 0.55s ease; }
         .cop-card:hover { transform: scale(1.06) translateY(-6px) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.18) !important; }
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
           .cop-section { height: auto !important; padding: 80px 20px !important; }
-          .cop-container { display: flex !important; flex-direction: column !important; gap: 60px !important; }
+          .cop-container { display: flex !important; flex-direction: column !important; gap: 40px !important; }
           .cop-card { position: relative !important; left: auto !important; right: auto !important; top: auto !important; max-width: 100% !important; width: 100% !important; }
           .cop-svg-d { display: none !important; }
           .cop-svg-m { display: block !important; }
         }
-        @media (min-width: 769px) { .cop-svg-m { display: none !important; } }
+        @media (min-width: 1201px) { .cop-svg-m { display: none !important; } }
       `}</style>
       <section
         ref={sectionRef}

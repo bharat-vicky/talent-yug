@@ -138,14 +138,14 @@ export default function CollegeProcess() {
       <style>{`
         .cp-card { transition: transform 0.55s cubic-bezier(.22,1,.36,1), box-shadow 0.55s ease; }
         .cp-card:hover { transform: scale(1.06) translateY(-6px) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.18) !important; }
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
           .cp-section { height: auto !important; padding: 80px 20px !important; transform: none !important; }
-          .cp-container { display: flex !important; flex-direction: column !important; gap: 60px !important; }
+          .cp-container { display: flex !important; flex-direction: column !important; gap: 40px !important; }
           .cp-card { position: relative !important; left: auto !important; right: auto !important; top: auto !important; max-width: 100% !important; width: 100% !important; }
           .cp-svg-d { display: none !important; }
           .cp-svg-m { display: block !important; }
         }
-        @media (min-width: 769px) { .cp-svg-m { display: none !important; } }
+        @media (min-width: 1201px) { .cp-svg-m { display: none !important; } }
       `}</style>
       <section
         ref={sectionRef}

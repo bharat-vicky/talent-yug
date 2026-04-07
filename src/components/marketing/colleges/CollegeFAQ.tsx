@@ -245,7 +245,7 @@ export default function CollegeFAQ() {
           width={1920}
           height={400}
           aria-hidden="true"
-          style={{ objectFit: "cover", height: "auto" }}
+          style={{ objectFit: "cover", width: "100%", height: "auto" }}
         />
 
         <div className="clf-faq-container">

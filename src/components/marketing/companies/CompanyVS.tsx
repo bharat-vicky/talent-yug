@@ -44,10 +44,14 @@ export default function CompanyVS() {
       }}
     >
       <style>{`
-        @media (max-width: 768px) {
-          .covs-container { height: 420px !important; }
+        @media (max-width: 1024px) {
+          .covs-container { height: 500px !important; }
           .covs-dot { display: none !important; }
-          .covs-backdrop { max-width: min(160px,42vw) !important; }
+          .covs-backdrop { max-width: min(220px,30vw) !important; }
+        }
+        @media (max-width: 480px) {
+          .covs-container { height: 360px !important; }
+          .covs-backdrop { max-width: min(140px,38vw) !important; }
         }
       `}</style>
       {/* Title */}
@@ -95,6 +99,7 @@ export default function CompanyVS() {
             left: 0,
             maxWidth: "min(360px,38vw)",
             height: "auto",
+            width: "auto",
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
           }}
         />
@@ -112,6 +117,7 @@ export default function CompanyVS() {
             right: 0,
             maxWidth: "min(360px,38vw)",
             height: "auto",
+            width: "auto",
             filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
           }}
         />
@@ -166,6 +172,7 @@ export default function CompanyVS() {
               left: d.left,
               maxWidth: d.maxWidth,
               height: "auto",
+              width: "auto",
             }}
           />
         ))}
@@ -185,6 +192,7 @@ export default function CompanyVS() {
               right: d.right,
               maxWidth: d.maxWidth,
               height: "auto",
+              width: "auto",
             }}
           />
         ))}

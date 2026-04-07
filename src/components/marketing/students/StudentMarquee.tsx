@@ -33,8 +33,9 @@ export default function StudentMarquee() {
       <section
         style={{
           position: "sticky",
-          top: "11.5vh",
+          top: 60,
           height: "15vh",
+          maxHeight: 90,
           maxWidth: "100%",
           background: "#EE6983",
           display: "flex",

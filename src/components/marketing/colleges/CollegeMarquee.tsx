@@ -24,7 +24,7 @@ export default function CollegeMarquee() {
       <div
         style={{
           position: "sticky",
-          top: 56,
+          top: 60,
           height: "15vh",
           maxHeight: 90,
           background: "#FF9700",

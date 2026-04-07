@@ -46,14 +46,18 @@ export default function CollegeTestimonials() {
       }}
     >
       <style>{`
+        @media (max-width: 1024px) {
+          .ct-inner { gap: 40px !important; }
+        }
         @media (max-width: 768px) {
+          .ct-header { margin-bottom: 50px !important; }
           .ct-inner { gap: 30px !important; flex-direction: column !important; }
           .ct-left { max-width: 100% !important; }
-          .ct-card-wrap { min-width: 100% !important; }
+          .ct-card-wrap { min-width: unset !important; width: 100% !important; }
         }
       `}</style>
       {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 100, padding: "0 20px" }}>
+      <div className="ct-header" style={{ textAlign: "center", marginBottom: 100, padding: "0 20px" }}>
         <p style={{ fontSize: 28, color: "#666" }}>Read Reviews,</p>
         <h2 style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 800, margin: "10px 0 20px" }}>
           ride with Confidence
@@ -83,7 +87,7 @@ export default function CollegeTestimonials() {
             alt="quote"
             width={90}
             height={90}
-            style={{ marginBottom: 20, opacity: 0.8 }}
+            style={{ marginBottom: 20, opacity: 0.8, width: "auto" }}
           />
           <p style={{ fontSize: 26, lineHeight: 1.4 }}>
             What our customers are saying
@@ -141,7 +145,7 @@ export default function CollegeTestimonials() {
                     alt={t.name}
                     width={50}
                     height={50}
-                    style={{ borderRadius: "50%", objectFit: "cover" }}
+                    style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }}
                   />
                   <div>
                     <p style={{ fontWeight: 700, fontSize: 15, margin: 0 }}>{t.name}</p>

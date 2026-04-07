@@ -139,9 +139,16 @@ export default function StudentFeatures() {
           .sft-bg { font-size: 90px; }
         }
 
+        @media (max-width: 768px) {
+          .sft-section { padding: 80px 16px; }
+          .sft-container { width: 100%; }
+          .sft-light { padding: 36px; }
+          .sft-dark { padding: 36px; }
+        }
+
         @media (max-width: 500px) {
-          .sft-section { padding: 60px 0 80px; }
-          .sft-bg { font-size: 65px; }
+          .sft-section { padding: 60px 12px 80px; }
+          .sft-bg { font-size: 60px; }
           .sft-card-h3 { font-size: 22px; }
           .sft-card-ul { font-size: 14px; }
         }
@@ -181,7 +188,7 @@ export default function StudentFeatures() {
                   alt=""
                   width={160}
                   height={120}
-                  style={{ display: "block", height: "auto" }}
+                  style={{ display: "block", height: "auto", width: "auto" }}
                 />
               </div>
             </div>
