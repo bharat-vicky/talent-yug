@@ -1,21 +1,25 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 const FOUNDERS = [
   {
     name: "Hridayanand Gupta",
     role: "Co-Founder & Product Lead",
     bio: "Leads product strategy with expertise in AI-powered matching, student-first placement systems, and data-driven outcomes.",
-    achievement: "Designed and implemented the first AI-assisted placement workflow at IIT Patna, helping improve placement readiness.",
+    achievement:
+      "Designed and implemented the first AI-assisted placement workflow at IIT Patna, helping improve placement readiness.",
     contributions: [
       "Built the core architecture of the placement platform",
       "Developed the student tracking and company matching modules",
       "Helped shape a scalable and outcome-focused placement system",
     ],
     focus: "Building transparent and effective pathways from campus to career.",
-    domainStrength: "Strong understanding of Ed-Tech systems, campus recruitment workflows, and student outcome-focused product design.",
-    attribution: "Training & Placement Officer\nABC Institute of Technology",
-    photo: "/home-img/landing/l1.webp",
+    domainStrength:
+      "Strong understanding of Ed-Tech systems, campus recruitment workflows, and student outcome-focused product design.",
+    attributionLine1: "— Training & Placement Officer",
+    attributionLine2: "\u00A0ABC Institute of Technology",
+    photo: "/images/founder-portrait.png",
   },
 ];
 
@@ -28,208 +32,316 @@ export default function AboutFounder() {
   return (
     <>
       <style>{`
+        /* ═══════════════════════════════
+           Section wrapper
+        ═══════════════════════════════ */
         .abf-section {
           width: 100%;
-          background: linear-gradient(135deg, #29ABE2 0%, #1e8fbf 50%, #006B8F 100%);
+          background: linear-gradient(160deg, #6fd3f5 0%, #29ABE2 28%, #1796cc 58%, #0d7db0 100%);
           position: relative;
           overflow: hidden;
-          padding: clamp(48px, 6vw, 80px) 0;
+          font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
         }
+
+        /* ═══════════════════════════════
+           Two-column grid
+        ═══════════════════════════════ */
         .abf-inner {
-          display: flex;
-          align-items: stretch;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           min-height: 520px;
-          max-width: 100%;
-        }
-        /* Left panel — text */
-        .abf-left {
-          flex: 1;
-          padding: clamp(32px, 5vw, 64px) clamp(24px, 6vw, 80px);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          min-width: 0;
+          max-width: 1280px;
+          margin: 0 auto;
           position: relative;
           z-index: 2;
         }
-        .abf-quote-icon {
-          font-size: 80px;
-          line-height: 0.8;
-          color: rgba(255,255,255,0.2);
-          font-family: Georgia, serif;
-          margin-bottom: 24px;
+
+        /* ════════════════════════════
+           LEFT column — text
+        ════════════════════════════ */
+        .abf-left {
+          padding: clamp(32px, 4.5vw, 58px) clamp(24px, 5vw, 68px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          position: relative;
+          z-index: 3;
+        }
+
+        /* Small dark opening-quote icon (top-left) — exact Figma style */
+        .abf-open-quote {
           display: block;
+          width: 34px;
+          height: 28px;
+          margin-bottom: 18px;
         }
+
+        /* Name */
         .abf-name {
-          font-size: clamp(16px, 1.5vw, 19px);
+          font-size: clamp(12.5px, 1.2vw, 14.5px);
           font-weight: 700;
-          color: rgba(255,255,255,0.95);
-          margin: 0 0 2px;
+          color: rgba(8, 35, 55, 0.95);
+          margin: 0 0 1px;
+          line-height: 1.4;
         }
+
+        /* Role */
         .abf-role {
-          font-size: clamp(13px, 1.2vw, 15px);
-          font-weight: 600;
-          color: rgba(255,255,255,0.75);
-          margin: 0 0 20px;
-          letter-spacing: 0.03em;
-        }
-        .abf-bio {
-          font-size: clamp(13px, 1.2vw, 15px);
-          color: rgba(255,255,255,0.85);
-          line-height: 1.75;
-          margin: 0 0 20px;
-          max-width: 480px;
-        }
-        .abf-section-title {
-          font-size: 12px;
+          font-size: clamp(11.5px, 1.1vw, 13.5px);
           font-weight: 700;
-          color: rgba(255,255,255,0.6);
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          margin: 16px 0 8px;
+          color: rgba(8, 35, 55, 0.85);
+          margin: 0 0 12px;
         }
+
+        /* Bio */
+        .abf-bio {
+          font-size: clamp(11.5px, 1.05vw, 13px);
+          color: rgba(8, 35, 55, 0.75);
+          line-height: 1.72;
+          margin: 0 0 4px;
+          max-width: 400px;
+        }
+
+        /* Section heading */
+        .abf-section-title {
+          font-size: clamp(11px, 1vw, 13px);
+          font-weight: 700;
+          color: rgba(8, 35, 55, 0.95);
+          margin: 14px 0 3px;
+        }
+
+        /* Plain paragraph */
+        .abf-plain-text {
+          font-size: clamp(11px, 1vw, 12.5px);
+          color: rgba(8, 35, 55, 0.73);
+          line-height: 1.72;
+          margin: 0;
+          max-width: 400px;
+        }
+
+        /* Bullet row */
         .abf-bullet {
           display: flex;
           align-items: flex-start;
-          gap: 8px;
-          font-size: 13px;
-          color: rgba(255,255,255,0.85);
-          line-height: 1.6;
-          margin-bottom: 6px;
+          gap: 7px;
+          font-size: clamp(11px, 1vw, 12.5px);
+          color: rgba(8, 35, 55, 0.73);
+          line-height: 1.68;
+          margin-bottom: 3px;
+          max-width: 400px;
         }
-        .abf-bullet-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: rgba(255,255,255,0.7);
+        .abf-bullet::before {
+          content: "•";
           flex-shrink: 0;
-          margin-top: 6px;
-        }
-        .abf-plain-text {
+          color: rgba(8, 35, 55, 0.55);
           font-size: 13px;
-          color: rgba(255,255,255,0.82);
-          line-height: 1.7;
+          line-height: 1.68;
+        }
+
+        /* Attribution */
+        .abf-attribution {
+          margin-top: 18px;
+        }
+        .abf-attribution-line {
+          font-size: clamp(11px, 1vw, 12.5px);
+          color: rgba(8, 35, 55, 0.73);
+          line-height: 1.65;
           margin: 0;
         }
-        .abf-attribution {
-          margin-top: 24px;
-          padding: 12px 16px;
-          background: rgba(255,255,255,0.12);
-          border-radius: 10px;
-          border: 1px solid rgba(255,255,255,0.2);
-          font-size: 13px;
-          color: rgba(255,255,255,0.85);
-          white-space: pre-line;
-          display: inline-block;
-          align-self: flex-start;
-          line-height: 1.6;
-        }
-        /* Right panel — photo */
+
+        /* ════════════════════════════
+           RIGHT column — photo + shapes
+        ════════════════════════════ */
         .abf-right {
-          flex-shrink: 0;
-          width: clamp(280px, 40%, 580px);
           position: relative;
+          display: flex;
+          align-items: stretch;
+          overflow: hidden;
+          min-height: 480px;
+        }
+
+        /* ── Quote shape 1 (larger, left-leaning, partially behind person) ── */
+        .abf-quote-shape-1 {
+          position: absolute;
+          /* Figma: left shape starts around 28% from right-column left edge */
+          left: 28%;
+          top: 50%;
+          transform: translateY(-50%);
+          width: clamp(160px, 24%, 210px);
+          height: clamp(200px, 64%, 270px);
+          border-radius: 28px;
+          /* Frosted glass — slightly darker gradient matching Figma */
+          background: linear-gradient(
+            145deg,
+            rgba(140, 195, 225, 0.55) 0%,
+            rgba(80, 155, 200, 0.65) 100%
+          );
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border: 1px solid rgba(255, 255, 255, 0.35);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.45),
+            0 12px 40px rgba(0, 60, 100, 0.20);
+          z-index: 1;
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          padding: 16px 20px;
           overflow: hidden;
         }
-        .abf-photo {
+
+        /* ── Quote shape 2 (smaller, right side, fully visible) ── */
+        .abf-quote-shape-2 {
           position: absolute;
-          inset: 0;
-          object-fit: cover;
-          object-position: top center;
+          right: clamp(14px, 3vw, 32px);
+          top: 50%;
+          transform: translateY(-50%);
+          width: clamp(120px, 18%, 165px);
+          height: clamp(155px, 50%, 210px);
+          border-radius: 24px;
+          background: linear-gradient(
+            145deg,
+            rgba(155, 205, 232, 0.48) 0%,
+            rgba(90, 165, 208, 0.58) 100%
+          );
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border: 1px solid rgba(255, 255, 255, 0.30);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.38),
+            0 8px 28px rgba(0, 60, 100, 0.16);
+          z-index: 2;
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          padding: 12px 16px;
+          overflow: hidden;
         }
-        /* Decorative */
-        .abf-deco-shape {
-          position: absolute;
-          bottom: -40px;
-          right: -40px;
-          width: 260px;
-          height: 260px;
-          border-radius: 40px;
-          background: rgba(255,255,255,0.07);
-          transform: rotate(15deg);
-          z-index: 1;
+
+        /* Large " character inside each shape */
+        .abf-shape-quote-char {
+          font-family: Georgia, 'Times New Roman', serif;
+          font-weight: 900;
+          color: rgba(15, 55, 85, 0.32);
+          line-height: 0.75;
+          user-select: none;
+          pointer-events: none;
+          display: block;
         }
-        .abf-deco-shape-2 {
-          position: absolute;
-          top: -20px;
-          left: -20px;
-          width: 180px;
-          height: 180px;
-          border-radius: 30px;
-          background: rgba(255,255,255,0.05);
-          transform: rotate(-10deg);
-          z-index: 1;
+        .abf-shape-quote-char-lg {
+          font-size: clamp(100px, 15vw, 148px);
         }
-        /* Name overlay on photo right side */
-        .abf-name-overlay {
+        .abf-shape-quote-char-sm {
+          font-size: clamp(76px, 11vw, 112px);
+        }
+
+        /* ── Founder photo ── transparent PNG, sits in front */
+        .abf-photo-wrap {
           position: absolute;
           bottom: 0;
+          /* Centre of right column, slightly left */
+          left: -4%;
           right: 0;
-          left: 0;
-          background: linear-gradient(to top, rgba(0,40,60,0.85) 0%, transparent 100%);
-          padding: 40px 28px 32px;
-          z-index: 3;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          z-index: 5;
+          height: 100%;
+          pointer-events: none;
+        }
+        .abf-photo {
+          display: block;
+          height: clamp(340px, 92%, 510px);
+          width: auto;
+          object-fit: contain;
+          object-position: bottom center;
+          /* Subtle shadow so figure reads against shapes */
+          filter: drop-shadow(-6px 0 24px rgba(0, 50, 90, 0.18));
+        }
+
+        /* ── Name overlay — top-right corner of right column ── */
+        .abf-name-overlay {
+          position: absolute;
+          top: clamp(20px, 3.5vw, 42px);
+          right: clamp(14px, 2.5vw, 34px);
+          z-index: 6;
+          text-align: right;
+          max-width: 52%;
         }
         .abf-overlay-name {
-          font-size: clamp(24px, 3vw, 40px);
+          font-size: clamp(20px, 2.8vw, 40px);
           font-weight: 800;
-          color: #ffffff;
-          margin: 0 0 4px;
+          color: rgba(8, 38, 60, 0.88);
+          margin: 0 0 5px;
+          line-height: 1.12;
+          letter-spacing: -0.5px;
+          word-break: break-word;
         }
         .abf-overlay-role {
-          font-size: 15px;
-          color: rgba(255,255,255,0.75);
+          font-size: clamp(10px, 1vw, 12.5px);
+          color: rgba(8, 38, 60, 0.65);
           margin: 0;
+          font-weight: 500;
         }
-        /* Navigation */
+
+        /* ── Navigation ── bottom-right of right column */
         .abf-nav {
           position: absolute;
-          bottom: 28px;
-          right: 28px;
+          bottom: clamp(16px, 2.5vw, 30px);
+          right: clamp(14px, 2.5vw, 32px);
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 8px;
           z-index: 10;
         }
         .abf-nav-btn {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          border: 2px solid rgba(255,255,255,0.5);
-          background: rgba(255,255,255,0.15);
-          color: #fff;
+          background: transparent;
+          border: none;
+          color: rgba(8, 38, 60, 0.70);
+          cursor: pointer;
+          padding: 4px;
+          font-size: clamp(14px, 1.5vw, 18px);
+          font-weight: 600;
+          line-height: 1;
+          transition: color 0.18s;
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
-          transition: all 0.25s ease;
         }
-        .abf-nav-btn:hover {
-          background: rgba(255,255,255,0.3);
-          border-color: #fff;
-        }
+        .abf-nav-btn:hover { color: rgba(8, 38, 60, 1); }
         .abf-counter {
-          font-size: 20px;
+          font-size: clamp(16px, 1.8vw, 22px);
           font-weight: 700;
-          color: #fff;
+          color: rgba(8, 38, 60, 0.85);
           font-variant-numeric: tabular-nums;
+          letter-spacing: 0.01em;
+        }
+        .abf-counter-sep {
+          font-size: 0.72em;
+          font-weight: 500;
+          color: rgba(8, 38, 60, 0.55);
         }
 
-        @media (max-width: 900px) {
-          .abf-inner { flex-direction: column; }
-          .abf-right { width: 100%; height: 300px; }
-          .abf-left { padding: 40px 24px; }
+        /* ── Responsive ── */
+        @media (max-width: 860px) {
+          .abf-inner { grid-template-columns: 1fr; }
+          .abf-right { min-height: 360px; height: 360px; }
+          .abf-left { padding: 32px 20px 20px; }
+          .abf-name-overlay { top: 14px; right: 14px; }
+          .abf-quote-shape-1 { left: 22%; }
         }
       `}</style>
 
       <section className="abf-section" id="about-team">
-        <div className="abf-deco-shape" />
-        <div className="abf-deco-shape-2" />
-
         <div className="abf-inner" key={current}>
-          {/* Left — text info */}
+
+          {/* ══ LEFT — text panel ══ */}
           <div className="abf-left">
-            <span className="abf-quote-icon">&ldquo;</span>
+
+            {/* Small dark opening double-quote — matches Figma top-left icon */}
+            <svg className="abf-open-quote" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 28V17.6C0 12.267 1.2 8.133 3.6 5.2C6.053 2.267 9.6 0.533 14.24 0L15.52 3.44C12.907 4.08 10.88 5.28 9.44 7.04C8.053 8.8 7.307 11.04 7.2 13.76H14.24V28H0ZM18.48 28V17.6C18.48 12.267 19.68 8.133 22.08 5.2C24.533 2.267 28.08 0.533 32.72 0L34 3.44C31.387 4.08 29.36 5.28 27.92 7.04C26.533 8.8 25.787 11.04 25.68 13.76H32.72V28H18.48Z" fill="rgba(15,50,80,0.72)"/>
+            </svg>
 
             <p className="abf-name">{f.name}</p>
             <p className="abf-role">{f.role}</p>
@@ -240,10 +352,7 @@ export default function AboutFounder() {
 
             <p className="abf-section-title">Core Contributions</p>
             {f.contributions.map((c, i) => (
-              <div className="abf-bullet" key={i}>
-                <div className="abf-bullet-dot" />
-                <span>{c}</span>
-              </div>
+              <div className="abf-bullet" key={i}>{c}</div>
             ))}
 
             <p className="abf-section-title">Focus</p>
@@ -252,52 +361,63 @@ export default function AboutFounder() {
             <p className="abf-section-title">Domain Strength</p>
             <p className="abf-plain-text">{f.domainStrength}</p>
 
-            <div className="abf-attribution">— {f.attribution}</div>
+            <div className="abf-attribution">
+              <p className="abf-attribution-line">{f.attributionLine1}</p>
+              <p className="abf-attribution-line">{f.attributionLine2}</p>
+            </div>
           </div>
 
-          {/* Right — photo */}
+          {/* ══ RIGHT — photo + decorations ══ */}
           <div className="abf-right">
-            {/* Using a real image from existing assets */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #1e8fbf 0%, #29ABE2 40%, #006B8F 100%)" }} />
-            {/* Person silhouette placeholder — will show real photo when uploaded */}
-            <div style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
-              zIndex: 2,
-            }}>
-              <svg viewBox="0 0 300 400" width="100%" height="85%" style={{ display: "block" }}>
-                <ellipse cx="150" cy="120" rx="70" ry="75" fill="rgba(255,255,255,0.18)"/>
-                <path d="M30 400 C30 280 70 220 150 220 C230 220 270 280 270 400" fill="rgba(255,255,255,0.18)"/>
-                <ellipse cx="150" cy="120" rx="54" ry="58" fill="rgba(255,255,255,0.28)"/>
-                <path d="M60 390 C60 290 90 235 150 235 C210 235 240 290 240 390" fill="rgba(255,255,255,0.28)"/>
-              </svg>
-            </div>
 
+            {/* Name + role — top right */}
             <div className="abf-name-overlay">
               <p className="abf-overlay-name">{f.name}</p>
               <p className="abf-overlay-role">— {f.role}</p>
             </div>
-          </div>
-        </div>
 
-        {/* Navigation */}
-        <div className="abf-nav">
-          <button className="abf-nav-btn" onClick={prev} aria-label="Previous founder">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
-          </button>
-          <span className="abf-counter">
-            {String(current + 1).padStart(2, "0")}/{String(FOUNDERS.length).padStart(2, "0")}
-          </span>
-          <button className="abf-nav-btn" onClick={next} aria-label="Next founder">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
+            {/* Decorative frosted-glass shape 1 — larger, behind person */}
+            <div className="abf-quote-shape-1">
+              <span className="abf-shape-quote-char abf-shape-quote-char-lg">&#x201D;</span>
+            </div>
+
+            {/* Decorative frosted-glass shape 2 — smaller, right side */}
+            <div className="abf-quote-shape-2">
+              <span className="abf-shape-quote-char abf-shape-quote-char-sm">&#x201D;</span>
+            </div>
+
+            {/* Transparent founder photo — front layer */}
+            <div className="abf-photo-wrap">
+              <Image
+                src={f.photo}
+                alt={f.name}
+                width={480}
+                height={560}
+                className="abf-photo"
+                style={{ height: "clamp(340px, 92%, 510px)", width: "auto" }}
+                priority
+              />
+            </div>
+
+            {/* Navigation */}
+            <div className="abf-nav">
+              <button className="abf-nav-btn" onClick={prev} aria-label="Previous founder">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <span className="abf-counter">
+                {String(current + 1).padStart(2, "0")}
+                <span className="abf-counter-sep">/{String(FOUNDERS.length).padStart(2, "0")}</span>
+              </span>
+              <button className="abf-nav-btn" onClick={next} aria-label="Next founder">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+          </div>
         </div>
       </section>
     </>
