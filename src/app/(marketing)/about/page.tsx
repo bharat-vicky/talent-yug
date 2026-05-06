@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import AboutHero from "@/components/marketing/about/AboutHero";
-import AboutStory from "@/components/marketing/about/AboutStory";
 import AboutMission from "@/components/marketing/about/AboutMission";
 import AboutFounder from "@/components/marketing/about/AboutFounder";
 import AboutGrowth from "@/components/marketing/about/AboutGrowth";
-import AboutFooter from "@/components/marketing/about/AboutFooter";
+import HomeFooter from "@/components/marketing/home/HomeFooter";
 
 export const metadata: Metadata = {
   title: "About Us – TalentYug",
@@ -16,11 +15,10 @@ export default function AboutPage() {
   return (
     <main style={{ background: "#ffffff", overflowX: "hidden" }}>
       <AboutHero />
-      <AboutStory />
       <AboutMission />
       <AboutFounder />
       <AboutGrowth />
-      <AboutFooter />
+      <HomeFooter />
     </main>
   );
 }

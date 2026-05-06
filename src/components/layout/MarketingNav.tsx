@@ -36,6 +36,12 @@ const PAGE_THEMES: Record<string, {
     accent: "#006F5F",
     mobileBg: "#E4FBF8",
   },
+  "/about": {
+    bg: "#ffffff",
+    scrolledBg: "rgba(255,255,255,0.9)",
+    accent: "#1d4ed8",
+    mobileBg: "#ffffff",
+  },
 };
 
 const NAV_LINKS = [
@@ -43,6 +49,7 @@ const NAV_LINKS = [
   { href: "/students", label: "Students" },
   { href: "/colleges", label: "Colleges" },
   { href: "/companies", label: "Companies" },
+  { href: "/about", label: "About" },
 ];
 
 export default function MarketingNav() {
