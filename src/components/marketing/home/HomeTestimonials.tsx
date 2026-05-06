@@ -38,20 +38,25 @@ export default function HomeTestimonials() {
   return (
     <section
       style={{
-        padding: "clamp(60px,8vw,160px) 0",
+        padding: "clamp(40px,6vw,100px) 0",
         background: "#ffffff",
         position: "relative",
         zIndex: 11,
       }}
     >
       <style>{`
+        .ht-inner { padding: 0 clamp(16px,4vw,40px); }
         @media (max-width: 768px) {
           .ht-inner { gap: 30px !important; flex-direction: column !important; }
           .ht-left { max-width: 100% !important; }
-          .ht-card-wrap { min-width: 100% !important; }
+          .ht-card-wrap { min-width: 0 !important; width: 100% !important; }
+          .ht-cards-row { flex-direction: column !important; gap: 16px !important; }
+        }
+        @media (max-width: 480px) {
+          .ht-card-wrap { min-width: 0 !important; }
         }
       `}</style>
-      <div style={{ textAlign: "center", marginBottom: 100 }}>
+      <div style={{ textAlign: "center", marginBottom: "clamp(32px,6vw,80px)", padding: "0 clamp(16px,4vw,40px)" }}>
         <h2
           style={{
             fontSize: "clamp(22px,3.5vw,42px)",
@@ -91,8 +96,8 @@ export default function HomeTestimonials() {
           maxWidth: 1310,
           margin: "auto",
           display: "flex",
-          gap: 80,
-          padding: "0 clamp(20px,4vw,40px)",
+          gap: "clamp(24px,5vw,80px)",
+          padding: "0 clamp(16px,4vw,40px)",
           flexWrap: "wrap",
         }}
       >
@@ -150,6 +155,7 @@ export default function HomeTestimonials() {
         {/* Cards */}
         <div style={{ flex: 1, overflow: "hidden" }}>
           <div
+            className="ht-cards-row"
             style={{
               display: "flex",
               gap: 30,
@@ -161,7 +167,7 @@ export default function HomeTestimonials() {
               <div
                 key={t.name}
                 className="ht-card-wrap"
-                style={{ minWidth: 300, flex: 1 }}
+                style={{ flex: 1 }}
               >
                 <div
                   style={{

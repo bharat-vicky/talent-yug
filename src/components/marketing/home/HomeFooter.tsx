@@ -5,7 +5,7 @@ export default function HomeFooter() {
   return (
     <footer style={{ position: "relative", overflow: "hidden" }}>
       {/* Footer background image - above footer content */}
-      <div style={{ position: "relative", width: "100%", height: 300 }}>
+      <div style={{ position: "relative", width: "100%", height: "clamp(160px,25vw,300px)" }}>
         <Image
           src="/home-img/landing/foot.png"
           alt="Footer background"
@@ -21,7 +21,7 @@ export default function HomeFooter() {
           position: "relative",
           zIndex: 2,
           width: "100%",
-          padding: "60px 40px",
+          padding: "clamp(32px,5vw,60px) clamp(16px,5vw,40px)",
           color: "#fff",
           background: "#2180A8",
         }}

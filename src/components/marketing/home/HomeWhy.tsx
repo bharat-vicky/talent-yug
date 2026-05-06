@@ -87,7 +87,7 @@ export default function HomeWhy() {
         }
         .hw-problem-box {
           flex: 1;
-          min-width: 260px;
+          min-width: min(260px, 100%);
           max-width: 360px;
           background: #ffffff;
           border: 1.5px solid #e5e7eb;
@@ -107,8 +107,8 @@ export default function HomeWhy() {
         /* Circular diagram */
         .hw-circle-wrap {
           position: relative;
-          width: 520px;
-          height: 520px;
+          width: min(520px, calc(100vw - 48px));
+          height: min(520px, calc(100vw - 48px));
           flex-shrink: 0;
         }
         .hw-step-node {
@@ -142,9 +142,11 @@ export default function HomeWhy() {
         }
         /* Responsive */
         @media (max-width: 640px) {
-          .hw-problem-box { max-width: 100%; }
-          .hw-circle-wrap { width: 340px; height: 340px; }
+          .hw-problem-box { max-width: 100%; min-width: unset; width: 100%; }
           .hw-infra-inner { flex-direction: column !important; align-items: center !important; }
+          .hw-step-badge { width: 32px; height: 32px; font-size: 10px; }
+          .hw-step-label { font-size: 9px; }
+          .hw-step-node { width: 70px; }
         }
         @media (max-width: 900px) {
           .hw-infra-inner { flex-direction: column !important; align-items: center !important; }
@@ -316,20 +318,12 @@ export default function HomeWhy() {
               alignItems: "center",
             }}
           >
-            {/* SVG-based circular diagram */}
+            {/* SVG-based circular diagram — fully scalable */}
             <div className="hw-circle-wrap">
-              {/* Dashed orbit ring (SVG) */}
               <svg
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  overflow: "visible",
-                  pointerEvents: "none",
-                }}
+                style={{ width: "100%", height: "100%", overflow: "visible" }}
                 viewBox="0 0 520 520"
+                preserveAspectRatio="xMidYMid meet"
               >
                 {/* Orbit circle */}
                 <circle
@@ -348,10 +342,8 @@ export default function HomeWhy() {
                   const ay = 260 + s.cy;
                   const bx = 260 + next.cx;
                   const by = 260 + next.cy;
-                  // midpoint for a slight arc via quadratic bezier through center
                   const mx = (ax + bx) / 2;
                   const my = (ay + by) / 2;
-                  // control point pulled slightly toward center
                   const cpx = mx + (260 - mx) * 0.15;
                   const cpy = my + (260 - my) * 0.15;
                   return (
@@ -377,58 +369,52 @@ export default function HomeWhy() {
                     <path d="M0,0 L0,6 L6,3 z" fill="#4f46e5" />
                   </marker>
                 </defs>
+
+                {/* Center circle */}
+                <circle
+                  cx="260"
+                  cy="260"
+                  r="55"
+                  fill="url(#centerGrad)"
+                  filter="url(#centerShadow)"
+                />
+                <defs>
+                  <radialGradient id="centerGrad" cx="30%" cy="30%">
+                    <stop offset="0%" stopColor="#4f46e5" />
+                    <stop offset="100%" stopColor="#1e3a8a" />
+                  </radialGradient>
+                  <filter id="centerShadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="8" floodColor="rgba(79,70,229,0.4)" />
+                  </filter>
+                </defs>
+                <text x="260" y="254" textAnchor="middle" fill="white" fontSize="13" fontWeight="800" letterSpacing="0.5">Talent</text>
+                <text x="260" y="271" textAnchor="middle" fill="white" fontSize="13" fontWeight="800" letterSpacing="0.5">Yug</text>
+
+                {/* Step nodes */}
+                {steps.map((s) => {
+                  const nx = 260 + s.cx;
+                  const ny = 260 + s.cy;
+                  const lines = s.label.split("\n");
+                  return (
+                    <g key={s.n}>
+                      <circle cx={nx} cy={ny} r="22" fill="#4f46e5" />
+                      <text x={nx} y={ny + 5} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{s.n}</text>
+                      {lines.map((line, li) => (
+                        <text
+                          key={li}
+                          x={nx}
+                          y={ny + 34 + li * 13}
+                          textAnchor="middle"
+                          fill="#374151"
+                          fontSize="9.5"
+                        >
+                          {line}
+                        </text>
+                      ))}
+                    </g>
+                  );
+                })}
               </svg>
-
-              {/* Center circle */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%,-50%)",
-                  width: 110,
-                  height: 110,
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg,#4f46e5,#1e3a8a)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 8px 30px rgba(79,70,229,0.4)",
-                  zIndex: 2,
-                }}
-              >
-                <span
-                  style={{
-                    color: "white",
-                    fontWeight: 800,
-                    fontSize: 13,
-                    letterSpacing: 0.5,
-                    lineHeight: 1.3,
-                    textAlign: "center",
-                  }}
-                >
-                  Talent
-                  <br />
-                  Yug
-                </span>
-              </div>
-
-              {/* Step nodes */}
-              {steps.map((s) => (
-                <div
-                  key={s.n}
-                  className="hw-step-node"
-                  style={{
-                    left: `calc(50% + ${s.cx}px)`,
-                    top: `calc(50% + ${s.cy}px)`,
-                    zIndex: 3,
-                  }}
-                >
-                  <div className="hw-step-badge">{s.n}</div>
-                  <span className="hw-step-label">{s.label}</span>
-                </div>
-              ))}
             </div>
           </div>
         </div>

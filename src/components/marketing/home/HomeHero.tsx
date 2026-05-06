@@ -58,20 +58,51 @@ export default function HomeHero() {
         .template-card { transition: transform 0.3s ease; }
         .template-card:hover { transform: translateY(-8px); }
         @media (max-width: 768px) {
-          .h-hero { flex-direction: column !important; height: auto !important; padding: 30px 20px 60px !important; text-align: center; }
-          .h-hero-right { display: none !important; }
-          .h-hero-left { max-width: 100% !important; }
+          .h-hero {
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: unset !important;
+            padding: 100px 20px 60px !important;
+            text-align: center;
+            align-items: center !important;
+            gap: 32px !important;
+          }
+          .h-hero-right {
+            display: flex !important;
+            width: 100% !important;
+            max-width: 340px !important;
+            height: 260px !important;
+            margin: 0 auto !important;
+            margin-right: 0 !important;
+            order: 2;
+          }
+          .h-hero-left {
+            max-width: 100% !important;
+            order: 1;
+          }
           .h-stats { justify-content: center !important; gap: 24px !important; flex-wrap: wrap !important; }
-          .h-cta { padding: 14px 48px !important; margin-top: 32px !important; margin-bottom: 32px !important; }
+          .h-cta {
+            padding: 14px 40px !important;
+            margin-top: 28px !important;
+            margin-bottom: 16px !important;
+            font-size: 15px !important;
+          }
+          .hero-glow::after { display: none; }
+        }
+        @media (max-width: 480px) {
+          .h-hero { padding: 90px 16px 50px !important; }
+          .h-hero-right { max-width: 280px !important; height: 210px !important; }
+          .h-cta { padding: 13px 32px !important; }
         }
       `}</style>
 
       <section
         className="hero-glow h-hero relative flex justify-between items-center"
         style={{
-          padding: "clamp(20px,6vw,80px) clamp(20px,6vw,80px)",
+          padding: "clamp(80px,6vw,80px) clamp(20px,6vw,80px)",
           minHeight: "100vh",
           background: "#ffffff",
+          gap: 40,
         }}
       >
         {/* Left text */}
