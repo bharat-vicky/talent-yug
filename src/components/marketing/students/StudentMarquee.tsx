@@ -13,7 +13,7 @@ export default function StudentMarquee() {
         .sm-track {
           display: flex;
           width: max-content;
-          animation: scrollInfiniteS 6s linear infinite;
+          animation: scrollInfiniteS 25s linear infinite;
         }
         .sm-wrapper:hover .sm-track {
           animation-play-state: paused;
@@ -22,11 +22,13 @@ export default function StudentMarquee() {
           display: flex;
         }
         .sm-group span {
-          font-size: clamp(3rem, 8vw, 6rem);
+          font-size: clamp(2.5rem, 6vw, 4rem);
           font-weight: 800;
-          color: #7E0101;
+          color: #4A0413;
           white-space: nowrap;
-          padding-right: 80px;
+          padding-right: 60px;
+          text-transform: uppercase;
+          letter-spacing: 2px;
         }
       `}</style>
 
@@ -34,12 +36,13 @@ export default function StudentMarquee() {
         style={{
           position: "sticky",
           top: 60,
-          height: "15vh",
-          maxHeight: 90,
+          height: 80,
           maxWidth: "100%",
           background: "#EE6983",
+          borderTop: "1px solid #C4435F",
+          borderBottom: "1px solid #C4435F",
           display: "flex",
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "center",
           zIndex: 99,
           overflow: "hidden",

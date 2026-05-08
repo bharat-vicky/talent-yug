@@ -13,7 +13,7 @@ export default function CompanyMarquee() {
         .cm-track {
           display: flex;
           width: max-content;
-          animation: scrollInfiniteC 6s linear infinite;
+          animation: scrollInfiniteC 25s linear infinite;
         }
         .cm-wrapper:hover .cm-track {
           animation-play-state: paused;
@@ -22,9 +22,11 @@ export default function CompanyMarquee() {
           display: flex;
         }
         .cm-group span {
-          font-size: clamp(3rem, 8vw, 6rem);
+          font-size: clamp(2rem, 5vw, 4rem);
           font-weight: 800;
-          color: #006F5F;
+          color: #064E4D; /* Darker teal for better contrast */
+          text-transform: uppercase;
+          letter-spacing: 0.02em;
           white-space: nowrap;
           padding-right: 80px;
         }
@@ -32,18 +34,17 @@ export default function CompanyMarquee() {
 
       <section
         style={{
-          position: "sticky",
-          top: 60,
-          height: "15vh",
-          maxHeight: 90,
-          maxWidth: "100%",
+          position: "relative",
+          width: "100%",
           background: "#5ED3C1",
+          padding: "24px 0",
           display: "flex",
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "center",
           zIndex: 99,
           overflow: "hidden",
-          cursor: "pointer",
+          borderTop: "2px solid rgba(0,0,0,0.05)",
+          borderBottom: "2px solid rgba(0,0,0,0.05)",
         }}
       >
         <div className="cm-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>

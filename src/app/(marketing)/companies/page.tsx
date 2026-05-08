@@ -14,11 +14,11 @@ export default function CompaniesPage() {
       <CompanyHero />
       <CompanyMarquee />
       <CompanyVS />
-      <CompanyProcess />
       <CompanyFeatures />
+      <CompanyProcess />
       <CompanyPricing />
-      <CompanyFAQ />
       <CompanyTestimonials />
+      <CompanyFAQ />
       <CompanyFooter />
     </>
   );

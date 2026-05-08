@@ -40,7 +40,7 @@ export default function CollegeTestimonials() {
     <section
       style={{
         padding: "clamp(60px,8vw,160px) 0",
-        background: "#FEF2DD",
+        background: "#FEF5E7",
         position: "relative",
         zIndex: 11,
       }}

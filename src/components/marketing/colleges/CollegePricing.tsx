@@ -5,7 +5,7 @@ export default function CollegePricing() {
         .clp2-section {
           position: relative;
           padding: 220px 0 160px;
-          background: #FEF2DD;
+          background: #FEF5E7;
           overflow: hidden;
           text-align: center;
           z-index: 11;
@@ -170,7 +170,8 @@ export default function CollegePricing() {
         }
       `}</style>
 
-      <section className="clp2-section">
+      <div style={{ background: "#FEF5E7", width: "100%", overflow: "hidden" }}>
+        <section className="clp2-section" id="pricing">
         <h1 className="clp2-bg-text">Pricing plans</h1>
 
         <div className="clp2-wrapper">
@@ -245,7 +246,8 @@ export default function CollegePricing() {
           </div>
 
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

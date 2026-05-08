@@ -8,7 +8,7 @@ export default function CollegeFeatures() {
           position: relative;
           z-index: 11;
           padding: clamp(80px, 12vw, 210px) 0 clamp(60px, 10vw, 160px);
-          background: #FEF2DD;
+          background: #FEF5E7;
           overflow: hidden;
           transform: scale(0.85);
           transform-origin: top center;
@@ -92,7 +92,8 @@ export default function CollegeFeatures() {
         }
       `}</style>
 
-      <section className="clf2-section" id="features">
+      <div style={{ background: "#FEF5E7", width: "100%", overflow: "hidden" }}>
+        <section className="clf2-section" id="features">
         <div className="clf2-bg">Features</div>
 
         <div className="clf2-container">
@@ -189,7 +190,8 @@ export default function CollegeFeatures() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

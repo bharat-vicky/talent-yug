@@ -6,15 +6,16 @@ export default function AboutFooter() {
       <style>{`
         .ab-footer-link {
           font-size: 18px;
-          color: #93c5fd;
+          color: #ffffff;
           text-decoration: none;
           transition: color 0.2s ease;
         }
         .ab-footer-link:hover {
-          color: #ffffff;
+          color: #cbd5e1;
         }
         @media (max-width: 640px) {
-          .ab-footer-cols { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+          .ab-footer-cols { grid-template-columns: 1fr !important; text-align: center !important; }
+          .ab-footer-cols > div { align-items: center !important; justify-content: center !important; }
         }
       `}</style>
 
@@ -37,40 +38,33 @@ export default function AboutFooter() {
             preserveAspectRatio="none"
             style={{ width: "100%", display: "block", height: "auto" }}
           >
-            {/* Sky gradient background */}
-            <defs>
-              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#dbeafe" />
-                <stop offset="100%" stopColor="#1e3a8a" />
-              </linearGradient>
-            </defs>
-            <rect width="1440" height="200" fill="url(#skyGrad)" />
+            {/* Sky background removed to be white/transparent as in design */}
 
-            {/* Buildings — blue filled */}
+            {/* Buildings — teal filled */}
             {/* Far background */}
-            <rect x="0"    y="120" width="60"  height="80"  fill="#1e40af" opacity="0.5" />
-            <rect x="55"   y="100" width="50"  height="100" fill="#1d4ed8" opacity="0.5" />
-            <rect x="100"  y="130" width="70"  height="70"  fill="#1e3a8a" opacity="0.5" />
-            <rect x="165"  y="90"  width="55"  height="110" fill="#1d4ed8" opacity="0.55" />
-            <rect x="215"  y="115" width="80"  height="85"  fill="#1e40af" opacity="0.5" />
-            <rect x="290"  y="75"  width="60"  height="125" fill="#1e3a8a" opacity="0.6" />
-            <rect x="345"  y="105" width="90"  height="95"  fill="#1d4ed8" opacity="0.5" />
-            <rect x="430"  y="85"  width="50"  height="115" fill="#1e40af" opacity="0.55" />
-            <rect x="475"  y="60"  width="70"  height="140" fill="#1e3a8a" opacity="0.6" />
-            <rect x="540"  y="95"  width="80"  height="105" fill="#1d4ed8" opacity="0.5" />
-            <rect x="615"  y="70"  width="55"  height="130" fill="#1e40af" opacity="0.55" />
-            <rect x="665"  y="40"  width="90"  height="160" fill="#1e3a8a" opacity="0.65" />
-            <rect x="750"  y="80"  width="65"  height="120" fill="#1d4ed8" opacity="0.55" />
-            <rect x="810"  y="55"  width="75"  height="145" fill="#1e40af" opacity="0.6" />
-            <rect x="880"  y="100" width="60"  height="100" fill="#1e3a8a" opacity="0.5" />
-            <rect x="935"  y="70"  width="80"  height="130" fill="#1d4ed8" opacity="0.55" />
-            <rect x="1010" y="90"  width="55"  height="110" fill="#1e40af" opacity="0.5" />
-            <rect x="1060" y="50"  width="85"  height="150" fill="#1e3a8a" opacity="0.6" />
-            <rect x="1140" y="85"  width="60"  height="115" fill="#1d4ed8" opacity="0.55" />
-            <rect x="1195" y="110" width="75"  height="90"  fill="#1e40af" opacity="0.5" />
-            <rect x="1265" y="75"  width="70"  height="125" fill="#1e3a8a" opacity="0.55" />
-            <rect x="1330" y="95"  width="55"  height="105" fill="#1d4ed8" opacity="0.5" />
-            <rect x="1380" y="60"  width="60"  height="140" fill="#1e40af" opacity="0.55" />
+            <rect x="0"    y="120" width="60"  height="80"  fill="#35a1bf" opacity="0.8" />
+            <rect x="55"   y="100" width="50"  height="100" fill="#2d93b3" opacity="0.8" />
+            <rect x="100"  y="130" width="70"  height="70"  fill="#2382a4" opacity="0.8" />
+            <rect x="165"  y="90"  width="55"  height="110" fill="#2d93b3" opacity="0.85" />
+            <rect x="215"  y="115" width="80"  height="85"  fill="#35a1bf" opacity="0.8" />
+            <rect x="290"  y="75"  width="60"  height="125" fill="#2382a4" opacity="0.9" />
+            <rect x="345"  y="105" width="90"  height="95"  fill="#2d93b3" opacity="0.8" />
+            <rect x="430"  y="85"  width="50"  height="115" fill="#35a1bf" opacity="0.85" />
+            <rect x="475"  y="60"  width="70"  height="140" fill="#2382a4" opacity="0.9" />
+            <rect x="540"  y="95"  width="80"  height="105" fill="#2d93b3" opacity="0.8" />
+            <rect x="615"  y="70"  width="55"  height="130" fill="#35a1bf" opacity="0.85" />
+            <rect x="665"  y="40"  width="90"  height="160" fill="#2382a4" opacity="0.95" />
+            <rect x="750"  y="80"  width="65"  height="120" fill="#2d93b3" opacity="0.85" />
+            <rect x="810"  y="55"  width="75"  height="145" fill="#35a1bf" opacity="0.9" />
+            <rect x="880"  y="100" width="60"  height="100" fill="#2382a4" opacity="0.8" />
+            <rect x="935"  y="70"  width="80"  height="130" fill="#2d93b3" opacity="0.85" />
+            <rect x="1010" y="90"  width="55"  height="110" fill="#35a1bf" opacity="0.8" />
+            <rect x="1060" y="50"  width="85"  height="150" fill="#2382a4" opacity="0.9" />
+            <rect x="1140" y="85"  width="60"  height="115" fill="#2d93b3" opacity="0.85" />
+            <rect x="1195" y="110" width="75"  height="90"  fill="#35a1bf" opacity="0.8" />
+            <rect x="1265" y="75"  width="70"  height="125" fill="#2382a4" opacity="0.85" />
+            <rect x="1330" y="95"  width="55"  height="105" fill="#2d93b3" opacity="0.8" />
+            <rect x="1380" y="60"  width="60"  height="140" fill="#35a1bf" opacity="0.85" />
 
             {/* Windows */}
             {[
@@ -82,43 +76,42 @@ export default function AboutFooter() {
               <rect key={i} x={x} y={y} width="6" height="8" rx="1" fill="#93c5fd" opacity="0.7" />
             ))}
 
-            {/* Ground fill */}
-            <rect x="0" y="195" width="1440" height="10" fill="#1e3a8a" />
+            {/* Ground fill matches footer bg */}
+            <rect x="0" y="195" width="1440" height="10" fill="#2382a4" />
           </svg>
         </div>
       </section>
 
       {/* Footer content */}
       <section
-        style={{ backgroundColor: "#0f1f4b", overflow: "hidden" }}
+        style={{ backgroundColor: "#2382a4", overflow: "hidden" }}
       >
         <div
           style={{
-            maxWidth: 900,
+            maxWidth: 1200,
             margin: "auto",
-            padding: "48px 20px 36px",
-            color: "#93c5fd",
+            padding: "60px 40px 40px",
+            color: "#ffffff",
           }}
         >
           <div
             className="ab-footer-cols"
             style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "flex-start",
-              marginBottom: 40,
-              flexWrap: "wrap",
-              gap: 36,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+              alignItems: "start",
+              marginBottom: 60,
+              gap: 40,
             }}
           >
             {/* Social */}
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <h3
                 style={{
-                  fontSize: "clamp(16px,2vw,22px)",
+                  fontSize: "20px",
                   fontWeight: 700,
                   color: "#ffffff",
-                  margin: 0,
+                  margin: "0 0 8px 0",
                 }}
               >
                 Social
@@ -161,10 +154,10 @@ export default function AboutFooter() {
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <h3
                 style={{
-                  fontSize: "clamp(16px,2vw,22px)",
+                  fontSize: "20px",
                   fontWeight: 700,
                   color: "#ffffff",
-                  margin: 0,
+                  margin: "0 0 8px 0",
                 }}
               >
                 Quick Links
@@ -179,7 +172,7 @@ export default function AboutFooter() {
                 For Students
               </Link>
               <Link href="/about" className="ab-footer-link">
-                About Us
+                About US
               </Link>
             </div>
 
@@ -190,65 +183,38 @@ export default function AboutFooter() {
             >
               <h3
                 style={{
-                  fontSize: "clamp(16px,2vw,22px)",
+                  fontSize: "20px",
                   fontWeight: 700,
                   color: "#ffffff",
-                  margin: 0,
+                  margin: "0 0 8px 0",
                 }}
               >
                 Contacts
               </h3>
-              <p style={{ fontSize: 16, color: "#93c5fd", margin: 0 }}>
+              <p style={{ fontSize: 16, color: "#ffffff", margin: 0 }}>
                 Call{" "}
-                <a href="tel:+919876543210" style={{ color: "#bfdbfe" }}>
+                <a href="tel:+919876543210" style={{ color: "#ffffff", textDecoration: "none" }}>
                   +91 9876543210
                 </a>
               </p>
-              <p style={{ fontSize: 16, color: "#93c5fd", margin: 0 }}>
+              <p style={{ fontSize: 16, color: "#ffffff", margin: 0 }}>
                 Email{" "}
-                <a href="mailto:Connect@TalentYug.in" style={{ color: "#bfdbfe" }}>
-                  Connect@TalentYug.in
+                <a href="mailto:Connect@Talentyug.in" style={{ color: "#ffffff", textDecoration: "none" }}>
+                  Connect@Talentyug.in
                 </a>
               </p>
-              <p style={{ fontSize: 16, color: "#93c5fd", margin: 0 }}>Patna, Bihar</p>
+              <p style={{ fontSize: 16, color: "#ffffff", margin: 0 }}>Bihta, Patna</p>
             </div>
 
             {/* Logo */}
             <div
               style={{
                 display: "flex",
+                justifyContent: "flex-end",
                 alignItems: "center",
-                gap: 10,
               }}
             >
-              {/* TalentYug text logo */}
-              <div
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 12,
-                  background: "linear-gradient(135deg,#1d4ed8,#2563eb)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <span
-                style={{
-                  fontSize: "clamp(22px,3vw,36px)",
-                  fontWeight: 700,
-                  color: "#ffffff",
-                }}
-              >
-                TalentYug
-              </span>
+              <img src="/home-img/logo.png" alt="TalentYug Logo" style={{ height: "64px", objectFit: "contain" }} />
             </div>
           </div>
 
@@ -256,7 +222,7 @@ export default function AboutFooter() {
           <div
             style={{
               height: 1,
-              background: "rgba(147,197,253,0.15)",
+              background: "rgba(255,255,255,0.2)",
               marginBottom: 20,
             }}
           />
@@ -264,8 +230,8 @@ export default function AboutFooter() {
           <div
             style={{
               textAlign: "center",
-              fontSize: 15,
-              color: "rgba(147,197,253,0.6)",
+              fontSize: 14,
+              color: "#ffffff",
               paddingTop: 4,
             }}
           >

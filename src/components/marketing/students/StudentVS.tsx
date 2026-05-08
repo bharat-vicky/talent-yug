@@ -1,30 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
-// Left side: problem images  Right side: solution images
-const LEFT_DOTS = [
-  { src: "/student-img/students/1st.png",  alt: "Manual Placement",       cls: { top: 150, left: 230, maxWidth: 350 } },
-  { src: "/student-img/students/5th.png",  alt: "No Analytics",           cls: { top: 245, left: 300, maxWidth: 350 } },
-  { src: "/student-img/students/3rd.png",  alt: "Weak Network",           cls: { top: 350, left: 320, maxWidth: 280 } },
-  { src: "/student-img/students/4th.png",  alt: "Slow Pace",              cls: { top: 465, left: 305, maxWidth: 290 } },
-  { src: "/student-img/students/2nd.png",  alt: "Unstructured Process",   cls: { top: 570, left: 240, maxWidth: 350 } },
+const LEFT_ITEMS = [
+  "High graduate unemployment rate",
+  "Random job applications via portals",
+  "Frequent rejections above 90%",
+  "Lack of structured preparation",
+  "Entry-level salaries averaging ₹2–3L"
 ];
 
-const RIGHT_DOTS = [
-  { src: "/student-img/students/1st_s.png", alt: "Strategic 7 Step Process", cls: { top: 150, right: 230, maxWidth: 370 } },
-  { src: "/student-img/students/5th_s.png", alt: "Real-Time Analytics",      cls: { top: 245, right: 300, maxWidth: 360 } },
-  { src: "/student-img/students/3rd_s.png", alt: "Unified Digital Platform", cls: { top: 360, right: 320, maxWidth: 320 } },
-  { src: "/student-img/students/4th_s.png", alt: "AI Powered Matching",      cls: { top: 465, right: 305, maxWidth: 350 } },
-  { src: "/student-img/students/2nd_s.png", alt: "Integrated Interview",     cls: { top: 570, right: 240, maxWidth: 300 } },
+const RIGHT_ITEMS = [
+  "Role-matched job opportunities",
+  "Precision job matching system",
+  "Mock interview preparation",
+  "Expert tips & learning resources",
+  "Real-time application tracking"
 ];
 
 export default function StudentVS() {
   const titleRef = useRef<HTMLDivElement>(null);
   const [titleVisible, setTitleVisible] = useState(false);
 
-  // Fade-in on scroll for title
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setTitleVisible(true); },
@@ -35,171 +32,253 @@ export default function StudentVS() {
   }, []);
 
   return (
-    <section
-      style={{
-        position: "relative",
-        zIndex: 100,
-        background: "#FEF2F2",
-        overflow: "hidden",
-        boxShadow: "0 -60px 80px rgba(0,0,0,0.15)",
-        paddingBottom: 80,
-      }}
-    >
+    <section className="covs-wrapper">
       <style>{`
-        @media (max-width: 1024px) {
-          .svs-container { height: 500px !important; }
-          .svs-dot { display: none !important; }
-          .svs-backdrop { max-width: min(220px,30vw) !important; }
+        .covs-wrapper {
+          background-color: #FEF2F2;
+          padding: 40px 20px;
+          overflow: hidden;
+          font-family: 'Inter', sans-serif;
+          position: relative;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
-        @media (max-width: 480px) {
-          .svs-container { height: 360px !important; }
-          .svs-backdrop { max-width: min(140px,38vw) !important; }
+        .covs-header {
+          text-align: center;
+          margin-bottom: 40px;
+          opacity: 0;
+          transform: translateY(40px);
+          transition: all 0.8s cubic-bezier(.22,1,.36,1);
+        }
+        .covs-header.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .covs-header h2 {
+          font-size: clamp(32px, 4vw, 48px);
+          font-weight: 800;
+          color: #000;
+          margin: 0 0 12px;
+        }
+        .covs-header p {
+          font-size: clamp(16px, 2vw, 20px);
+          color: #333;
+          margin: 0;
+        }
+
+        /* Layout */
+        .covs-layout {
+          position: relative;
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          height: 500px;
+          width: 100%;
+        }
+
+        /* Center Divider */
+        .covs-divider {
+          position: absolute;
+          left: 50%;
+          top: 20px;
+          bottom: 20px;
+          width: 2px;
+          background-color: #c9bcab;
+          transform: translateX(-50%);
+          z-index: 10;
+        }
+        .covs-vs-badge {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          background-color: #fff;
+          border: 2px solid #c9bcab;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          font-weight: 700;
+          color: #8c8378;
+        }
+
+        /* Sides */
+        .covs-side {
+          flex: 1;
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+        .covs-side.left {
+          justify-content: flex-start;
+          padding-left: 260px;
+          padding-right: 40px;
+        }
+        .covs-side.right {
+          justify-content: flex-end;
+          padding-right: 260px;
+          padding-left: 40px;
+        }
+
+        /* Big Circles */
+        .covs-big-circle {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 500px;
+          height: 500px;
+          border-radius: 50%;
+          border: 12px solid #ffffff;
+          box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+          display: flex;
+          align-items: center;
+          color: #fff;
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 1.2;
+          z-index: 1;
+        }
+        .covs-big-circle.left {
+          background-color: #8C0E0F;
+          left: -260px;
+          justify-content: flex-end;
+          padding-right: 60px;
+          text-align: left;
+        }
+        .covs-big-circle.right {
+          background-color: #E7627D;
+          right: -260px;
+          justify-content: flex-start;
+          padding-left: 60px;
+          text-align: center;
+        }
+
+        /* Items List */
+        .covs-items {
+          display: flex;
+          flex-direction: column;
+          gap: 36px;
+          width: 100%;
+          z-index: 2;
+        }
+        .covs-item {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+        .covs-item.left {
+          flex-direction: row;
+        }
+        .covs-item.right {
+          flex-direction: row;
+          text-align: right;
+        }
+
+        .covs-dot {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          border: 4px solid #fff;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          flex-shrink: 0;
+        }
+        .covs-dot.left { background-color: #8C0E0F; }
+        .covs-dot.right { background-color: #E7627D; }
+
+        .covs-item p {
+          margin: 0;
+          font-size: 15px;
+          font-weight: 700;
+          color: #111;
+          line-height: 1.4;
+          flex: 1;
+          max-width: 250px;
+        }
+
+        /* Curves effect */
+        .covs-item.left:nth-child(1) { transform: translateX(-54px); }
+        .covs-item.left:nth-child(2) { transform: translateX(-16px); }
+        .covs-item.left:nth-child(3) { transform: translateX(0px); }
+        .covs-item.left:nth-child(4) { transform: translateX(-16px); }
+        .covs-item.left:nth-child(5) { transform: translateX(-54px); }
+
+        .covs-item.right:nth-child(1) { transform: translateX(54px); }
+        .covs-item.right:nth-child(2) { transform: translateX(16px); }
+        .covs-item.right:nth-child(3) { transform: translateX(0px); }
+        .covs-item.right:nth-child(4) { transform: translateX(16px); }
+        .covs-item.right:nth-child(5) { transform: translateX(54px); }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+          .covs-wrapper { min-height: auto; padding: 60px 20px; }
+          .covs-layout { flex-direction: column; gap: 80px; height: auto; margin-top: 20px; }
+          .covs-divider { display: none; }
+          .covs-side { width: 100%; padding: 0 !important; justify-content: center !important; flex-direction: column; }
+          
+          .covs-big-circle { 
+            position: relative; left: auto !important; right: auto !important; top: auto !important; transform: none !important; 
+            width: 300px; height: 300px; border: 8px solid #fff; margin-bottom: 40px; padding: 0 !important; 
+            justify-content: center !important; text-align: center !important; font-size: 28px;
+          }
+          
+          .covs-items { padding: 0 20px; align-items: center; gap: 24px; }
+          .covs-item { transform: none !important; width: 100%; max-width: 400px; }
+          .covs-item p { max-width: none; }
+          .covs-item.right { flex-direction: row-reverse; text-align: left; }
         }
       `}</style>
-      {/* Title */}
+
+      {/* Header */}
       <div
         ref={titleRef}
-        style={{
-          position: "relative",
-          marginTop: 100,
-          textAlign: "center",
-          opacity: titleVisible ? 1 : 0,
-          transform: titleVisible ? "translateY(0)" : "translateY(80px)",
-          transition: "all 0.8s cubic-bezier(.22,1,.36,1)",
-          padding: "0 20px",
-        }}
+        className={`covs-header ${titleVisible ? "visible" : ""}`}
       >
-        <h2 style={{ fontSize: "clamp(28px,4vw,54px)", fontWeight: 700 }}>
-          Before vs After
-        </h2>
-        <p style={{ marginTop: 15, fontSize: "clamp(16px,2vw,22px)", color: "#555" }}>
-          See how TalentYug transforms the campus placement experience for students
-        </p>
+        <h2>From Campus to Career Excellence</h2>
+        <p>Your bridge from learning to earning with TalentYug.</p>
       </div>
 
-      {/* Problem / Solution big backdrop images + floating comparison dots */}
-      <div
-        className="svs-container"
-        style={{
-          position: "relative",
-          height: 760,
-          maxWidth: "100%",
-          overflow: "hidden",
-          marginTop: 60,
-        }}
-      >
-        {/* Left big problem backdrop */}
-        <Image
-          src="/student-img/students/problem.png"
-          alt="Without TalentYug"
-          width={800}
-          height={700}
-          className="svs-backdrop"
-          style={{
-            position: "absolute",
-            top: 90,
-            left: 0,
-            maxWidth: "min(360px,38vw)",
-            height: "auto",
-            width: "auto",
-            filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
-          }}
-        />
-
-        {/* Right big solution backdrop */}
-        <Image
-          src="/student-img/students/Solution.png"
-          alt="With TalentYug"
-          width={800}
-          height={700}
-          className="svs-backdrop"
-          style={{
-            position: "absolute",
-            top: 90,
-            right: 0,
-            maxWidth: "min(360px,38vw)",
-            height: "auto",
-            width: "auto",
-            filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.3))",
-          }}
-        />
-
-        {/* Center divider line */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            top: 120,
-            height: 550,
-            width: 3,
-            background: "#8a8a8a",
-          }}
-        />
-
-        {/* VS badge */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: 380,
-            transform: "translate(-50%,-50%)",
-            width: 90,
-            height: 90,
-            background: "#ececec",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontWeight: 600,
-            fontSize: 18,
-            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-          }}
-        >
-          VS
+      {/* Layout */}
+      <div className="covs-layout">
+        {/* Center divider */}
+        <div className="covs-divider">
+          <div className="covs-vs-badge">VS</div>
         </div>
 
-        {/* Floating left dot images */}
-        {LEFT_DOTS.map((d) => (
-          <Image
-            key={d.src}
-            src={d.src}
-            alt={d.alt}
-            width={350}
-            height={200}
-            className="svs-dot"
-            style={{
-              position: "absolute",
-              top: d.cls.top,
-              left: d.cls.left,
-              maxWidth: d.cls.maxWidth,
-              height: "auto",
-              width: "auto",
-              transition: "all 0.1s linear",
-            }}
-          />
-        ))}
+        {/* Left Side */}
+        <div className="covs-side left">
+          <div className="covs-big-circle left">
+            <span>Current<br />Career<br />Challenges</span>
+          </div>
+          <div className="covs-items">
+            {LEFT_ITEMS.map((item, i) => (
+              <div className="covs-item left" key={`left-${i}`}>
+                <div className="covs-dot left"></div>
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        {/* Floating right dot images */}
-        {RIGHT_DOTS.map((d) => (
-          <Image
-            key={d.src}
-            src={d.src}
-            alt={d.alt}
-            width={370}
-            height={200}
-            className="svs-dot"
-            style={{
-              position: "absolute",
-              top: d.cls.top,
-              right: d.cls.right,
-              maxWidth: d.cls.maxWidth,
-              height: "auto",
-              width: "auto",
-              transition: "all 0.1s linear",
-            }}
-          />
-        ))}
+        {/* Right Side */}
+        <div className="covs-side right">
+          <div className="covs-items">
+            {RIGHT_ITEMS.map((item, i) => (
+              <div className="covs-item right" key={`right-${i}`}>
+                <p>{item}</p>
+                <div className="covs-dot right"></div>
+              </div>
+            ))}
+          </div>
+          <div className="covs-big-circle right">
+            <span>Our<br />Integrated<br />Solution</span>
+          </div>
+        </div>
       </div>
     </section>
   );

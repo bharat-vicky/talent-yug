@@ -4,80 +4,16 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const STEPS = [
-  {
-    n: "step1",
-    icon: "/college-img/college/step1_c.png",
-    title: "Onboard Your College",
-    desc: "TPO registers + uploads student data — Basic college info — Student database structure",
-    bg: "#F7E396",
-    label: "#98853D",
-    pos: { top: 34, left: 0 },
-  },
-  {
-    n: "step2",
-    icon: "/college-img/college/step2_c.png",
-    title: "Connect with Companies",
-    desc: "We bring 50+ pre-vetted companies — Companies post job requirements — Structured templates",
-    bg: "#FF9F43",
-    label: "#8F5F31",
-    pos: { top: 35, right: 0 },
-  },
-  {
-    n: "step3",
-    icon: "/college-img/college/step3_c.png",
-    title: "AI Matches Students",
-    desc: "Our algorithm analyzes student profiles — Matches students to relevant roles — NOT mass blast — precision matching",
-    bg: "#F7E396",
-    label: "#98853D",
-    pos: { top: 240, left: "35%" },
-  },
-  {
-    n: "step4",
-    icon: "/college-img/college/step4_c.png",
-    title: "Students Apply",
-    desc: "Students see role-matched opportunities — Apply with 1-click — Access preparation resources",
-    bg: "#FF9F43",
-    label: "#8F5F31",
-    pos: { top: 470, left: 0 },
-  },
-  {
-    n: "step5",
-    icon: "/college-img/college/step5_c.png",
-    title: "Interview Management",
-    desc: "Companies conduct interviews via platform — TPO tracks progress in real-time — Interview schedules auto-sync",
-    bg: "#F7E396",
-    label: "#98853D",
-    pos: { top: 470, right: 0 },
-  },
-  {
-    n: "step6",
-    icon: "/college-img/college/step6_c.png",
-    title: "Offer and Acceptance",
-    desc: "Companies send offer via platform — Students accept/reject — Placement confirmed + salary documented",
-    bg: "#FF9F43",
-    label: "#8F5F31",
-    pos: { top: 690, right: 0 },
-  },
-  {
-    n: "step7",
-    icon: "/college-img/college/step7_c.png",
-    title: "Analytics and Reporting",
-    desc: "TPO sees placement funnel — Conversion rates by company/role — Student salary distributions — Export reports for annual reporting",
-    bg: "#F7E396",
-    label: "#98853D",
-    pos: { top: 690, left: 0 },
-  },
+  { n: "step1", icon: "/college-img/college/step1_c.png", title: "Onboard Your College", desc: "TPO registers + uploads student data - Basic college info - Student database structure", bg: "#F7E396", label: "#98853D", pos: { top: 0, left: 40 } },
+  { n: "step2", icon: "/college-img/college/step2_c.png", title: "Connect with Companies", desc: "We bring 50+ pre-vetted companies - Companies post job requirements - Structured templates", bg: "#FF9F43", label: "#8F5F31", pos: { top: 0, left: 720 } },
+  { n: "step3", icon: "/college-img/college/step3_c.png", title: "AI Matches Students", desc: "Our algorithm analyzes student profiles - Matches students to relevant roles - NOT mass blast - precision matching", bg: "#F7E396", label: "#98853D", pos: { top: 150, left: 380 } },
+  { n: "step4", icon: "/college-img/college/step4_c.png", title: "Students Apply", desc: "Students see role-matched opportunities - Apply with 1-click - Access preparation resources", bg: "#FF9F43", label: "#8F5F31", pos: { top: 300, left: 40 } },
+  { n: "step5", icon: "/college-img/college/step5_c.png", title: "Interview Management", desc: "Companies conduct interviews via platform - TPO tracks progress in real-time - Interview schedules auto-sync", bg: "#F7E396", label: "#98853D", pos: { top: 300, left: 720 } },
+  { n: "step6", icon: "/college-img/college/step6_c.png", title: "Offer & Acceptance", desc: "Companies send offer via platform - Students accept/reject - Placement confirmed + salary documented", bg: "#FF9F43", label: "#8F5F31", pos: { top: 450, left: 720 } },
+  { n: "step7", icon: "/college-img/college/step7_c.png", title: "Analytics & Reporting", desc: "TPO sees placement funnel - Conversion rates by company/role - Student salary distributions - Export reports for annual reporting", bg: "#F7E396", label: "#98853D", pos: { top: 450, left: 40 } },
 ];
 
-const SVG_PATHS = [
-  "M350 240 H999",
-  "M1060 250 V410",
-  "M1060 410 H350",
-  "M350 412 V549",
-  "M280 590 H1090",
-  "M1090 590 V790",
-  "M1060 770 H350",
-];
+const DESKTOP_PATH = "M 200 65 L 800 65 L 800 215 L 280 215 L 280 365 L 1060 365 L 1060 515 L 200 515";
 
 export default function CollegeProcess() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -91,29 +27,18 @@ export default function CollegeProcess() {
     if (!svg || !dot) return;
 
     function animateSignal() {
-      const paths = Array.from(svg!.querySelectorAll<SVGPathElement>("path"));
-      let totalLength = 0;
-      const pathData: { element: SVGPathElement; length: number }[] = [];
-      paths.forEach((p) => {
-        const len = p.getTotalLength();
-        pathData.push({ element: p, length: len });
-        totalLength += len;
-      });
-      const duration = 8000;
+      const p = svg!.querySelector("path");
+      if (!p) return;
+      const totalLength = p.getTotalLength();
+      const duration = 14000; // 14 seconds per loop (slightly longer for 7 steps)
       const startTime = performance.now();
+      
       function move(now: number) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        let dist = totalLength * progress;
-        for (let i = 0; i < pathData.length; i++) {
-          if (dist <= pathData[i].length) {
-            const pt = pathData[i].element.getPointAtLength(dist);
-            dot!.setAttribute("cx", String(pt.x));
-            dot!.setAttribute("cy", String(pt.y));
-            break;
-          }
-          dist -= pathData[i].length;
-        }
-        if (progress < 1) requestAnimationFrame(move);
+        let progress = ((now - startTime) % duration) / duration;
+        const pt = p!.getPointAtLength(totalLength * progress);
+        dot!.setAttribute("cx", String(pt.x));
+        dot!.setAttribute("cy", String(pt.y));
+        requestAnimationFrame(move);
       }
       requestAnimationFrame(move);
     }
@@ -127,7 +52,7 @@ export default function CollegeProcess() {
           }
         });
       },
-      { threshold: 0.3 },
+      { threshold: 0.3 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -136,178 +61,159 @@ export default function CollegeProcess() {
   return (
     <>
       <style>{`
-        .cp-card { transition: transform 0.55s cubic-bezier(.22,1,.36,1), box-shadow 0.55s ease; }
-        .cp-card:hover { transform: scale(1.06) translateY(-6px) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.18) !important; }
-        @media (max-width: 1200px) {
-          .cp-section { height: auto !important; padding: 80px 20px !important; transform: none !important; }
-          .cp-container { display: flex !important; flex-direction: column !important; gap: 40px !important; }
-          .cp-card { position: relative !important; left: auto !important; right: auto !important; top: auto !important; max-width: 100% !important; width: 100% !important; }
-          .cp-svg-d { display: none !important; }
-          .cp-svg-m { display: block !important; }
+        .cp-section {
+          position: relative;
+          min-height: 100vh;
+          background: #FEF5E7;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 60px 20px;
+          overflow: hidden;
+          z-index: 11;
+          font-family: 'Inter', sans-serif;
         }
-        @media (min-width: 1201px) { .cp-svg-m { display: none !important; } }
+        .cp-container {
+          position: relative;
+          width: 1080px;
+          height: 600px;
+          max-width: 100%;
+          z-index: 2;
+        }
+        .cp-card {
+          position: absolute;
+          width: 320px;
+          padding: 16px 16px 16px 54px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          z-index: 2;
+          transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .cp-card:hover { 
+          transform: translateY(-4px); 
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+        }
+        .cp-pill {
+          position: absolute;
+          left: 8px;
+          top: 8px;
+          bottom: 8px;
+          width: 30px;
+          border-radius: 15px;
+          color: white;
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1px;
+        }
+        .cp-svg-d {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          pointer-events: none;
+          overflow: visible; /* allows line to extend outside bounds slightly */
+        }
+        @media (max-width: 1120px) {
+          .cp-section { min-height: auto; padding: 80px 20px; }
+          .cp-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            height: auto !important;
+            width: 100%;
+            align-items: center;
+          }
+          .cp-container::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            bottom: 20px;
+            border-left: 2px dashed #111;
+            transform: translateX(-50%);
+            z-index: 0;
+          }
+          .cp-card {
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+            top: auto !important;
+            width: 100%;
+            max-width: 360px;
+          }
+          .cp-svg-d { display: none; }
+        }
       `}</style>
-      <section
-        ref={sectionRef}
-        className="cp-section"
-        style={{
-          position: "relative",
-          width: "100vw",
-          marginLeft: "calc(-50vw + 50%)",
-          padding: "150px 0",
-          background: "#FEF2DD",
-          zIndex: 11,
-          overflow: "hidden",
-          height: 1100,
-          transform: "scale(0.85)",
-          transformOrigin: "top center",
-        }}
-      >
-        <Image
-          src="/college-img/college/Union_c.png"
-          alt=""
-          width={105}
-          height={800}
-          style={{
-            position: "absolute",
-            top: "55%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
-            maxWidth: 1025,
-            width: "100%",
-            height: "auto",
-            opacity: 0.9,
-            zIndex: 1,
-            pointerEvents: "none",
-          }}
+
+      <section ref={sectionRef} className="cp-section">
+        {/* Background blob matching Figma */}
+        <Image 
+          src="/college-img/college/Union_c.png" 
+          alt="" 
+          width={1025} 
+          height={800} 
+          style={{ 
+            position: "absolute", 
+            top: "50%", 
+            left: "50%", 
+            transform: "translate(-50%,-50%)", 
+            maxWidth: 1025, 
+            width: "100%", 
+            height: "auto", 
+            opacity: 0.9, 
+            zIndex: 1, 
+            pointerEvents: "none" 
+          }} 
         />
 
-        <svg
-          className="cp-svg-m"
-          viewBox="0 0 100 1400"
-          preserveAspectRatio="none"
-          style={{
-            position: "absolute",
-            left: "45%",
-            top: 0,
-            height: "100%",
-            width: 80,
-            zIndex: 0,
-            display: "none",
-          }}
-        >
-          <path
-            d="M40 130 V1200"
-            stroke="#8F5F31"
-            strokeWidth={4}
-            strokeDasharray="6 6"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <circle r={9} fill="#CFAE74" />
-        </svg>
-
-        <div
-          className="cp-container"
-          style={{
-            position: "relative",
-            maxWidth: 1300,
-            margin: "auto",
-            zIndex: 2,
-            height: "100%",
-          }}
-        >
+        <div className="cp-container">
           {STEPS.map((step, idx) => (
             <div
               key={step.n}
               className="cp-card"
-              style={{
-                position: "absolute",
-                maxWidth: 380,
-                padding: "24px 24px 24px 65px",
-                borderRadius: 28,
-                background: step.bg,
-                boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
-                zIndex: 2,
-                ...(step.pos as React.CSSProperties),
-              }}
+              style={{ background: step.bg, ...(step.pos as React.CSSProperties) }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  left: 15,
-                  top: "18%",
-                  transform: "rotate(180deg)",
-                  background: step.label,
-                  color: "white",
-                  writingMode: "vertical-rl",
-                  padding: "25px 8px",
-                  borderRadius: 20,
-                  fontSize: 14,
-                  fontWeight: 600,
-                }}
-              >
+              <div className="cp-pill" style={{ background: step.label }}>
                 Step-{idx + 1}
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  marginBottom: 12,
-                }}
-              >
-                <Image
-                  src={step.icon}
-                  alt={step.title}
-                  width={24}
-                  height={24}
-                  style={{ objectFit: "contain" }}
-                />
-                <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>
-                  {step.title}
-                </h3>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                <Image src={step.icon} alt={step.title} width={20} height={20} style={{ objectFit: "contain" }} />
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#111" }}>{step.title}</h3>
               </div>
-              <p style={{ fontSize: 12.5, lineHeight: 1.4, margin: 0 }}>
+              <p style={{ fontSize: 11.5, fontWeight: 500, color: "#222", lineHeight: 1.45, margin: 0 }}>
                 {step.desc}
               </p>
             </div>
           ))}
-        </div>
 
-        <svg
-          ref={svgRef}
-          className="cp-svg-d"
-          viewBox="0 0 1300 900"
-          preserveAspectRatio="xMidYMid meet"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: 1,
-            pointerEvents: "none",
-          }}
-        >
-          {SVG_PATHS.map((d, i) => (
-            <path
-              key={i}
-              d={d}
-              stroke="#000"
-              strokeWidth={3}
-              strokeDasharray="8 8"
-              strokeLinecap="round"
-              fill="none"
+          {/* Desktop connecting dashed lines */}
+          <svg
+            ref={svgRef}
+            className="cp-svg-d"
+            viewBox="0 0 1080 600"
+          >
+            <path 
+              d={DESKTOP_PATH} 
+              stroke="#111" 
+              strokeWidth={2} 
+              strokeDasharray="6 6" 
+              fill="none" 
             />
-          ))}
-          <circle
-            ref={dotRef}
-            r={9}
-            fill="#CFAE74"
-            style={{ filter: "drop-shadow(0 0 6px rgba(207,174,116,0.8))" }}
-          />
-        </svg>
+            <circle 
+              ref={dotRef} 
+              r={7} 
+              fill="#000" 
+              style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.3))" }} 
+            />
+          </svg>
+        </div>
       </section>
     </>
   );
