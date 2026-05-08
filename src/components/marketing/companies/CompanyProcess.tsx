@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const STEPS = [
-  { n:"step1", icon:"/company-img/companies/step1.png", title:"Create Job Posting", desc:"Company fills standardized form - Role name, description, skills required - Salary band, location, job type - Interview timeline, rounds - Start date - Form gets distributed to college network", bg:"#7AE2CF", label:"#308175", pos:{ top:0, left:0 } },
-  { n:"step2", icon:"/company-img/companies/step2.png", title:"Receive Candidate Pool", desc:"TalentYug AI matches candidates across colleges - Candidates ranked by fit - Candidate profiles include CGPA, skills, projects, preferences", bg:"#A7FFF2", label:"#1B8E7D", pos:{ top:0, left:680 } },
-  { n:"step3", icon:"/company-img/companies/step3.png", title:"Interview & Shortlist", desc:"Company shortlists candidates on platform - Interviews scheduled automatically (no back-and-forth) - Interview feedback recorded on platform - Real-time status visible to all stakeholders", bg:"#7AE2CF", label:"#308175", pos:{ top:180, left:340 } },
-  { n:"step4", icon:"/company-img/companies/step4.png", title:"Make Offers", desc:"Offer generated + sent via platform - Candidate accepts/rejects - Offer tracked with deadline - Salary documented automatically", bg:"#A7FFF2", label:"#1B8E7D", pos:{ top:360, left:0 } },
-  { n:"step5", icon:"/company-img/companies/step5.png", title:"Hire & Onboard", desc:"Confirmed hire list exported - Joining date tracked - Post-hire feedback on new employee performance", bg:"#7AE2CF", label:"#308175", pos:{ top:360, left:680 } },
-  { n:"step6", icon:"/company-img/companies/step6.png", title:"Analytics & Insights", desc:"Time-to-hire metrics - Cost-per-hire - Quality of hires (performance tracking) - College/batch performance - Repeat hiring rates", bg:"#A7FFF2", label:"#1B8E7D", pos:{ top:540, left:340 } },
+  { n: "step1", icon: "/company-img/companies/step1.png", title: "Create Job Posting", desc: "Company fills standardized form - Role name, description, skills required - Salary band, location, job type - Interview timeline, rounds - Start date - Form gets distributed to college network", bg: "#7AE2CF", label: "#308175", pos: { top: 0, left: 0 } },
+  { n: "step2", icon: "/company-img/companies/step2.png", title: "Receive Candidate Pool", desc: "TalentYug AI matches candidates across colleges - Candidates ranked by fit - Candidate profiles include CGPA, skills, projects, preferences", bg: "#A7FFF2", label: "#1B8E7D", pos: { top: 0, left: 680 } },
+  { n: "step3", icon: "/company-img/companies/step3.png", title: "Interview & Shortlist", desc: "Company shortlists candidates on platform - Interviews scheduled automatically (no back-and-forth) - Interview feedback recorded on platform - Real-time status visible to all stakeholders", bg: "#7AE2CF", label: "#308175", pos: { top: 180, left: 340 } },
+  { n: "step4", icon: "/company-img/companies/step4.png", title: "Make Offers", desc: "Offer generated + sent via platform - Candidate accepts/rejects - Offer tracked with deadline - Salary documented automatically", bg: "#A7FFF2", label: "#1B8E7D", pos: { top: 360, left: 0 } },
+  { n: "step5", icon: "/company-img/companies/step5.png", title: "Hire & Onboard", desc: "Confirmed hire list exported - Joining date tracked - Post-hire feedback on new employee performance", bg: "#7AE2CF", label: "#308175", pos: { top: 360, left: 680 } },
+  { n: "step6", icon: "/company-img/companies/step6.png", title: "Analytics & Insights", desc: "Time-to-hire metrics - Cost-per-hire - Quality of hires (performance tracking) - College/batch performance - Repeat hiring rates", bg: "#A7FFF2", label: "#1B8E7D", pos: { top: 540, left: 340 } },
 ];
 
 const DESKTOP_PATH = "M 160 65 L 760 65 L 760 245 L 240 245 L 240 425 L 760 425 L 760 605 L 500 605";
@@ -31,9 +31,9 @@ export default function CompanyProcess() {
       const totalLength = p.getTotalLength();
       const duration = 12000; // 12 seconds per loop
       const startTime = performance.now();
-      
+
       function move(now: number) {
-        let progress = ((now - startTime) % duration) / duration;
+        const progress = ((now - startTime) % duration) / duration;
         const pt = p!.getPointAtLength(totalLength * progress);
         dot!.setAttribute("cx", String(pt.x));
         dot!.setAttribute("cy", String(pt.y));
@@ -152,23 +152,23 @@ export default function CompanyProcess() {
 
       <section ref={sectionRef} className="cop-section">
         {/* Background blob matching Figma */}
-        <Image 
-          src="/company-img/Union.png" 
-          alt="" 
-          width={1025} 
-          height={800} 
-          style={{ 
-            position: "absolute", 
-            top: "50%", 
-            left: "50%", 
-            transform: "translate(-50%,-50%)", 
-            maxWidth: 1025, 
-            width: "100%", 
-            height: "auto", 
-            opacity: 0.9, 
-            zIndex: 1, 
-            pointerEvents: "none" 
-          }} 
+        <Image
+          src="/company-img/Union.png"
+          alt=""
+          width={1025}
+          height={800}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            maxWidth: 1025,
+            width: "100%",
+            height: "auto",
+            opacity: 0.9,
+            zIndex: 1,
+            pointerEvents: "none"
+          }}
         />
 
         <div className="cop-container">
@@ -197,18 +197,18 @@ export default function CompanyProcess() {
             className="cop-svg-d"
             viewBox="0 0 1000 680"
           >
-            <path 
-              d={DESKTOP_PATH} 
-              stroke="#111" 
-              strokeWidth={2} 
-              strokeDasharray="6 6" 
-              fill="none" 
+            <path
+              d={DESKTOP_PATH}
+              stroke="#111"
+              strokeWidth={2}
+              strokeDasharray="6 6"
+              fill="none"
             />
-            <circle 
-              ref={dotRef} 
-              r={7} 
-              fill="#00B69B" 
-              style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.5))" }} 
+            <circle
+              ref={dotRef}
+              r={7}
+              fill="#00B69B"
+              style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.5))" }}
             />
           </svg>
         </div>

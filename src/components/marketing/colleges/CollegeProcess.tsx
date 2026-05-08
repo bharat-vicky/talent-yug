@@ -32,9 +32,9 @@ export default function CollegeProcess() {
       const totalLength = p.getTotalLength();
       const duration = 14000; // 14 seconds per loop (slightly longer for 7 steps)
       const startTime = performance.now();
-      
+
       function move(now: number) {
-        let progress = ((now - startTime) % duration) / duration;
+        const progress = ((now - startTime) % duration) / duration;
         const pt = p!.getPointAtLength(totalLength * progress);
         dot!.setAttribute("cx", String(pt.x));
         dot!.setAttribute("cy", String(pt.y));
@@ -154,23 +154,23 @@ export default function CollegeProcess() {
 
       <section ref={sectionRef} className="cp-section">
         {/* Background blob matching Figma */}
-        <Image 
-          src="/college-img/college/Union_c.png" 
-          alt="" 
-          width={1025} 
-          height={800} 
-          style={{ 
-            position: "absolute", 
-            top: "50%", 
-            left: "50%", 
-            transform: "translate(-50%,-50%)", 
-            maxWidth: 1025, 
-            width: "100%", 
-            height: "auto", 
-            opacity: 0.9, 
-            zIndex: 1, 
-            pointerEvents: "none" 
-          }} 
+        <Image
+          src="/college-img/college/Union_c.png"
+          alt=""
+          width={1025}
+          height={800}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            maxWidth: 1025,
+            width: "100%",
+            height: "auto",
+            opacity: 0.9,
+            zIndex: 1,
+            pointerEvents: "none"
+          }}
         />
 
         <div className="cp-container">
@@ -199,18 +199,18 @@ export default function CollegeProcess() {
             className="cp-svg-d"
             viewBox="0 0 1080 600"
           >
-            <path 
-              d={DESKTOP_PATH} 
-              stroke="#111" 
-              strokeWidth={2} 
-              strokeDasharray="6 6" 
-              fill="none" 
+            <path
+              d={DESKTOP_PATH}
+              stroke="#111"
+              strokeWidth={2}
+              strokeDasharray="6 6"
+              fill="none"
             />
-            <circle 
-              ref={dotRef} 
-              r={7} 
-              fill="#000" 
-              style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.3))" }} 
+            <circle
+              ref={dotRef}
+              r={7}
+              fill="#000"
+              style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.3))" }}
             />
           </svg>
         </div>
