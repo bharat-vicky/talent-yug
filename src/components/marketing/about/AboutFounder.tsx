@@ -21,6 +21,57 @@ const FOUNDERS = [
     attributionLine2: "\u00A0TalentYug",
     photo: "/images/founder-portrait.png",
   },
+  {
+    name: "Gautam Kumar",
+    role: "Founder",
+    bio: "Drives the vision and growth of TalentYug with a strong focus on transforming campus placements through strategic partnerships.",
+
+    achievement:
+      "Founded TalentYug with the mission of bridging the gap between students and career opportunities.",
+
+    contributions: [
+      "Led the overall vision, and business development of the platform",
+      "Built partnerships with colleges and industry stakeholders",
+      "Created initiatives to improve student employability and placement outcomes",
+    ],
+
+    focus:
+      "Empowering students with better career opportunities while helping institutions modernize their placement process.",
+
+    domainStrength:
+      "Expertise in entrepreneurship, education technology, recruitment strategy, and building scalable career-focused ecosystems.",
+
+    attributionLine1: "— Founder",
+    attributionLine2: "\u00A0TalentYug",
+
+    photo: "/images/founder-portrait-2.png",
+  },
+  {
+    name: "Ritu Raj",
+    role: "Co-Founder & Chief Executive Officer",
+
+    bio: "Leads TalentYug’s vision with a focus on transforming campus placements through student-centric solutions.",
+
+    achievement:
+      "Co-founded TalentYug and spearheaded the creation of a placement ecosystem that connects students and colleges.",
+
+    contributions: [
+      "Defined the company’s long-term vision and roadmap",
+      "Built partnerships with educational institutions",
+      "Led business growth initiatives to expand placement opportunities for students",
+    ],
+
+    focus:
+      "Creating meaningful career opportunities for students while modernizing the placement experience for institutions.",
+
+    domainStrength:
+      "Strong expertise in entrepreneurship, business strategy, recruitment ecosystems, and scaling education-driven platforms.",
+
+    attributionLine1: "— Co-Founder & CEO",
+    attributionLine2: "\u00A0TalentYug",
+
+    photo: "/images/founder-portrait-3.png",
+  },
 ];
 
 export default function AboutFounder() {
@@ -49,7 +100,7 @@ export default function AboutFounder() {
         .abf-inner {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          min-height: 520px;
+          min-height: 680px; /* Increased to prevent layout shift between different text lengths */
           max-width: 1280px;
           margin: 0 auto;
           position: relative;
@@ -267,9 +318,9 @@ export default function AboutFounder() {
 
         /* ── Responsive ── */
         @media (max-width: 860px) {
-          .abf-inner { grid-template-columns: 1fr; }
-          .abf-right { min-height: 360px; height: 360px; }
-          .abf-left { padding: 32px 20px 20px; }
+          .abf-inner { grid-template-columns: 1fr; min-height: auto; }
+          .abf-right { min-height: 380px; height: 380px; }
+          .abf-left { padding: 32px 20px 40px; min-height: 620px; justify-content: flex-start; }
           .abf-name-overlay { top: 14px; right: 14px; }
           .abf-quote-shape-1 { left: 22%; }
         }
