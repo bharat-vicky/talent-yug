@@ -1,257 +1,205 @@
 "use client";
 
+import Image from "next/image";
+
 const PROBLEM_BOXES = [
   {
     key: "colleges",
     label: "Colleges",
-    accentColor: "#4f46e5",
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" />
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 21h16v-2H4v2zm8-18L2 8v2h20V8l-10-5zm-5 8v6h2v-6H7zm4 0v6h2v-6h-2zm4 0v6h2v-6h-2z" />
       </svg>
     ),
     bullets: [
-      "Manual Placement Processes (Excel/WhatsApp)",
-      "Lack of Analytics and Optimization",
-      "Weak Network Infrastructure",
-      "50-60% placement success rate",
-      "Unstructured student preparation",
+      "Manual Placement Processes",
+      "Excel & WhatsApp Dependency",
+      "No Centralized Tracking",
     ],
   },
   {
     key: "companies",
     label: "Companies",
-    accentColor: "#0ea5e9",
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="7" width="20" height="14" rx="2" />
-        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L2 7v15h20V7L12 2zm0 2.24l8 4V20H4V8.24l8-4zM7 10h2v2H7v-2zm0 4h2v2H7v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2z" />
       </svg>
     ),
     bullets: [
-      "Limited and inconsistent college pipeline",
-      "No standardized hiring pipeline",
-      "High recruitment and sourcing costs",
-      "Inefficient candidate screening leading to high churn",
+      "Limited Hiring Visibility",
+      "Weak College Coordination",
+      "Unstructured Candidate Data",
     ],
   },
   {
     key: "students",
     label: "Students",
-    accentColor: "#f59e0b",
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
       </svg>
     ),
     bullets: [
-      "40% unemployed post-graduation",
-      "Lack of structured preparation",
-      "Unaided resources",
-      "Weak Interview preparation",
+      "50% Unemployed Post-Graduation",
+      "No Structured Preparation",
+      "Missed Opportunities",
     ],
   },
 ];
 
-const CIRCLE_STEPS = [
-  { n: "01", label: "Company uploads\nrequirements" },
-  { n: "02", label: "AI Matches\nto Students" },
-  { n: "03", label: "AI Matches Students\nto Roles" },
-  { n: "04", label: "Students\nApply" },
-  { n: "05", label: "Interview\nmanagement" },
-  { n: "06", label: "Offer &\nAcceptance" },
-  { n: "07", label: "Analytics &\nReporting" },
-];
-
 export default function HomeWhy() {
-  // Place 7 steps evenly around a circle. Start from top (-90 deg) so step 01 is at top.
-  const RADIUS = 210; // px, distance from center to step node
-  const steps = CIRCLE_STEPS.map((s, i) => {
-    const angleDeg = (360 / CIRCLE_STEPS.length) * i - 90;
-    const angleRad = (angleDeg * Math.PI) / 180;
-    const cx = Math.cos(angleRad) * RADIUS;
-    const cy = Math.sin(angleRad) * RADIUS;
-    return { ...s, cx, cy, angleDeg };
-  });
-
   return (
-    <section style={{ background: "#ffffff", overflow: "hidden" }}>
+    <section style={{ background: "#ffffff", overflow: "hidden", fontFamily: "'Inter', sans-serif" }}>
       <style>{`
-        /* Problem section */
+        /* Top Section: Placements Fail */
+        .hw-top-wrap {
+          padding: 100px 20px 60px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .hw-title {
+          font-size: clamp(28px, 4vw, 36px);
+          font-weight: 700;
+          color: #2E6B82;
+          margin: 0 0 10px;
+        }
+        .hw-subtitle {
+          font-size: clamp(15px, 2vw, 18px);
+          color: #444;
+          font-weight: 500;
+          margin: 0 0 50px;
+        }
+        
         .hw-problem-grid {
           display: flex;
-          gap: 24px;
+          gap: 30px;
           justify-content: center;
           flex-wrap: wrap;
         }
         .hw-problem-box {
           flex: 1;
-          min-width: min(260px, 100%);
+          min-width: 280px;
           max-width: 360px;
-          background: #ffffff;
-          border: 1.5px solid #e5e7eb;
-          border-radius: 16px;
-          padding: 28px 24px;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-          transition: transform 0.3s, box-shadow 0.3s;
+          background: #477E95;
+          border-radius: 20px;
+          padding: 35px 25px;
+          color: #fff;
+          box-shadow: 0 15px 30px rgba(46,107,130,0.15);
+          transition: transform 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        .hw-problem-box::before {
+          content: "";
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 100%);
+          pointer-events: none;
         }
         .hw-problem-box:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+          transform: translateY(-8px);
         }
-        /* Infra section */
-        .hw-infra-section {
-          background: #f0f7ff;
-        }
-        /* Circular diagram */
-        .hw-circle-wrap {
-          position: relative;
-          width: min(520px, calc(100vw - 48px));
-          height: min(520px, calc(100vw - 48px));
-          flex-shrink: 0;
-        }
-        .hw-step-node {
-          position: absolute;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          width: 100px;
-          transform: translate(-50%, -50%);
-        }
-        .hw-step-badge {
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          background: #4f46e5;
-          color: white;
+        .hw-box-header {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 13px;
-          font-weight: 700;
-          margin-bottom: 6px;
-          flex-shrink: 0;
+          gap: 12px;
+          margin-bottom: 20px;
+          position: relative;
+          z-index: 2;
         }
-        .hw-step-label {
-          font-size: 11px;
-          color: #374151;
+        .hw-box-header h3 {
+          font-size: 24px;
+          font-weight: 600;
+          margin: 0;
+        }
+        .hw-box-bullets {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          position: relative;
+          z-index: 2;
+        }
+        .hw-box-bullets li {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 14.5px;
+          font-weight: 400;
           line-height: 1.4;
-          white-space: pre-line;
+          color: rgba(255,255,255,0.95);
         }
-        /* Responsive */
-        @media (max-width: 640px) {
-          .hw-problem-box { max-width: 100%; min-width: unset; width: 100%; }
-          .hw-infra-inner { flex-direction: column !important; align-items: center !important; }
-          .hw-step-badge { width: 32px; height: 32px; font-size: 10px; }
-          .hw-step-label { font-size: 9px; }
-          .hw-step-node { width: 70px; }
+        .hw-box-bullets li::before {
+          content: "•";
+          color: #fff;
+          font-size: 18px;
+          line-height: 1;
+          opacity: 0.8;
         }
-        @media (max-width: 900px) {
-          .hw-infra-inner { flex-direction: column !important; align-items: center !important; }
+
+        /* Bottom Section: Infrastructure Layer */
+        .hw-bottom-wrap {
+          padding: 60px 20px 100px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .hw-bottom-layout {
+          display: flex;
+          align-items: center;
+          gap: 60px;
+        }
+        .hw-left-content {
+          flex: 1;
+          min-width: 300px;
+        }
+        .hw-right-content {
+          flex: 1.2;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .hw-desc {
+          font-size: clamp(14px, 1.5vw, 16px);
+          color: #333;
+          line-height: 1.8;
+          margin: 40px 0 0;
+          text-align: justify;
+        }
+
+        @media (max-width: 960px) {
+          .hw-bottom-layout {
+            flex-direction: column;
+            text-align: center;
+            gap: 40px;
+          }
+          .hw-desc {
+            text-align: left;
+            margin-top: 30px;
+          }
+        }
+        @media (max-width: 768px) {
+          .hw-problem-box { max-width: 100%; }
         }
       `}</style>
 
       {/* ── PART 1: Why Placements Fail ── */}
-      <div
-        style={{
-          padding: "clamp(40px,5vw,80px) clamp(20px,5vw,60px)",
-          maxWidth: 1200,
-          margin: "0 auto",
-        }}
-      >
-        {/* Section heading */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2
-            style={{
-              fontSize: "clamp(22px,3vw,36px)",
-              fontWeight: 800,
-              color: "#1e3a8a",
-              marginBottom: 10,
-            }}
-          >
-            Why Placements Fail in Tier 2/3 Colleges
-          </h2>
-          <p style={{ fontSize: "clamp(14px,2vw,18px)", color: "#6b7280" }}>
-            A Broken System Hurting All Three Stakeholders
-          </p>
-        </div>
+      <div className="hw-top-wrap">
+        <h2 className="hw-title">Why Placements Fail In Tier 2/3 Colleges</h2>
+        <p className="hw-subtitle">A Broken System Hurting All Three Stakeholders</p>
 
-        {/* 3 problem boxes */}
         <div className="hw-problem-grid">
           {PROBLEM_BOXES.map((box) => (
             <div key={box.key} className="hw-problem-box">
-              {/* Icon + label */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  marginBottom: 20,
-                }}
-              >
-                <div
-                  style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 12,
-                    background: `${box.accentColor}15`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  {box.icon}
-                </div>
-                <h3
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 700,
-                    color: "#1e3a8a",
-                    margin: 0,
-                  }}
-                >
-                  {box.label}
-                </h3>
+              <div className="hw-box-header">
+                {box.icon}
+                <h3>{box.label}</h3>
               </div>
-
-              {/* Bullets */}
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: 0,
-                  margin: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
+              <ul className="hw-box-bullets">
                 {box.bullets.map((b) => (
-                  <li
-                    key={b}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 8,
-                      fontSize: 14,
-                      color: "#374151",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: "50%",
-                        background: box.accentColor,
-                        marginTop: 5,
-                        flexShrink: 0,
-                      }}
-                    />
-                    {b}
-                  </li>
+                  <li key={b}>{b}</li>
                 ))}
               </ul>
             </div>
@@ -260,162 +208,32 @@ export default function HomeWhy() {
       </div>
 
       {/* ── PART 2: TalentYug – The Missing Infrastructure Layer ── */}
-      <div className="hw-infra-section">
-        <div
-          style={{
-            padding: "clamp(40px,5vw,80px) clamp(20px,5vw,60px)",
-            maxWidth: 1200,
-            margin: "0 auto",
-          }}
-        >
-          {/* Heading */}
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <h2
-              style={{
-                fontSize: "clamp(22px,3vw,36px)",
-                fontWeight: 800,
-                color: "#1e3a8a",
-                marginBottom: 10,
-              }}
-            >
-              TalentYug – The Missing Infrastructure Layer
-            </h2>
-            <p
-              style={{
-                fontSize: "clamp(14px,2vw,18px)",
-                color: "#4f46e5",
-                fontWeight: 600,
-                marginBottom: 20,
-              }}
-            >
-              A Structured, End-To-End Placement Ecosystem
-            </p>
-            <p
-              style={{
-                fontSize: "clamp(13px,1.5vw,15px)",
-                color: "#4b5563",
-                lineHeight: 1.8,
-                maxWidth: 860,
-                margin: "0 auto",
-                textAlign: "justify",
-              }}
-            >
-              TalentYug Is Built As The Missing Infrastructure Layer That Brings Structure,
-              Transparency, And Efficiency To Tier 2/3 College Hiring. By Centralizing Company
-              Connections, Streamlining Coordination, And Enabling Data-Driven Decision-Making,
-              It Replaces Fragmented Manual Processes With A Single, Reliable System. The Platform
-              Ensures Smoother Placement Drives, Better Hiring Visibility, And Outcome-Focused
-              Execution For Colleges, Companies, And Students Alike.
+      <div className="hw-bottom-wrap">
+        <div className="hw-bottom-layout">
+          {/* Left Text */}
+          <div className="hw-left-content">
+            <h2 className="hw-title">TalentYug – The Missing Infrastructure Layer</h2>
+            <p className="hw-subtitle" style={{ marginBottom: 0 }}>A Structured, End-To-End Placement Ecosystem</p>
+            <p className="hw-desc">
+              TalentYug Is Built As The Missing Placement Infrastructure That Brings Structure, Transparency, And Efficiency To Tier 2/3 College Hiring. By Centralizing Company Connections, Streamlining Coordination, And Enabling Data-Driven Decision-Making, It Replaces Fragmented Manual Processes With A Single, Reliable System. The Platform Ensures Smoother Placement Drives, Better Hiring Visibility, And Outcome-Focused Execution For Colleges, Companies, And Students Alike.
             </p>
           </div>
 
-          {/* Circular diagram */}
-          <div
-            className="hw-infra-inner"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {/* SVG-based circular diagram — fully scalable */}
-            <div className="hw-circle-wrap">
-              <svg
-                style={{ width: "100%", height: "100%", overflow: "visible" }}
-                viewBox="0 0 520 520"
-                preserveAspectRatio="xMidYMid meet"
-              >
-                {/* Orbit circle */}
-                <circle
-                  cx="260"
-                  cy="260"
-                  r={RADIUS}
-                  fill="none"
-                  stroke="#c7d2fe"
-                  strokeWidth="2"
-                  strokeDasharray="8 6"
-                />
-                {/* Arrow connectors between steps */}
-                {steps.map((s, i) => {
-                  const next = steps[(i + 1) % steps.length];
-                  const ax = 260 + s.cx;
-                  const ay = 260 + s.cy;
-                  const bx = 260 + next.cx;
-                  const by = 260 + next.cy;
-                  const mx = (ax + bx) / 2;
-                  const my = (ay + by) / 2;
-                  const cpx = mx + (260 - mx) * 0.15;
-                  const cpy = my + (260 - my) * 0.15;
-                  return (
-                    <path
-                      key={i}
-                      d={`M ${ax} ${ay} Q ${cpx} ${cpy} ${bx} ${by}`}
-                      fill="none"
-                      stroke="#a5b4fc"
-                      strokeWidth="1.5"
-                      markerEnd="url(#arrowhead)"
-                    />
-                  );
-                })}
-                <defs>
-                  <marker
-                    id="arrowhead"
-                    markerWidth="6"
-                    markerHeight="6"
-                    refX="3"
-                    refY="3"
-                    orient="auto"
-                  >
-                    <path d="M0,0 L0,6 L6,3 z" fill="#4f46e5" />
-                  </marker>
-                </defs>
-
-                {/* Center circle */}
-                <circle
-                  cx="260"
-                  cy="260"
-                  r="55"
-                  fill="url(#centerGrad)"
-                  filter="url(#centerShadow)"
-                />
-                <defs>
-                  <radialGradient id="centerGrad" cx="30%" cy="30%">
-                    <stop offset="0%" stopColor="#4f46e5" />
-                    <stop offset="100%" stopColor="#1e3a8a" />
-                  </radialGradient>
-                  <filter id="centerShadow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feDropShadow dx="0" dy="4" stdDeviation="8" floodColor="rgba(79,70,229,0.4)" />
-                  </filter>
-                </defs>
-                <text x="260" y="254" textAnchor="middle" fill="white" fontSize="13" fontWeight="800" letterSpacing="0.5">Talent</text>
-                <text x="260" y="271" textAnchor="middle" fill="white" fontSize="13" fontWeight="800" letterSpacing="0.5">Yug</text>
-
-                {/* Step nodes */}
-                {steps.map((s) => {
-                  const nx = 260 + s.cx;
-                  const ny = 260 + s.cy;
-                  const lines = s.label.split("\n");
-                  return (
-                    <g key={s.n}>
-                      <circle cx={nx} cy={ny} r="22" fill="#4f46e5" />
-                      <text x={nx} y={ny + 5} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{s.n}</text>
-                      {lines.map((line, li) => (
-                        <text
-                          key={li}
-                          x={nx}
-                          y={ny + 34 + li * 13}
-                          textAnchor="middle"
-                          fill="#374151"
-                          fontSize="9.5"
-                        >
-                          {line}
-                        </text>
-                      ))}
-                    </g>
-                  );
-                })}
-              </svg>
-            </div>
+          {/* Right Image */}
+          <div className="hw-right-content">
+            <Image
+              src="/home-img/landing/steps.png"
+              alt="TalentYug Placement Ecosystem Steps"
+              width={650}
+              height={450}
+              style={{
+                width: "100%",
+                maxWidth: 650,
+                height: "auto",
+                objectFit: "contain",
+                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.08))"
+              }}
+            />
           </div>
         </div>
       </div>
