@@ -5,10 +5,10 @@ import Image from "next/image";
 const FOUNDERS = [
   {
     name: "Hridayanand Gupta",
-    role: "Co-Founder & Product Lead",
+    role: "Co-Founder & Chief Technology Officer",
     bio: "Leads product strategy with expertise in AI-powered matching, student-first placement systems, and data-driven outcomes.",
     achievement:
-      "Designed and implemented the first AI-assisted placement workflow at IIT Patna, helping improve placement readiness.",
+      "Designed and implemented the first AI-assisted placement workflow, helping improve placement readiness.",
     contributions: [
       "Built the core architecture of the placement platform",
       "Developed the student tracking and company matching modules",
@@ -17,8 +17,8 @@ const FOUNDERS = [
     focus: "Building transparent and effective pathways from campus to career.",
     domainStrength:
       "Strong understanding of Ed-Tech systems, campus recruitment workflows, and student outcome-focused product design.",
-    attributionLine1: "— Training & Placement Officer",
-    attributionLine2: "\u00A0ABC Institute of Technology",
+    attributionLine1: "— Chief Technology Officer",
+    attributionLine2: "\u00A0TalentYug",
     photo: "/images/founder-portrait.png",
   },
 ];
@@ -160,87 +160,30 @@ export default function AboutFounder() {
           min-height: 480px;
         }
 
-        /* ── Quote shape 1 (larger, left-leaning, partially behind person) ── */
-        .abf-quote-shape-1 {
+        /* ── Quotes Wrapper (holds both commas side-by-side in front of the founder) ── */
+        .abf-quotes-wrapper {
           position: absolute;
-          /* Figma: left shape starts around 28% from right-column left edge */
-          left: 28%;
-          top: 50%;
-          transform: translateY(-50%);
-          width: clamp(160px, 24%, 210px);
-          height: clamp(200px, 64%, 270px);
-          border-radius: 28px;
-          /* Frosted glass — slightly darker gradient matching Figma */
-          background: linear-gradient(
-            145deg,
-            rgba(140, 195, 225, 0.55) 0%,
-            rgba(80, 155, 200, 0.65) 100%
-          );
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          border: 1px solid rgba(255, 255, 255, 0.35);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.45),
-            0 12px 40px rgba(0, 60, 100, 0.20);
-          z-index: 1;
+          right: clamp(2px, 8vw, 5px);
+          top: 69%;
+          transform: translateY(-40%);
           display: flex;
-          align-items: flex-end;
-          justify-content: flex-end;
-          padding: 16px 20px;
-          overflow: hidden;
-        }
-
-        /* ── Quote shape 2 (smaller, right side, fully visible) ── */
-        .abf-quote-shape-2 {
-          position: absolute;
-          right: clamp(14px, 3vw, 32px);
-          top: 50%;
-          transform: translateY(-50%);
-          width: clamp(120px, 18%, 165px);
-          height: clamp(155px, 50%, 210px);
-          border-radius: 24px;
-          background: linear-gradient(
-            145deg,
-            rgba(155, 205, 232, 0.48) 0%,
-            rgba(90, 165, 208, 0.58) 100%
-          );
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          border: 1px solid rgba(255, 255, 255, 0.30);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.38),
-            0 8px 28px rgba(0, 60, 100, 0.16);
-          z-index: 2;
-          display: flex;
-          align-items: flex-end;
-          justify-content: flex-end;
-          padding: 12px 16px;
-          overflow: hidden;
-        }
-
-        /* Large " character inside each shape */
-        .abf-shape-quote-char {
-          font-family: Georgia, 'Times New Roman', serif;
-          font-weight: 900;
-          color: rgba(15, 55, 85, 0.32);
-          line-height: 0.75;
-          user-select: none;
+          gap: clamp(12px, 2vw, 24px);
+          z-index: 6; /* Placed in front of the founder (z-index: 5) */
           pointer-events: none;
+        }
+
+        .abf-quote-shape-1, .abf-quote-shape-2 {
+          width: clamp(110px, 15vw, 170px);
+          height: auto;
           display: block;
         }
-        .abf-shape-quote-char-lg {
-          font-size: clamp(100px, 15vw, 148px);
-        }
-        .abf-shape-quote-char-sm {
-          font-size: clamp(76px, 11vw, 112px);
-        }
 
-        /* ── Founder photo ── transparent PNG, sits in front */
+        /* ── Founder photo ── transparent PNG, sits behind commas */
         .abf-photo-wrap {
           position: absolute;
           bottom: 0;
           /* Centre of right column, slightly left */
-          left: -4%;
+          left: -15%;
           right: 0;
           display: flex;
           align-items: flex-end;
@@ -251,11 +194,11 @@ export default function AboutFounder() {
         }
         .abf-photo {
           display: block;
-          height: clamp(340px, 92%, 510px);
+          height: clamp(400px, 105%, 620px);
           width: auto;
           object-fit: contain;
           object-position: bottom center;
-          /* Subtle shadow so figure reads against shapes */
+          /* Subtle shadow so figure reads against background */
           filter: drop-shadow(-6px 0 24px rgba(0, 50, 90, 0.18));
         }
 
@@ -340,7 +283,7 @@ export default function AboutFounder() {
 
             {/* Small dark opening double-quote — matches Figma top-left icon */}
             <svg className="abf-open-quote" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 28V17.6C0 12.267 1.2 8.133 3.6 5.2C6.053 2.267 9.6 0.533 14.24 0L15.52 3.44C12.907 4.08 10.88 5.28 9.44 7.04C8.053 8.8 7.307 11.04 7.2 13.76H14.24V28H0ZM18.48 28V17.6C18.48 12.267 19.68 8.133 22.08 5.2C24.533 2.267 28.08 0.533 32.72 0L34 3.44C31.387 4.08 29.36 5.28 27.92 7.04C26.533 8.8 25.787 11.04 25.68 13.76H32.72V28H18.48Z" fill="rgba(15,50,80,0.72)"/>
+              <path d="M0 28V17.6C0 12.267 1.2 8.133 3.6 5.2C6.053 2.267 9.6 0.533 14.24 0L15.52 3.44C12.907 4.08 10.88 5.28 9.44 7.04C8.053 8.8 7.307 11.04 7.2 13.76H14.24V28H0ZM18.48 28V17.6C18.48 12.267 19.68 8.133 22.08 5.2C24.533 2.267 28.08 0.533 32.72 0L34 3.44C31.387 4.08 29.36 5.28 27.92 7.04C26.533 8.8 25.787 11.04 25.68 13.76H32.72V28H18.48Z" fill="rgba(15,50,80,0.72)" />
             </svg>
 
             <p className="abf-name">{f.name}</p>
@@ -376,14 +319,10 @@ export default function AboutFounder() {
               <p className="abf-overlay-role">— {f.role}</p>
             </div>
 
-            {/* Decorative frosted-glass shape 1 — larger, behind person */}
-            <div className="abf-quote-shape-1">
-              <span className="abf-shape-quote-char abf-shape-quote-char-lg">&#x201D;</span>
-            </div>
-
-            {/* Decorative frosted-glass shape 2 — smaller, right side */}
-            <div className="abf-quote-shape-2">
-              <span className="abf-shape-quote-char abf-shape-quote-char-sm">&#x201D;</span>
+            {/* Decorative frosted-glass commas — in front of person */}
+            <div className="abf-quotes-wrapper">
+              <img src="/images/Vector.png" alt="" className="abf-quote-shape-1" />
+              <img src="/images/Vector (1).png" alt="" className="abf-quote-shape-2" />
             </div>
 
             {/* Transparent founder photo — front layer */}
@@ -394,7 +333,7 @@ export default function AboutFounder() {
                 width={480}
                 height={560}
                 className="abf-photo"
-                style={{ height: "clamp(340px, 92%, 510px)", width: "auto" }}
+                style={{ height: "100%", width: "auto" }}
                 priority
               />
             </div>
@@ -403,7 +342,7 @@ export default function AboutFounder() {
             <div className="abf-nav">
               <button className="abf-nav-btn" onClick={prev} aria-label="Previous founder">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               <span className="abf-counter">
@@ -412,7 +351,7 @@ export default function AboutFounder() {
               </span>
               <button className="abf-nav-btn" onClick={next} aria-label="Next founder">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>
