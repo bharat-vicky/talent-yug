@@ -162,6 +162,16 @@ export interface QRCodeRecord {
 // qrSerial links a guest to a batch QR code
 // (qrToken remains for backwards-compat with scanner)
 
+// ─── Contact ─────────────────────────────────────────────────────────────────
+export interface ContactQuery {
+  id: string;
+  name: string;
+  phone: string;
+  organization: string;
+  query: string;
+  submittedAt: number;
+}
+
 // ─── Analytics ───────────────────────────────────────────────────────────────
 export interface PlacementDataPoint {
   month: string;

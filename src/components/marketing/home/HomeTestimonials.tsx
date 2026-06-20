@@ -5,16 +5,16 @@ import Image from "next/image";
 
 const TESTIMONIALS = [
   {
-    img: "/home-img/testimonials/s2.jpeg",
-    name: "Aryan Singh",
-    role: "Student · IIT Patna",
-    text: "TalentYug reduced our placement event chaos by 80%. QR check-ins that used to take 2 hours now finish in 15 minutes.",
+    img: "/home-img/testimonials/U1.webp",
+    name: "Priya Sharma",
+    role: "HR Manager",
+    text: "Hiring from Tier 2/3 colleges used to be chaotic. TalentYug helped us shortlist better candidates, manage drives smoothly, and close offers faster.",
   },
   {
     img: "/home-img/testimonials/U2.webp",
-    name: "Rahul Mehta",
-    role: "HR Head · Infosys",
-    text: "The pre-registration forms and analytics saved our team hours of manual work each campus season.",
+    name: "Rahul Verma",
+    role: "Final Year Student (B.Tech)",
+    text: "The mock interviews and clear application tracking boosted my confidence. I knew exactly where I stood in every hiring process.",
   },
   {
     img: "/home-img/testimonials/U3.webp",
@@ -37,6 +37,7 @@ export default function HomeTestimonials() {
 
   return (
     <section
+      id="testimonials"
       style={{
         padding: "clamp(40px,6vw,100px) 0",
         background: "#ffffff",
@@ -111,8 +112,7 @@ export default function HomeTestimonials() {
             style={{ marginBottom: 20, opacity: 0.8, width: "auto" }}
           />
           <p style={{ fontSize: 26, lineHeight: 1.4 }}>
-            Real stories from real people using TalentYug every placement
-            season.
+            What our customers are saying
           </p>
           <div
             style={{

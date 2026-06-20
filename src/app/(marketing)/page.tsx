@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import HomeHero from "@/components/marketing/home/HomeHero";
 import HomeWhy from "@/components/marketing/home/HomeWhy";
-import HomeWork from "@/components/marketing/home/HomeWork";
-import HomeFeatures from "@/components/marketing/home/HomeFeatures";
+import HomeInfrastructure from "@/components/marketing/home/HomeInfrastructure";
 import HomeTestimonials from "@/components/marketing/home/HomeTestimonials";
 import HomeFooter from "@/components/marketing/home/HomeFooter";
 
@@ -17,8 +16,7 @@ export default function HomePage() {
     <main style={{ background: "#ffffff", overflowX: "hidden" }}>
       <HomeHero />
       <HomeWhy />
-      <HomeWork />
-      <HomeFeatures />
+      <HomeInfrastructure />
       <HomeTestimonials />
       <HomeFooter />
     </main>

@@ -44,12 +44,17 @@ const PAGE_THEMES: Record<string, {
   },
 };
 
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
+const DEFAULT_LINKS = [
   { href: "/students", label: "Students" },
   { href: "/colleges", label: "Colleges" },
   { href: "/companies", label: "Companies" },
   { href: "/about", label: "About" },
+];
+
+const SCROLLED_HOME_LINKS = [
+  { href: "#why-placements-fail", label: "Features" },
+  { href: "/colleges#pricing", label: "Price Plan" },
+  { href: "#testimonials", label: "Testimonials" },
 ];
 
 export default function MarketingNav() {
@@ -58,6 +63,8 @@ export default function MarketingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = PAGE_THEMES[pathname] ?? PAGE_THEMES["/"];
+  const isHomePage = pathname === "/";
+  const links = (isHomePage && scrolled) ? SCROLLED_HOME_LINKS : DEFAULT_LINKS;
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -80,30 +87,30 @@ export default function MarketingNav() {
         }
         .ty-nav-link:hover { opacity: 0.65; }
         .ty-login-btn {
-          padding: 10px 26px;
+          padding: 10px 28px;
           white-space: nowrap;
           background: transparent;
-          border-radius: 30px 30px 0 30px;
+          border-radius: 20px;
           cursor: pointer;
-          font-weight: 500;
+          font-weight: 600;
           font-size: 15px;
           text-decoration: none;
-          transition: opacity 0.2s;
+          transition: all 0.2s;
         }
-        .ty-login-btn:hover { opacity: 0.75; }
+        .ty-login-btn:hover { opacity: 0.8; transform: translateY(-1px); }
         .ty-register-btn {
-          padding: 10px 26px;
+          padding: 10px 28px;
           white-space: nowrap;
           color: #fff;
           border: none;
-          border-radius: 30px 30px 30px 0;
+          border-radius: 20px;
           cursor: pointer;
-          font-weight: 500;
+          font-weight: 600;
           font-size: 15px;
           text-decoration: none;
-          transition: filter 0.2s;
+          transition: all 0.2s;
         }
-        .ty-register-btn:hover { filter: brightness(1.15); }
+        .ty-register-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
         .ty-hamburger {
           display: none;
           flex-direction: column;
@@ -137,36 +144,37 @@ export default function MarketingNav() {
           left: "50%",
           transform: scrolled
             ? "translateX(-50%) translateY(10px)"
-            : "translateX(-50%)",
-          width: "100%",
-          maxWidth: scrolled ? "92%" : "100%",
-          padding: scrolled ? "12px 18px" : "18px 10px",
+            : "translateX(-50%) translateY(24px)",
+          width: "92%",
+          maxWidth: 1200,
+          padding: scrolled ? "10px 20px" : "14px 28px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          background: scrolled ? theme.scrolledBg : theme.bg,
+          background: "#ffffff",
           backdropFilter: "blur(14px)",
-          borderRadius: scrolled ? "50px" : "0px",
-          boxShadow: scrolled ? "0 15px 40px rgba(0,0,0,0.2)" : "none",
-          transition: "padding .35s ease, max-width .35s ease, box-shadow .35s ease, border-radius .35s ease, transform .35s ease, background .35s ease",
+          borderRadius: scrolled ? "30px" : "20px",
+          boxShadow: scrolled ? "0 12px 35px rgba(0, 50, 80, 0.12)" : "0 8px 30px rgba(0, 50, 80, 0.05)",
+          border: "1.5px solid rgba(33, 128, 168, 0.15)",
+          transition: "all 0.35s cubic-bezier(.22,1,.36,1)",
           zIndex: 200,
         }}
       >
         {/* Logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
           <Image src="/home-img/logo.png" alt="TalentYug" width={40} height={40} style={{ height: 40, width: "auto" }} />
-          <span style={{ fontSize: "clamp(18px,2.5vw,26px)", fontWeight: 700, color: "#1F3F68" }}>TalentYug</span>
+          <span style={{ fontSize: "clamp(18px,2.5vw,26px)", fontWeight: 800, color: "#005070", letterSpacing: "-0.02em" }}>TalentYug</span>
         </Link>
 
         {/* Desktop nav + buttons */}
-        <div className="ty-desktop-nav" style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <nav style={{ display: "flex", gap: 20, alignItems: "center" }}>
-            {NAV_LINKS.map((link) => (
+        <div className="ty-desktop-nav" style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <nav style={{ display: "flex", gap: 24, alignItems: "center" }}>
+            {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="ty-nav-link"
-                style={{ fontWeight: pathname === link.href ? 700 : 500 }}
+                style={{ fontWeight: 700, color: "#374151", fontSize: 14, letterSpacing: "0.02em" }}
               >
                 {link.label.toUpperCase()}
               </Link>
@@ -176,14 +184,14 @@ export default function MarketingNav() {
           <Link
             href="/login"
             className="ty-login-btn"
-            style={{ border: `1px solid ${theme.accent}`, color: "#000" }}
+            style={{ border: "1.5px solid #2180A8", color: "#2180A8" }}
           >
             Login
           </Link>
           <Link
             href="/register"
             className="ty-register-btn"
-            style={{ background: theme.accent }}
+            style={{ background: "#2180A8" }}
           >
             Register
           </Link>
@@ -221,7 +229,7 @@ export default function MarketingNav() {
         }}
       >
         <nav style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -247,11 +255,11 @@ export default function MarketingNav() {
               display: "block",
               textAlign: "center",
               padding: "12px 0",
-              border: `1px solid ${theme.accent}`,
-              borderRadius: "30px 30px 0 30px",
+              border: "1.5px solid #2180A8",
+              borderRadius: "20px",
               textDecoration: "none",
-              color: "#000",
-              fontWeight: 500,
+              color: "#2180A8",
+              fontWeight: 600,
               fontSize: 16,
             }}
           >
@@ -263,11 +271,11 @@ export default function MarketingNav() {
               display: "block",
               textAlign: "center",
               padding: "12px 0",
-              background: theme.accent,
-              borderRadius: "30px 30px 30px 0",
+              background: "#2180A8",
+              borderRadius: "20px",
               textDecoration: "none",
               color: "#fff",
-              fontWeight: 500,
+              fontWeight: 600,
               fontSize: 16,
             }}
           >

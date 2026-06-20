@@ -1,239 +1,289 @@
-"use client";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
-import Image from "next/image";
-
-const PROBLEM_BOXES = [
+const WORK_CARDS = [
   {
     key: "colleges",
-    label: "Colleges",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M4 21h16v-2H4v2zm8-18L2 8v2h20V8l-10-5zm-5 8v6h2v-6H7zm4 0v6h2v-6h-2zm4 0v6h2v-6h-2z" />
-      </svg>
-    ),
-    bullets: [
-      "Manual Placement Processes",
-      "Excel & WhatsApp Dependency",
-      "No Centralized Tracking",
-    ],
-  },
-  {
-    key: "companies",
-    label: "Companies",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2L2 7v15h20V7L12 2zm0 2.24l8 4V20H4V8.24l8-4zM7 10h2v2H7v-2zm0 4h2v2H7v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2z" />
-      </svg>
-    ),
-    bullets: [
-      "Limited Hiring Visibility",
-      "Weak College Coordination",
-      "Unstructured Candidate Data",
-    ],
+    headline: "AI-Powered Campus Hiring.",
+    label: "For Colleges",
+    href: "/colleges",
+    bg: "#F4FAFD",
+    arrowBg: "#0B3654",
   },
   {
     key: "students",
-    label: "Students",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-      </svg>
-    ),
-    bullets: [
-      "50% Unemployed Post-Graduation",
-      "No Structured Preparation",
-      "Missed Opportunities",
-    ],
+    headline: "Prepare, Apply, Get Hired.",
+    label: "For Students",
+    href: "/students",
+    bg: "#F4FAFD",
+    arrowBg: "#0B3654",
+  },
+  {
+    key: "companies",
+    headline: "Hire Smarter, Hire Faster.",
+    label: "For Companies",
+    href: "/companies",
+    bg: "#DCEEFA",
+    arrowBg: "#2180A8",
   },
 ];
 
 export default function HomeWhy() {
   return (
-    <section style={{ background: "#ffffff", overflow: "hidden", fontFamily: "'Inter', sans-serif" }}>
+    <section id="why-placements-fail" style={{ background: "#ffffff", fontFamily: "'Inter', sans-serif" }}>
       <style>{`
-        /* Top Section: Placements Fail */
-        .hw-top-wrap {
-          padding: 100px 20px 60px;
+        .hwhy-wrap {
+          padding: 100px 20px 110px;
           max-width: 1200px;
           margin: 0 auto;
         }
-        .hw-title {
+        .hwhy-title {
           font-size: clamp(28px, 4vw, 36px);
           font-weight: 700;
-          color: #2E6B82;
+          color: #0B3654;
           margin: 0 0 10px;
         }
-        .hw-subtitle {
+        .hwhy-subtitle {
           font-size: clamp(15px, 2vw, 18px);
           color: #444;
           font-weight: 500;
-          margin: 0 0 50px;
-        }
-        
-        .hw-problem-grid {
-          display: flex;
-          gap: 30px;
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-        .hw-problem-box {
-          flex: 1;
-          min-width: 280px;
-          max-width: 360px;
-          background: #477E95;
-          border-radius: 20px;
-          padding: 35px 25px;
-          color: #fff;
-          box-shadow: 0 15px 30px rgba(46,107,130,0.15);
-          transition: transform 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-        .hw-problem-box::before {
-          content: "";
-          position: absolute;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 100%);
-          pointer-events: none;
-        }
-        .hw-problem-box:hover {
-          transform: translateY(-8px);
-        }
-        .hw-box-header {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          margin-bottom: 20px;
-          position: relative;
-          z-index: 2;
-        }
-        .hw-box-header h3 {
-          font-size: 24px;
-          font-weight: 600;
-          margin: 0;
-        }
-        .hw-box-bullets {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          position: relative;
-          z-index: 2;
-        }
-        .hw-box-bullets li {
-          display: flex;
-          align-items: flex-start;
-          gap: 10px;
-          font-size: 14.5px;
-          font-weight: 400;
-          line-height: 1.4;
-          color: rgba(255,255,255,0.95);
-        }
-        .hw-box-bullets li::before {
-          content: "•";
-          color: #fff;
-          font-size: 18px;
-          line-height: 1;
-          opacity: 0.8;
+          margin: 0 0 44px;
         }
 
-        /* Bottom Section: Infrastructure Layer */
-        .hw-bottom-wrap {
-          padding: 60px 20px 100px;
-          max-width: 1200px;
-          margin: 0 auto;
+        .hwhy-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
         }
-        .hw-bottom-layout {
+        .hwhy-span-1 { grid-column: span 1; }
+        .hwhy-span-2 { grid-column: span 2; }
+
+        .hwhy-card {
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.07);
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .hwhy-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(0, 50, 80, 0.12);
+        }
+
+        /* Stat cards (50% / 3X) */
+        .hwhy-stat {
+          padding: 28px 26px 22px;
+          justify-content: space-between;
+          min-height: 220px;
+        }
+        .hwhy-stat-num {
+          font-size: clamp(40px, 5vw, 52px);
+          font-weight: 800;
+          margin: 0 0 8px;
+          line-height: 1;
+        }
+        .hwhy-stat-label {
+          font-size: 15px;
+          font-weight: 600;
+          margin: 0;
+          line-height: 1.4;
+        }
+        .hwhy-badge {
+          display: block;
+          text-align: center;
+          padding: 11px 14px;
+          border-radius: 10px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          margin-top: 18px;
+        }
+        .hwhy-badge-dark { background: #0B3654; color: #fff; }
+        .hwhy-badge-light { background: #fff; color: #0B3654; }
+
+        /* Quote cards (Students / Colleges / Companies) */
+        .hwhy-quote {
+          background: #EAF6FD;
+          padding: 32px 30px 26px;
+          justify-content: space-between;
+          min-height: 220px;
+        }
+        .hwhy-quote-text {
+          font-size: 15.5px;
+          line-height: 1.65;
+          color: #33424C;
+          font-weight: 500;
+          margin: 0 0 20px;
+        }
+        .hwhy-quote-footer {
           display: flex;
           align-items: center;
-          gap: 60px;
+          justify-content: space-between;
         }
-        .hw-left-content {
-          flex: 1;
-          min-width: 300px;
+        .hwhy-quote-footer h4 {
+          font-size: 22px;
+          font-weight: 800;
+          color: #0B3654;
+          margin: 0;
         }
-        .hw-right-content {
-          flex: 1.2;
-          display: flex;
+        .hwhy-quote-emoji {
+          font-size: 38px;
+          line-height: 1;
+        }
+
+        /* Banner card (See How TalentYug Works) */
+        .hwhy-banner {
+          background: #0B3654;
+          color: #fff;
+          padding: 28px 26px;
           justify-content: center;
-          align-items: center;
+          min-height: 220px;
         }
-        .hw-desc {
-          font-size: clamp(14px, 1.5vw, 16px);
-          color: #333;
-          line-height: 1.8;
-          margin: 40px 0 0;
-          text-align: justify;
+        .hwhy-banner h3 {
+          font-size: 24px;
+          font-weight: 800;
+          margin: 0 0 14px;
+          line-height: 1.25;
+        }
+        .hwhy-banner p {
+          font-size: 14.5px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.85);
+          margin: 0;
+        }
+
+        /* Work cards (AI-Powered / Prepare Apply / Hire Smarter) */
+        .hwhy-work {
+          padding: 28px 26px;
+          justify-content: space-between;
+          min-height: 220px;
+          text-decoration: none;
+        }
+        .hwhy-work h3 {
+          font-size: 19px;
+          font-weight: 800;
+          color: #0B3654;
+          margin: 0;
+          line-height: 1.3;
+        }
+        .hwhy-work-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 18px;
+        }
+        .hwhy-work-footer span {
+          font-size: 14px;
+          font-weight: 600;
+          color: #33424C;
+        }
+        .hwhy-arrow {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: transform 0.25s ease;
+        }
+        .hwhy-card:hover .hwhy-arrow {
+          transform: rotate(45deg);
         }
 
         @media (max-width: 960px) {
-          .hw-bottom-layout {
-            flex-direction: column;
-            text-align: center;
-            gap: 40px;
-          }
-          .hw-desc {
-            text-align: left;
-            margin-top: 30px;
-          }
+          .hwhy-grid { grid-template-columns: repeat(2, 1fr); }
+          .hwhy-span-1 { grid-column: span 1; }
+          .hwhy-span-2 { grid-column: span 2; }
         }
-        @media (max-width: 768px) {
-          .hw-problem-box { max-width: 100%; }
+        @media (max-width: 600px) {
+          .hwhy-grid { grid-template-columns: 1fr; }
+          .hwhy-span-1, .hwhy-span-2 { grid-column: span 1; }
         }
       `}</style>
 
-      {/* ── PART 1: Why Placements Fail ── */}
-      <div className="hw-top-wrap">
-        <h2 className="hw-title">Why Placements Fail In Tier 2/3 Colleges</h2>
-        <p className="hw-subtitle">A Broken System Hurting All Three Stakeholders</p>
+      <div className="hwhy-wrap">
+        <h2 className="hwhy-title">Why Placements Fail In Tier 2/3 Colleges</h2>
+        <p className="hwhy-subtitle">A Broken System Hurting All Three Stakeholders</p>
 
-        <div className="hw-problem-grid">
-          {PROBLEM_BOXES.map((box) => (
-            <div key={box.key} className="hw-problem-box">
-              <div className="hw-box-header">
-                {box.icon}
-                <h3>{box.label}</h3>
-              </div>
-              <ul className="hw-box-bullets">
-                {box.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
+        <div className="hwhy-grid">
+          {/* Row 1 */}
+          <div className="hwhy-card hwhy-stat hwhy-span-1" style={{ background: "#DCEEFA" }}>
+            <div>
+              <h3 className="hwhy-stat-num" style={{ color: "#0B3654" }}>50%</h3>
+              <p className="hwhy-stat-label" style={{ color: "#33424C" }}>
+                Graduates Left Unemployed Post-College
+              </p>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── PART 2: TalentYug – The Missing Infrastructure Layer ── */}
-      <div className="hw-bottom-wrap">
-        <div className="hw-bottom-layout">
-          {/* Left Text */}
-          <div className="hw-left-content">
-            <h2 className="hw-title">TalentYug – The Missing Infrastructure Layer</h2>
-            <p className="hw-subtitle" style={{ marginBottom: 0 }}>A Structured, End-To-End Placement Ecosystem</p>
-            <p className="hw-desc">
-              TalentYug Is Built As The Missing Placement Infrastructure That Brings Structure, Transparency, And Efficiency To Tier 2/3 College Hiring. By Centralizing Company Connections, Streamlining Coordination, And Enabling Data-Driven Decision-Making, It Replaces Fragmented Manual Processes With A Single, Reliable System. The Platform Ensures Smoother Placement Drives, Better Hiring Visibility, And Outcome-Focused Execution For Colleges, Companies, And Students Alike.
-            </p>
+            <span className="hwhy-badge hwhy-badge-dark">TALENT CRISIS</span>
           </div>
 
-          {/* Right Image */}
-          <div className="hw-right-content">
-            <Image
-              src="/home-img/landing/steps.png"
-              alt="TalentYug Placement Ecosystem Steps"
-              width={650}
-              height={450}
-              style={{
-                width: "100%",
-                maxWidth: 650,
-                height: "auto",
-                objectFit: "contain",
-                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.08))"
-              }}
-            />
+          <div className="hwhy-card hwhy-stat hwhy-span-1" style={{ background: "#4A8EA5" }}>
+            <div>
+              <h3 className="hwhy-stat-num" style={{ color: "#fff" }}>3X</h3>
+              <p className="hwhy-stat-label" style={{ color: "rgba(255,255,255,0.92)" }}>
+                More Time Spent On Manual Placement Work
+              </p>
+            </div>
+            <span className="hwhy-badge hwhy-badge-light">PROCESS GAP</span>
+          </div>
+
+          <div className="hwhy-card hwhy-quote hwhy-span-2">
+            <p className="hwhy-quote-text">
+              “Students Miss Opportunities Due To Zero Structured Preparation And Zero
+              Visibility. 50% Remain Unemployed Post-Graduation — Not For Lack Of Talent,
+              But Lack Of Guidance.”
+            </p>
+            <div className="hwhy-quote-footer">
+              <h4>Students</h4>
+              <span className="hwhy-quote-emoji">🧑‍🎓</span>
+            </div>
+          </div>
+
+          {/* Row 2 */}
+          <div className="hwhy-card hwhy-banner hwhy-span-1">
+            <h3>See How TalentYug Works</h3>
+            <p>Select Your Role To Explore</p>
+          </div>
+
+          {WORK_CARDS.map((card) => (
+            <Link
+              key={card.key}
+              href={card.href}
+              className="hwhy-card hwhy-work hwhy-span-1"
+              style={{ background: card.bg }}
+            >
+              <h3>{card.headline}</h3>
+              <div className="hwhy-work-footer">
+                <span>{card.label}</span>
+                <span className="hwhy-arrow" style={{ background: card.arrowBg }}>
+                  <ArrowUpRight size={18} color="#fff" strokeWidth={2.5} />
+                </span>
+              </div>
+            </Link>
+          ))}
+
+          {/* Row 3 */}
+          <div className="hwhy-card hwhy-quote hwhy-span-2">
+            <p className="hwhy-quote-text">
+              “Colleges Manage Placements Via WhatsApp And Excel. No Centralized
+              Tracking, No Clarity On Who Got Placed, And Weak Company Coordination.”
+            </p>
+            <div className="hwhy-quote-footer">
+              <h4>Colleges</h4>
+              <span className="hwhy-quote-emoji">🏫</span>
+            </div>
+          </div>
+
+          <div className="hwhy-card hwhy-quote hwhy-span-2">
+            <p className="hwhy-quote-text">
+              “Companies Receive Unstructured, Inconsistent Candidate Data. Hiring
+              Visibility Is Almost Zero, So They Silently Skip Tier-2 Colleges Altogether.”
+            </p>
+            <div className="hwhy-quote-footer">
+              <h4>Companies</h4>
+              <span className="hwhy-quote-emoji">🏢</span>
+            </div>
           </div>
         </div>
       </div>

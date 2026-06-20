@@ -33,4 +33,5 @@ export const KEYS = {
   SCAN_LOGS: "ty_scan_logs",
   SCANNER_SETTINGS: "ty_scanner_settings",
   QR_CODES: "ty_qr_codes",
+  CONTACT_QUERIES: "ty_contact_queries",
 } as const;

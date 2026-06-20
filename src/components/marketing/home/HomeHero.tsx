@@ -1,208 +1,425 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Link from "next/link";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-// Card images from original: l1–l4.webp with flow animation
-const CARDS = [
-  { src: "/home-img/landing/l1.webp", delay: "0s" },
-  { src: "/home-img/landing/l2.webp", delay: "2s" },
-  { src: "/home-img/landing/l3.webp", delay: "4s" },
-  { src: "/home-img/landing/l4.webp", delay: "6s" },
-];
+const HERO_PAD_TOP = 100;
+const HERO_PAD_BOTTOM = 24;
 
 export default function HomeHero() {
-  const headerRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [offset, setOffset] = useState(0);
 
-  useEffect(() => {
-    const el = document.querySelector("header") as HTMLElement | null;
-    headerRef.current = el;
-    const handleScroll = () => {
-      if (el) el.classList.toggle("scrolled", window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  useLayoutEffect(() => {
+    function recalc() {
+      const el = containerRef.current;
+      if (!el || window.innerWidth <= 1024) {
+        setScale(1);
+        setOffset(0);
+        return;
+      }
+      // offsetHeight (flow-box height) is the right measure of "real" content —
+      // the backdrop ellipse intentionally overflows it for ambient decoration
+      // and is fine to let clip via the section's overflow:hidden, same as it
+      // does at natural scale.
+      const availableHeight = window.innerHeight - (HERO_PAD_TOP + HERO_PAD_BOTTOM);
+      const availableWidth = window.innerWidth - 48; // matches hero-section's 24px side padding
+      const naturalHeight = el.offsetHeight;
+      const naturalWidth = el.offsetWidth;
+      const heightScale = naturalHeight > 0 ? availableHeight / naturalHeight : 1;
+      const widthScale = naturalWidth > 0 ? availableWidth / naturalWidth : 1;
+      // Fill the available height in both directions (shrink on short screens,
+      // grow on tall ones) so there's never dead space — but uniform scale also
+      // grows width, so cap by widthScale too or side cards clip off-screen.
+      const s = Math.min(1.25, heightScale, widthScale);
+      const visualHeight = naturalHeight * s;
+      setScale(s);
+      setOffset(Math.max(0, (availableHeight - visualHeight) / 2));
+    }
+    recalc();
+    window.addEventListener("resize", recalc);
+    return () => window.removeEventListener("resize", recalc);
   }, []);
 
   return (
     <>
       <style>{`
-        @keyframes flow {
-          0%   { opacity:0; transform:translateY(-120px) scale(0.9) rotate(0deg); z-index:5; }
-          20%  { opacity:1; transform:translateY(0px) scale(1) rotate(0deg); z-index:10; }
-          40%  { transform:translateY(10px) scale(0.98) rotate(2deg); }
-          70%  { opacity:0.7; transform:translateY(80px) scale(0.95) rotate(6deg); z-index:2; }
-          100% { opacity:0; transform:translateY(140px) scale(0.9) rotate(10deg); z-index:1; }
+        .hero-section {
+          background: #C4E5F5;
+          width: 100%;
+          position: relative;
+          overflow-x: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 140px 24px 80px 24px;
+          font-family: var(--font-geist-sans), Inter, sans-serif;
         }
-        @keyframes floatY {
-          0%,100% { transform:translateY(0px); }
-          50%     { transform:translateY(-10px); }
+
+        @media (min-width: 1025px) {
+          .hero-section {
+            height: 100vh;
+            overflow: hidden;
+            padding: ${HERO_PAD_TOP}px 24px ${HERO_PAD_BOTTOM}px 24px;
+          }
         }
-        .card-stack { animation: floatY 6s ease-in-out infinite; }
-        .flow-card  { animation: flow 8s infinite; }
-        .hero-glow::after {
-          content:"";
-          position:absolute;
-          right:0;
-          top:120px;
-          width:900px;
-          height:650px;
-          background:#2180A8;
-          filter:blur(100px);
-          opacity:0.2;
-          border-radius:50%;
-          z-index:0;
-          pointer-events:none;
+
+        .hero-container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          transform-origin: top center;
         }
-        .template-card { transition: transform 0.3s ease; }
-        .template-card:hover { transform: translateY(-8px); }
-        @media (max-width: 768px) {
-          .h-hero {
-            flex-direction: column !important;
-            height: auto !important;
-            min-height: unset !important;
-            padding: 100px 20px 60px !important;
+
+        .hero-headline {
+          font-size: clamp(34px, 4.8vw, 56px);
+          font-weight: 800;
+          color: #005070;
+          text-align: center;
+          line-height: 1.15;
+          max-width: 850px;
+          margin-bottom: 20px;
+          letter-spacing: -0.02em;
+          z-index: 10;
+        }
+
+        /* Center Illustration Area */
+        .hero-center-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 600px;
+          height: 480px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 10px;
+        }
+
+        .hero-backdrop-ellipse {
+          position: absolute;
+          width: 780px;
+          height: 780px;
+          top: 48%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+          pointer-events: none;
+        }
+
+        .hero-student-img {
+          position: absolute;
+          width: 320px;
+          height: 320px;
+          bottom: 35px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 2;
+        }
+
+        /* Glassmorphic buttons container */
+        .hero-glass-buttons {
+          position: absolute;
+          bottom: 15px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(255, 255, 255, 0.45);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1.5px solid rgba(255, 255, 255, 0.35);
+          padding: 8px 10px;
+          border-radius: 9999px;
+          display: flex;
+          gap: 10px;
+          z-index: 10;
+          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.08);
+          white-space: nowrap;
+        }
+
+        .hero-btn-primary {
+          background: #2180A8;
+          color: #ffffff;
+          border: none;
+          padding: 12px 28px;
+          border-radius: 9999px;
+          font-weight: 700;
+          font-size: 15px;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+        .hero-btn-primary:hover {
+          background: #196687;
+          transform: translateY(-1px);
+        }
+
+        .hero-btn-secondary {
+          background: transparent;
+          color: #005070;
+          border: 1.5px solid #005070;
+          padding: 11px 26px;
+          border-radius: 9999px;
+          font-weight: 700;
+          font-size: 15px;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+        .hero-btn-secondary:hover {
+          background: rgba(0, 80, 112, 0.08);
+          transform: translateY(-1px);
+        }
+
+        /* Left Side Absolute Content */
+        .hero-left-text {
+          position: absolute;
+          top: 220px;
+          left: 30px;
+          font-size: clamp(19px, 1.8vw, 24px);
+          font-weight: 600;
+          color: #005070;
+          line-height: 1.4;
+          max-width: 380px;
+          z-index: 10;
+        }
+
+        .hero-card-markets {
+          position: absolute;
+          bottom: 80px;
+          left: 30px;
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(33, 128, 168, 0.18);
+          border-radius: 16px;
+          padding: 16px 20px;
+          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.06);
+          min-width: 180px;
+          z-index: 10;
+        }
+
+        /* Right Side Absolute Content */
+        .hero-card-unemployed {
+          position: absolute;
+          top: 200px;
+          right: 30px;
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(33, 128, 168, 0.18);
+          border-radius: 16px;
+          padding: 16px 20px;
+          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.06);
+          min-width: 210px;
+          z-index: 10;
+        }
+
+        .hero-rating-block {
+          position: absolute;
+          bottom: 140px;
+          right: 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          z-index: 10;
+          align-items: flex-start;
+        }
+
+        .hero-stars {
+          display: flex;
+          gap: 4px;
+          align-items: center;
+        }
+
+        /* Stat typography */
+        .stat-num {
+          font-size: 22px;
+          font-weight: 850;
+          color: #005070;
+          margin: 0 0 2px 0;
+        }
+        .stat-label {
+          font-size: 13px;
+          font-weight: 600;
+          color: #477E95;
+          margin: 0;
+        }
+
+        /* Floating animations */
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes float-medium {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(8px); }
+        }
+        .animate-float-1 {
+          animation: float-slow 6s ease-in-out infinite;
+        }
+        .animate-float-2 {
+          animation: float-medium 7s ease-in-out infinite;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+          .hero-section {
+            padding-top: 140px;
+            min-height: auto;
+          }
+          .hero-container {
+            min-height: auto;
+          }
+          .hero-left-text {
+            position: static;
             text-align: center;
-            align-items: center !important;
-            gap: 32px !important;
+            margin: 20px 0;
+            max-width: 100%;
           }
-          .h-hero-right {
-            display: flex !important;
-            width: 100% !important;
-            max-width: 340px !important;
-            height: 260px !important;
-            margin: 0 auto !important;
-            margin-right: 0 !important;
-            order: 2;
+          .hero-card-markets, .hero-card-unemployed, .hero-rating-block {
+            position: static;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
           }
-          .h-hero-left {
-            max-width: 100% !important;
-            order: 1;
+          .hero-rating-block {
+            align-items: center;
           }
-          .h-stats { justify-content: center !important; gap: 24px !important; flex-wrap: wrap !important; }
-          .h-cta {
-            padding: 14px 40px !important;
-            margin-top: 28px !important;
-            margin-bottom: 16px !important;
-            font-size: 15px !important;
+          .hero-center-wrapper {
+            margin: 30px 0;
+            height: 380px;
           }
-          .hero-glow::after { display: none; }
+          .hero-backdrop-ellipse {
+            width: 520px;
+            height: 520px;
+          }
+          .hero-student-img {
+            width: 220px;
+            height: 220px;
+            bottom: 30px;
+          }
+          .hero-glass-buttons {
+            bottom: 10px;
+          }
         }
-        @media (max-width: 480px) {
-          .h-hero { padding: 90px 16px 50px !important; }
-          .h-hero-right { max-width: 280px !important; height: 210px !important; }
-          .h-cta { padding: 13px 32px !important; }
+
+        @media (max-width: 540px) {
+          .hero-center-wrapper {
+            height: 320px;
+          }
+          .hero-backdrop-ellipse {
+            width: 400px;
+            height: 400px;
+          }
+          .hero-student-img {
+            width: 185px;
+            height: 185px;
+            bottom: 25px;
+          }
+          .hero-glass-buttons {
+            padding: 8px;
+            gap: 8px;
+          }
+          .hero-btn-primary, .hero-btn-secondary {
+            padding: 10px 18px;
+            font-size: 13px;
+          }
         }
       `}</style>
 
-      <section
-        className="hero-glow h-hero relative flex justify-between items-center"
-        style={{
-          padding: "clamp(80px,6vw,80px) clamp(20px,6vw,80px)",
-          minHeight: "100vh",
-          background: "#ffffff",
-          gap: 40,
-        }}
-      >
-        {/* Left text */}
-        <div className="h-hero-left" style={{ maxWidth: 600, zIndex: 10 }}>
-          <h1
-            style={{
-              fontSize: "clamp(32px,4vw,52px)",
-              fontWeight: 700,
-              color: "#005070",
-              marginBottom: 20,
-              lineHeight: 1.15,
-              fontFamily: "Geist, Inter, sans-serif",
-            }}
-          >
-            Where Talent Meets Opportunity
-          </h1>
-          <p style={{ fontSize: "clamp(16px,2vw,26px)", color: "#555", marginTop: 20 }}>
-            Connecting students, colleges and companies through seamless campus
-            recruitment, QR check-ins, and real-time placement analytics.
-          </p>
-
-          <Link
-            href="/register"
-            className="h-cta"
-            style={{
-              display: "inline-block",
-              marginTop: 60,
-              marginBottom: 60,
-              padding: "16px 80px",
-              background: "#2180A8",
-              color: "#fff",
-              border: "none",
-              borderRadius: 30,
-              cursor: "pointer",
-              textDecoration: "none",
-              fontSize: 16,
-              fontWeight: 600,
-              transition: "all 0.3s ease",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.background = "#0c6e98";
-              (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.background = "#2180A8";
-              (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
-            }}
-          >
-            Get Started
-          </Link>
-
-          {/* Stats */}
-          <div className="h-stats" style={{ display: "flex", gap: 50, flexWrap: "wrap" }}>
-            {[
-              { val: "500+", label: "Colleges" },
-              { val: "10K+", label: "Students Placed" },
-              { val: "1200+", label: "Companies" },
-            ].map((s) => (
-              <div key={s.label}>
-                <h3 style={{ marginTop: 20, fontSize: 20, fontWeight: 700 }}>
-                  {s.val}
-                </h3>
-                <p style={{ fontSize: 15, marginTop: 5, color: "#555" }}>{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right — flowing card stack */}
+      <section className="hero-section">
         <div
-          className="h-hero-right"
-          style={{
-            position: "relative",
-            width: "clamp(280px,30vw,420px)",
-            height: "clamp(350px,40vw,520px)",
-            marginRight: "clamp(0px,3vw,50px)",
-            flexShrink: 0,
-            perspective: "1000px",
-            zIndex: 10,
-          }}
+          className="hero-container"
+          ref={containerRef}
+          style={{ transform: `scale(${scale})`, marginTop: offset }}
         >
-          <div className="card-stack" style={{ position: "relative", width: "100%", height: "100%" }}>
-            {CARDS.map((c, i) => (
+          {/* Centered Headline */}
+          <h1 className="hero-headline">
+            India’s Placement Infrastructure For Tier 2/3 Colleges
+          </h1>
+
+          {/* Left Side: Subtext Bullet List (styled as absolute text on desktop) */}
+          <div className="hero-left-text">
+            70% Placements | 5.5L Average
+            <br />
+            Salary | 7-Step Structured
+            <br />
+            Process
+          </div>
+
+          {/* Left Side: Markets floating card */}
+          <div className="hero-card-markets animate-float-1">
+            <h4 className="stat-num">500Cr+</h4>
+            <p className="stat-label">Markets</p>
+          </div>
+
+          {/* Center Illustration Area */}
+          <div className="hero-center-wrapper">
+            {/* Ellipse 78 Background */}
+            <div className="hero-backdrop-ellipse">
               <Image
-                key={c.src}
-                src={c.src}
-                alt={`Placement scene ${i + 1}`}
+                src="/home-img/landing/Ellipse 78.png"
+                alt="Blue backdrop circle"
                 fill
-                className="flow-card"
-                style={{
-                  objectFit: "cover",
-                  borderRadius: 25,
-                  boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
-                  animationDelay: c.delay,
-                  position: "absolute",
-                }}
-                sizes="420px"
-                priority={i === 0}
+                style={{ objectFit: "contain" }}
+                priority
               />
-            ))}
+            </div>
+
+            {/* Student Image */}
+            <div className="hero-student-img">
+              <Image
+                src="/home-img/landing/image.png"
+                alt="Student with laptop"
+                fill
+                style={{ objectFit: "contain" }}
+                priority
+              />
+            </div>
+
+            {/* Buttons inside Glass container */}
+            <div className="hero-glass-buttons">
+              <Link href="/register" className="hero-btn-primary">
+                Get Started
+              </Link>
+              <Link href="/about" className="hero-btn-secondary">
+                About Us
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Side: Unemployed floating card */}
+          <div className="hero-card-unemployed animate-float-2">
+            <h4 className="stat-num">1M+ Students</h4>
+            <p className="stat-label">Annual Unemployed</p>
+          </div>
+
+          {/* Right Side: Rating block */}
+          <div className="hero-rating-block">
+            <div className="hero-stars" style={{ marginBottom: 4 }}>
+              <Image
+                src="/home-img/landing/3.5 stars.png"
+                alt="3.5 stars"
+                width={110}
+                height={20}
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span style={{ fontSize: 18, fontWeight: 800, color: "#005070" }}>70%</span>
+              <span style={{ fontSize: 13, fontWeight: 650, color: "#477E95" }}>Success Rate</span>
+            </div>
           </div>
         </div>
       </section>
