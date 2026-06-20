@@ -4,24 +4,6 @@ import Image from "next/image";
 
 const FOUNDERS = [
   {
-    name: "Hridayanand Gupta",
-    role: "Co-Founder & Chief Technology Officer",
-    bio: "Leads product strategy with expertise in AI-powered matching, student-first placement systems, and data-driven outcomes.",
-    achievement:
-      "Designed and implemented the first AI-assisted placement workflow, helping improve placement readiness.",
-    contributions: [
-      "Built the core architecture of the placement platform",
-      "Developed the student tracking and company matching modules",
-      "Helped shape a scalable and outcome-focused placement system",
-    ],
-    focus: "Building transparent and effective pathways from campus to career.",
-    domainStrength:
-      "Strong understanding of Ed-Tech systems, campus recruitment workflows, and student outcome-focused product design.",
-    attributionLine1: "— Chief Technology Officer",
-    attributionLine2: "\u00A0TalentYug",
-    photo: "/images/founder-portrait.png",
-  },
-  {
     name: "Gautam Kumar",
     role: "Founder",
     bio: "Drives the vision and growth of TalentYug with a strong focus on transforming campus placements through strategic partnerships.",
@@ -44,7 +26,10 @@ const FOUNDERS = [
     attributionLine1: "— Founder",
     attributionLine2: "\u00A0TalentYug",
 
-    photo: "/images/founder-portrait-2.png",
+    photo: "/images/founder-gautam.jpeg",
+    photoPosition: "center top",
+    photoZoom: 1,
+    photoOrigin: "50% 50%",
   },
   {
     name: "Ritu Raj",
@@ -70,8 +55,34 @@ const FOUNDERS = [
     attributionLine1: "— Co-Founder & CEO",
     attributionLine2: "\u00A0TalentYug",
 
-    photo: "/images/founder-portrait-3.png",
+    photo: "/images/founder-ritu.jpeg",
+    photoPosition: "center top",
+    photoZoom: 1.1,
+    photoOrigin: "50% 35%",
   },
+  {
+    name: "Hridayanand Gupta",
+    role: "Co-Founder & Chief Technology Officer",
+    bio: "Leads product strategy with expertise in AI-powered matching, student-first placement systems, and data-driven outcomes.",
+    achievement:
+      "Designed and implemented the first AI-assisted placement workflow, helping improve placement readiness.",
+    contributions: [
+      "Built the core architecture of the placement platform",
+      "Developed the student tracking and company matching modules",
+      "Helped shape a scalable and outcome-focused placement system",
+    ],
+    focus: "Building transparent and effective pathways from campus to career.",
+    domainStrength:
+      "Strong understanding of Ed-Tech systems, campus recruitment workflows, and student outcome-focused product design.",
+    attributionLine1: "— Chief Technology Officer",
+    attributionLine2: "\u00A0TalentYug",
+    photo: "/images/founder-hridayanand.jpeg",
+    photoPosition: "center 22%",
+    photoZoom: 1.75,
+    photoOrigin: "50% 26%",
+  },
+
+
 ];
 
 export default function AboutFounder() {
@@ -206,61 +217,66 @@ export default function AboutFounder() {
         .abf-right {
           position: relative;
           display: flex;
-          align-items: stretch;
+          flex-direction: column;
           overflow: hidden;
-          min-height: 480px;
+          min-height: 560px;
+          padding: clamp(28px, 4vw, 44px) clamp(20px, 4vw, 40px) clamp(60px, 6vw, 78px);
         }
 
-        /* ── Quotes Wrapper (holds both commas side-by-side in front of the founder) ── */
+        /* ── Quotes Wrapper — decorative accent peeking from behind the photo card ── */
         .abf-quotes-wrapper {
           position: absolute;
-          right: clamp(2px, 8vw, 5px);
-          top: 69%;
-          transform: translateY(-40%);
+          left: clamp(10px, 4vw, 28px);
+          bottom: clamp(28px, 5vw, 48px);
           display: flex;
-          gap: clamp(12px, 2vw, 24px);
-          z-index: 6; /* Placed in front of the founder (z-index: 5) */
+          gap: clamp(8px, 1.4vw, 16px);
+          z-index: 4; /* behind the photo card (z-index: 5) */
           pointer-events: none;
         }
 
         .abf-quote-shape-1, .abf-quote-shape-2 {
-          width: clamp(110px, 15vw, 170px);
+          width: clamp(70px, 9vw, 110px);
           height: auto;
           display: block;
+          opacity: 0.85;
         }
 
-        /* ── Founder photo ── transparent PNG, sits behind commas */
+        /* ── Founder photo ── framed card, works with any real photo background */
         .abf-photo-wrap {
-          position: absolute;
-          bottom: 0;
-          /* Centre of right column, slightly left */
-          left: -15%;
-          right: 0;
+          position: relative;
+          flex: 1;
           display: flex;
-          align-items: flex-end;
+          align-items: center;
           justify-content: center;
           z-index: 5;
-          height: 100%;
-          pointer-events: none;
+          width: 100%;
+          min-height: 0;
+        }
+        .abf-photo-card {
+          position: relative;
+          width: clamp(230px, 27vw, 310px);
+          height: clamp(290px, 34vw, 390px);
+          border-radius: 26px;
+          overflow: hidden;
+          flex-shrink: 0;
+          box-shadow:
+            0 30px 55px rgba(4, 30, 55, 0.32),
+            0 0 0 5px rgba(255, 255, 255, 0.22);
         }
         .abf-photo {
           display: block;
-          height: clamp(400px, 105%, 620px);
-          width: auto;
-          object-fit: contain;
-          object-position: bottom center;
-          /* Subtle shadow so figure reads against background */
-          filter: drop-shadow(-6px 0 24px rgba(0, 50, 90, 0.18));
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
-        /* ── Name overlay — top-right corner of right column ── */
+        /* ── Name overlay — sits above the photo card, in normal flow so it can never overlap it ── */
         .abf-name-overlay {
-          position: absolute;
-          top: clamp(20px, 3.5vw, 42px);
-          right: clamp(14px, 2.5vw, 34px);
+          position: relative;
           z-index: 6;
           text-align: right;
-          max-width: 52%;
+          width: 100%;
+          min-height: clamp(48px, 6.5vw, 68px);
         }
         .abf-overlay-name {
           font-size: clamp(20px, 2.8vw, 40px);
@@ -319,10 +335,9 @@ export default function AboutFounder() {
         /* ── Responsive ── */
         @media (max-width: 860px) {
           .abf-inner { grid-template-columns: 1fr; min-height: auto; }
-          .abf-right { min-height: 380px; height: 380px; }
+          .abf-right { min-height: 380px; height: 380px; padding: 16px 16px 56px; }
           .abf-left { padding: 32px 20px 40px; min-height: 620px; justify-content: flex-start; }
-          .abf-name-overlay { top: 14px; right: 14px; }
-          .abf-quote-shape-1 { left: 22%; }
+          .abf-name-overlay { display: none; }
         }
       `}</style>
 
@@ -376,17 +391,23 @@ export default function AboutFounder() {
               <img src="/images/Vector (1).png" alt="" className="abf-quote-shape-2" />
             </div>
 
-            {/* Transparent founder photo — front layer */}
+            {/* Founder photo — framed card */}
             <div className="abf-photo-wrap">
-              <Image
-                src={f.photo}
-                alt={f.name}
-                width={480}
-                height={560}
-                className="abf-photo"
-                style={{ height: "100%", width: "auto" }}
-                priority
-              />
+              <div className="abf-photo-card">
+                <Image
+                  src={f.photo}
+                  alt={f.name}
+                  fill
+                  sizes="(max-width: 860px) 280px, 310px"
+                  className="abf-photo"
+                  style={{
+                    objectPosition: f.photoPosition,
+                    transform: `scale(${f.photoZoom})`,
+                    transformOrigin: f.photoOrigin,
+                  }}
+                  priority
+                />
+              </div>
             </div>
 
             {/* Navigation */}
