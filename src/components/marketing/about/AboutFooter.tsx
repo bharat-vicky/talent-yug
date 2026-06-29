@@ -42,36 +42,36 @@ export default function AboutFooter() {
 
             {/* Buildings — teal filled */}
             {/* Far background */}
-            <rect x="0"    y="120" width="60"  height="80"  fill="#35a1bf" opacity="0.8" />
-            <rect x="55"   y="100" width="50"  height="100" fill="#2d93b3" opacity="0.8" />
-            <rect x="100"  y="130" width="70"  height="70"  fill="#2382a4" opacity="0.8" />
-            <rect x="165"  y="90"  width="55"  height="110" fill="#2d93b3" opacity="0.85" />
-            <rect x="215"  y="115" width="80"  height="85"  fill="#35a1bf" opacity="0.8" />
-            <rect x="290"  y="75"  width="60"  height="125" fill="#2382a4" opacity="0.9" />
-            <rect x="345"  y="105" width="90"  height="95"  fill="#2d93b3" opacity="0.8" />
-            <rect x="430"  y="85"  width="50"  height="115" fill="#35a1bf" opacity="0.85" />
-            <rect x="475"  y="60"  width="70"  height="140" fill="#2382a4" opacity="0.9" />
-            <rect x="540"  y="95"  width="80"  height="105" fill="#2d93b3" opacity="0.8" />
-            <rect x="615"  y="70"  width="55"  height="130" fill="#35a1bf" opacity="0.85" />
-            <rect x="665"  y="40"  width="90"  height="160" fill="#2382a4" opacity="0.95" />
-            <rect x="750"  y="80"  width="65"  height="120" fill="#2d93b3" opacity="0.85" />
-            <rect x="810"  y="55"  width="75"  height="145" fill="#35a1bf" opacity="0.9" />
-            <rect x="880"  y="100" width="60"  height="100" fill="#2382a4" opacity="0.8" />
-            <rect x="935"  y="70"  width="80"  height="130" fill="#2d93b3" opacity="0.85" />
-            <rect x="1010" y="90"  width="55"  height="110" fill="#35a1bf" opacity="0.8" />
-            <rect x="1060" y="50"  width="85"  height="150" fill="#2382a4" opacity="0.9" />
-            <rect x="1140" y="85"  width="60"  height="115" fill="#2d93b3" opacity="0.85" />
-            <rect x="1195" y="110" width="75"  height="90"  fill="#35a1bf" opacity="0.8" />
-            <rect x="1265" y="75"  width="70"  height="125" fill="#2382a4" opacity="0.85" />
-            <rect x="1330" y="95"  width="55"  height="105" fill="#2d93b3" opacity="0.8" />
-            <rect x="1380" y="60"  width="60"  height="140" fill="#35a1bf" opacity="0.85" />
+            <rect x="0" y="120" width="60" height="80" fill="#35a1bf" opacity="0.8" />
+            <rect x="55" y="100" width="50" height="100" fill="#2d93b3" opacity="0.8" />
+            <rect x="100" y="130" width="70" height="70" fill="#2382a4" opacity="0.8" />
+            <rect x="165" y="90" width="55" height="110" fill="#2d93b3" opacity="0.85" />
+            <rect x="215" y="115" width="80" height="85" fill="#35a1bf" opacity="0.8" />
+            <rect x="290" y="75" width="60" height="125" fill="#2382a4" opacity="0.9" />
+            <rect x="345" y="105" width="90" height="95" fill="#2d93b3" opacity="0.8" />
+            <rect x="430" y="85" width="50" height="115" fill="#35a1bf" opacity="0.85" />
+            <rect x="475" y="60" width="70" height="140" fill="#2382a4" opacity="0.9" />
+            <rect x="540" y="95" width="80" height="105" fill="#2d93b3" opacity="0.8" />
+            <rect x="615" y="70" width="55" height="130" fill="#35a1bf" opacity="0.85" />
+            <rect x="665" y="40" width="90" height="160" fill="#2382a4" opacity="0.95" />
+            <rect x="750" y="80" width="65" height="120" fill="#2d93b3" opacity="0.85" />
+            <rect x="810" y="55" width="75" height="145" fill="#35a1bf" opacity="0.9" />
+            <rect x="880" y="100" width="60" height="100" fill="#2382a4" opacity="0.8" />
+            <rect x="935" y="70" width="80" height="130" fill="#2d93b3" opacity="0.85" />
+            <rect x="1010" y="90" width="55" height="110" fill="#35a1bf" opacity="0.8" />
+            <rect x="1060" y="50" width="85" height="150" fill="#2382a4" opacity="0.9" />
+            <rect x="1140" y="85" width="60" height="115" fill="#2d93b3" opacity="0.85" />
+            <rect x="1195" y="110" width="75" height="90" fill="#35a1bf" opacity="0.8" />
+            <rect x="1265" y="75" width="70" height="125" fill="#2382a4" opacity="0.85" />
+            <rect x="1330" y="95" width="55" height="105" fill="#2d93b3" opacity="0.8" />
+            <rect x="1380" y="60" width="60" height="140" fill="#35a1bf" opacity="0.85" />
 
             {/* Windows */}
             {[
-              [480,70],[490,70],[480,82],[490,82],[480,94],[490,94],
-              [670,52],[680,52],[670,64],[680,64],[670,76],[680,76],
-              [815,65],[825,65],[815,77],[825,77],[815,89],[825,89],
-              [1065,60],[1075,60],[1065,72],[1075,72],[1065,84],[1075,84],
+              [480, 70], [490, 70], [480, 82], [490, 82], [480, 94], [490, 94],
+              [670, 52], [680, 52], [670, 64], [680, 64], [670, 76], [680, 76],
+              [815, 65], [825, 65], [815, 77], [825, 77], [815, 89], [825, 89],
+              [1065, 60], [1075, 60], [1065, 72], [1075, 72], [1065, 84], [1075, 84],
             ].map(([x, y], i) => (
               <rect key={i} x={x} y={y} width="6" height="8" rx="1" fill="#93c5fd" opacity="0.7" />
             ))}
@@ -193,8 +193,8 @@ export default function AboutFooter() {
               </h3>
               <p style={{ fontSize: 16, color: "#ffffff", margin: 0 }}>
                 Call{" "}
-                <a href="tel:+919876543210" style={{ color: "#ffffff", textDecoration: "none" }}>
-                  +91 9876543210
+                <a href="tel:+918210597576" style={{ color: "#ffffff", textDecoration: "none" }}>
+                  +91 8210597576
                 </a>
               </p>
               <p style={{ fontSize: 16, color: "#ffffff", margin: 0 }}>

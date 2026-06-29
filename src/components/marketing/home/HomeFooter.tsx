@@ -250,8 +250,8 @@ export default function HomeFooter() {
             <h2>Be Part Of The Change</h2>
             <p>Join The Movement To Fix Campus Hiring For Tier 2/3 Colleges.</p>
 
-            <a href="tel:+919876543210" className="hf-contact-row">
-              <Phone size={18} /> +91 9876543210
+            <a href="tel:+918210597576" className="hf-contact-row">
+              <Phone size={18} /> +91 8210597576
             </a>
             <a href="mailto:connect@talentyug.in" className="hf-contact-row">
               <Mail size={18} /> connect@talentyug.in
