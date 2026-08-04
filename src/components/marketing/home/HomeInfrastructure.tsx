@@ -153,6 +153,17 @@ export default function HomeInfrastructure() {
           .hi-step-label { width: 95px; }
           .hi-quote-mark { width: 32px; height: 32px; }
         }
+        .hi-steps-mobile {
+          display: none;
+          flex-direction: column;
+          gap: 24px;
+          width: 100%;
+          padding: 10px 0;
+        }
+        @media (max-width: 768px) {
+          .hi-steps-graphic { display: none !important; }
+          .hi-steps-mobile { display: flex !important; }
+        }
       `}</style>
 
       <div className="hi-wrap">
@@ -203,6 +214,55 @@ export default function HomeInfrastructure() {
                 >
                   <h4>{s.title}</h4>
                   <p>{s.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile Vertical Timeline */}
+            <div className="hi-steps-mobile">
+              {STEPS.map((s, index) => (
+                <div key={s.n} style={{ display: "flex", gap: 16, alignItems: "flex-start", position: "relative" }}>
+                  {index < STEPS.length - 1 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 17,
+                        top: 36,
+                        bottom: -24,
+                        width: 2,
+                        background: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    />
+                  )}
+
+                  <div
+                    style={{
+                      width: 34,
+                      height: 34,
+                      borderRadius: "50%",
+                      border: `2px solid ${s.color}`,
+                      background: "#0B3654",
+                      color: s.color,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 13,
+                      fontWeight: 800,
+                      flexShrink: 0,
+                      zIndex: 1,
+                    }}
+                  >
+                    {s.n}
+                  </div>
+
+                  <div style={{ paddingTop: 3 }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: 800, color: "#fff", margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+                      {s.title}
+                    </h4>
+                    <p style={{ fontSize: "12.5px", fontWeight: 500, color: "rgba(255,255,255,0.7)", margin: 0, lineHeight: 1.4 }}>
+                      {s.sub}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
