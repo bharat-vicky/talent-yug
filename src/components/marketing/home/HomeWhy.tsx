@@ -191,6 +191,66 @@ export default function HomeWhy() {
           transform: rotate(45deg);
         }
 
+        @media (min-width: 1025px) {
+          .hwhy-wrap {
+            padding: 40px 20px 50px;
+          }
+          .hwhy-subtitle {
+            margin: 0 0 24px;
+          }
+          .hwhy-grid {
+            gap: 20px;
+          }
+          .hwhy-stat {
+            padding: 20px 20px 16px;
+            min-height: 165px;
+          }
+          .hwhy-stat-num {
+            font-size: 44px;
+          }
+          .hwhy-badge {
+            margin-top: 10px;
+            padding: 8px 14px;
+          }
+          .hwhy-quote {
+            padding: 22px 24px 18px;
+            min-height: 165px;
+          }
+          .hwhy-quote-text {
+            font-size: 14.5px;
+            line-height: 1.5;
+            margin: 0 0 12px;
+          }
+          .hwhy-quote-footer h4 {
+            font-size: 19px;
+          }
+          .hwhy-quote-emoji {
+            font-size: 32px;
+          }
+          .hwhy-banner {
+            padding: 20px 20px;
+            min-height: 165px;
+          }
+          .hwhy-banner h3 {
+            font-size: 20px;
+            margin: 0 0 8px;
+          }
+          .hwhy-work {
+            padding: 20px 20px;
+            min-height: 165px;
+          }
+          .hwhy-work h3 {
+            font-size: 17px;
+          }
+          .hwhy-work-footer {
+            margin-top: 10px;
+          }
+          .hwhy-arrow {
+            width: 32px;
+            height: 32px;
+          }
+        }
+
         @media (max-width: 960px) {
           .hwhy-grid { grid-template-columns: repeat(2, 1fr); }
           .hwhy-span-1 { grid-column: span 1; }

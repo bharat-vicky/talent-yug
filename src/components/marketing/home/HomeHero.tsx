@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const HERO_PAD_TOP = 100;
+const HERO_PAD_TOP = 160;
 const HERO_PAD_BOTTOM = 24;
 
 export default function HomeHero() {
@@ -86,7 +86,7 @@ export default function HomeHero() {
           text-align: center;
           line-height: 1.15;
           max-width: 850px;
-          margin-bottom: 20px;
+          margin-bottom: 50px;
           letter-spacing: -0.02em;
           z-index: 10;
         }
@@ -105,9 +105,9 @@ export default function HomeHero() {
 
         .hero-backdrop-ellipse {
           position: absolute;
-          width: 780px;
-          height: 780px;
-          top: 48%;
+          width: 720px;
+          height: 720px;
+          top: 58%;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 1;
@@ -192,8 +192,8 @@ export default function HomeHero() {
 
         .hero-card-markets {
           position: absolute;
-          bottom: 80px;
-          left: 30px;
+          bottom: 120px;
+          left: -20px;
           background: rgba(255, 255, 255, 0.7);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
@@ -349,19 +349,12 @@ export default function HomeHero() {
             India’s Placement Infrastructure For Tier 2/3 Colleges
           </h1>
 
-          {/* Left Side: Subtext Bullet List (styled as absolute text on desktop) */}
-          <div className="hero-left-text">
-            70% Placements | 5.5L Average
-            <br />
-            Salary | 7-Step Structured
-            <br />
-            Process
-          </div>
+
 
           {/* Left Side: Markets floating card */}
           <div className="hero-card-markets animate-float-1">
-            <h4 className="stat-num">500Cr+</h4>
-            <p className="stat-label">Markets</p>
+            <h4 className="stat-num">70%</h4>
+            <p className="stat-label">Success Rate</p>
           </div>
 
           {/* Center Illustration Area */}
@@ -393,9 +386,6 @@ export default function HomeHero() {
               <Link href="/register" className="hero-btn-primary">
                 Get Started
               </Link>
-              <Link href="/about" className="hero-btn-secondary">
-                About Us
-              </Link>
             </div>
           </div>
 
@@ -405,22 +395,7 @@ export default function HomeHero() {
             <p className="stat-label">Annual Unemployed</p>
           </div>
 
-          {/* Right Side: Rating block */}
-          <div className="hero-rating-block">
-            <div className="hero-stars" style={{ marginBottom: 4 }}>
-              <Image
-                src="/home-img/landing/3.5 stars.png"
-                alt="3.5 stars"
-                width={110}
-                height={20}
-                style={{ objectFit: "contain" }}
-              />
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 18, fontWeight: 800, color: "#005070" }}>70%</span>
-              <span style={{ fontSize: 13, fontWeight: 650, color: "#477E95" }}>Success Rate</span>
-            </div>
-          </div>
+
         </div>
       </section>
     </>

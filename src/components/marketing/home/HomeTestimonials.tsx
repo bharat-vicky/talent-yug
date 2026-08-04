@@ -5,28 +5,28 @@ import Image from "next/image";
 
 const TESTIMONIALS = [
   {
-    img: "/home-img/testimonials/U1.webp",
-    name: "Priya Sharma",
-    role: "HR Manager",
-    text: "Hiring from Tier 2/3 colleges used to be chaotic. TalentYug helped us shortlist better candidates, manage drives smoothly, and close offers faster.",
+    img: "/home-img/testimonials/t1.jpg",
+    name: "Aditya Sharma",
+    role: "Student Feedback",
+    text: "TalentYug made the placement process much clearer and easier to follow. The training, guidance, and interview support helped me feel more prepared and confident.",
   },
   {
-    img: "/home-img/testimonials/U2.webp",
-    name: "Rahul Verma",
-    role: "Final Year Student (B.Tech)",
-    text: "The mock interviews and clear application tracking boosted my confidence. I knew exactly where I stood in every hiring process.",
+    img: "/home-img/testimonials/t2.jpg",
+    name: "Rohan Gupta",
+    role: "College Feedback ( IIT Patna )",
+    text: "TalentYug brought structure and coordination to our placement process. Their team helped us manage drives more efficiently and improved our overall hiring visibility.",
   },
   {
-    img: "/home-img/testimonials/U3.webp",
-    name: "Vikram Nair",
-    role: "Final Year · IIT Patna",
-    text: "The QR pass made check-in super smooth. I didn't have to wait in long queues at all!",
+    img: "/home-img/testimonials/t3.jpg",
+    name: "Vikram Malhotra",
+    role: "Student Feedback",
+    text: "TalentYug made the placement process much clearer and easier to follow. The training, guidance, and interview support helped me feel more prepared and confident.",
   },
   {
-    img: "/home-img/testimonials/U1.webp",
-    name: "Anjali Verma",
-    role: "Final Year · IIT Patna",
-    text: "We hired 300 engineers across 20 campuses in one season using TalentYug. Scale and quality — unmatched.",
+    img: "/home-img/testimonials/t4.jpg",
+    name: "Anjali Deshmukh",
+    role: "College Feedback ( IIT Patna )",
+    text: "TalentYug brought structure and coordination to our placement process. Their team helped us manage drives more efficiently and improved our overall hiring visibility.",
   },
 ];
 

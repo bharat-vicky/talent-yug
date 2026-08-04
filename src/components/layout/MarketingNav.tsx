@@ -48,13 +48,6 @@ const DEFAULT_LINKS = [
   { href: "/students", label: "Students" },
   { href: "/colleges", label: "Colleges" },
   { href: "/companies", label: "Companies" },
-  { href: "/about", label: "About" },
-];
-
-const SCROLLED_HOME_LINKS = [
-  { href: "#why-placements-fail", label: "Features" },
-  { href: "/colleges#pricing", label: "Price Plan" },
-  { href: "#testimonials", label: "Testimonials" },
 ];
 
 export default function MarketingNav() {
@@ -63,8 +56,7 @@ export default function MarketingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = PAGE_THEMES[pathname] ?? PAGE_THEMES["/"];
-  const isHomePage = pathname === "/";
-  const links = (isHomePage && scrolled) ? SCROLLED_HOME_LINKS : DEFAULT_LINKS;
+  const links = DEFAULT_LINKS;
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -91,26 +83,26 @@ export default function MarketingNav() {
           white-space: nowrap;
           background: transparent;
           border-radius: 20px;
-          cursor: pointer;
+          cursor: not-allowed;
           font-weight: 600;
           font-size: 15px;
           text-decoration: none;
           transition: all 0.2s;
+          opacity: 0.6;
         }
-        .ty-login-btn:hover { opacity: 0.8; transform: translateY(-1px); }
         .ty-register-btn {
           padding: 10px 28px;
           white-space: nowrap;
           color: #fff;
           border: none;
           border-radius: 20px;
-          cursor: pointer;
+          cursor: not-allowed;
           font-weight: 600;
           font-size: 15px;
           text-decoration: none;
           transition: all 0.2s;
+          opacity: 0.6;
         }
-        .ty-register-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
         .ty-hamburger {
           display: none;
           flex-direction: column;
@@ -181,20 +173,22 @@ export default function MarketingNav() {
             ))}
           </nav>
 
-          <Link
-            href="/login"
+          <button
             className="ty-login-btn"
             style={{ border: "1.5px solid #2180A8", color: "#2180A8" }}
+            onClick={(e) => e.preventDefault()}
+            disabled
           >
             Login
-          </Link>
-          <Link
-            href="/register"
+          </button>
+          <button
             className="ty-register-btn"
             style={{ background: "#2180A8" }}
+            onClick={(e) => e.preventDefault()}
+            disabled
           >
             Register
-          </Link>
+          </button>
         </div>
 
         {/* Hamburger */}
@@ -249,10 +243,10 @@ export default function MarketingNav() {
         </nav>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 24 }}>
-          <Link
-            href="/login"
+          <button
             style={{
               display: "block",
+              width: "100%",
               textAlign: "center",
               padding: "12px 0",
               border: "1.5px solid #2180A8",
@@ -261,26 +255,36 @@ export default function MarketingNav() {
               color: "#2180A8",
               fontWeight: 600,
               fontSize: 16,
+              opacity: 0.6,
+              cursor: "not-allowed",
+              background: "transparent",
             }}
+            onClick={(e) => e.preventDefault()}
+            disabled
           >
             Login
-          </Link>
-          <Link
-            href="/register"
+          </button>
+          <button
             style={{
               display: "block",
+              width: "100%",
               textAlign: "center",
               padding: "12px 0",
               background: "#2180A8",
+              border: "none",
               borderRadius: "20px",
               textDecoration: "none",
               color: "#fff",
               fontWeight: 600,
               fontSize: 16,
+              opacity: 0.6,
+              cursor: "not-allowed",
             }}
+            onClick={(e) => e.preventDefault()}
+            disabled
           >
             Register
-          </Link>
+          </button>
         </div>
       </div>
     </>

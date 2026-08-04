@@ -11,13 +11,13 @@ interface Step {
 }
 
 const STEPS: Step[] = [
-  { n: "01", title: "Company Connection", sub: "Connect Verified Companies With Colleges", x: 60, y: 200, pos: "below", color: "#F2A93B" },
-  { n: "02", title: "HR Coordination", sub: "Single-Point HR Communication", x: 205, y: 140, pos: "above", color: "#E0B341" },
-  { n: "03", title: "Data Filtering", sub: "Skill & Eligibility-Based Shortlisting", x: 350, y: 230, pos: "below", color: "#9CC25A" },
-  { n: "04", title: "Drive Management", sub: "End-To-End Drive Planning & Execution", x: 495, y: 300, pos: "below", color: "#4FB286" },
-  { n: "05", title: "Mock Interviews", sub: "Interview Readiness & Feedback", x: 640, y: 190, pos: "above", color: "#3AA9A0" },
-  { n: "06", title: "Pre-Placement Talks", sub: "Role Clarity & Company Insights", x: 785, y: 110, pos: "above", color: "#2DA0C2" },
-  { n: "07", title: "Offer Tracking", sub: "Offer Status & Final Outcomes", x: 930, y: 50, pos: "above", color: "#2492C9" },
+  { n: "01", title: "Filtration Aptitude Test", sub: "Cognitive & Skill Screening", x: 60, y: 200, pos: "below", color: "#F2A93B" },
+  { n: "02", title: "Student Training", sub: "Placement Readiness Programs", x: 205, y: 140, pos: "above", color: "#E0B341" },
+  { n: "03", title: "Assessment", sub: "Technical & Domain Testing", x: 350, y: 230, pos: "below", color: "#9CC25A" },
+  { n: "04", title: "Company Invitation", sub: "Connecting Top Recruiters", x: 495, y: 300, pos: "below", color: "#4FB286" },
+  { n: "05", title: "HR & Logistics Management", sub: "Seamless Drive Operations", x: 640, y: 190, pos: "above", color: "#3AA9A0" },
+  { n: "06", title: "Campus Drive (Internship & Placement)", sub: "On-Campus Hiring Events", x: 785, y: 110, pos: "above", color: "#2DA0C2" },
+  { n: "07", title: "College Marketing", sub: "Promoting Success & Branding", x: 930, y: 50, pos: "above", color: "#2492C9" },
 ];
 
 const VB_W = 1000;

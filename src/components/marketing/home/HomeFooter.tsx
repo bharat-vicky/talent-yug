@@ -31,7 +31,6 @@ const FOOTER_COLUMNS = [
       { label: "For Colleges", href: "/colleges" },
       { label: "For Companies", href: "/companies" },
       { label: "For Students", href: "/students" },
-      { label: "About Us", href: "/about" },
     ],
   },
   {
@@ -81,7 +80,7 @@ export default function HomeFooter() {
       <style>{`
         .hf-cta-section {
           background: linear-gradient(180deg, #F1FAFE 0%, #E2F1FB 100%);
-          padding: 90px 20px 0;
+          padding: 90px 0 0;
         }
         .hf-cta-inner {
           max-width: 1300px;
@@ -90,7 +89,7 @@ export default function HomeFooter() {
           grid-template-columns: 1fr 1fr;
           gap: 60px;
           align-items: center;
-          padding-bottom: 70px;
+          padding: 0 20px 70px;
         }
         .hf-cta-left h2 {
           font-size: clamp(30px, 4vw, 44px);
