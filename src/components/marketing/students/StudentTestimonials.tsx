@@ -1,162 +1,489 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
-const TESTIMONIALS = [
+interface Review {
+  id: number;
+  text: string;
+  name: string;
+  role: string;
+  avatar: string;
+}
+
+const REVIEWS: Review[] = [
   {
-    img: "/student-img/testimonials/s2.jpeg",
+    id: 1,
+    text: "Hiring from Tier 2/3 colleges used to be chaotic. TalentYug helped us shortlist better candidates, manage drives smoothly, and close offers faster.",
+    name: "Priya Sharma",
+    role: "HR Manager",
+    avatar: "/student-img/testimonials/priya.png",
+  },
+  {
+    id: 2,
+    text: "The mock interviews and clear application tracking boosted my confidence. I knew exactly where I stood in every hiring process.",
+    name: "Rahul Verma",
+    role: "Final Year Student (B.Tech)",
+    avatar: "/student-img/testimonials/rahul.png",
+  },
+  {
+    id: 3,
+    text: "TalentYug brought structure and transparency to our placement process. From company coordination to offer tracking, everything is now centralized and efficient.",
+    name: "Dr. Anil Kumar",
+    role: "Training & Placement Officer",
+    avatar: "/student-img/testimonials/anil.png",
+  },
+  {
+    id: 4,
+    text: "Getting my QR pass was instant. Walked in, scanned at the registration desk, and was into the first round within five minutes without paper queues.",
     name: "Ananya Kapoor",
-    role: "Software Engineer · Google",
-    text: "I got placed through a TalentYug campus drive. Registration to QR check-in — the whole experience was seamless.",
+    role: "Software Development Engineer",
+    avatar: "/student-img/testimonials/s2.jpeg",
   },
   {
-    img: "/student-img/testimonials/U2.webp",
+    id: 5,
+    text: "The real-time status notifications were a game changer. I never had to wonder if my application was viewed or when the next interview round would start.",
     name: "Karan Singh",
-    role: "Data Analyst · Flipkart",
-    text: "The real-time status updates were a game changer. I always knew where I stood in the process.",
+    role: "Associate Data Analyst",
+    avatar: "/student-img/testimonials/U1.webp",
   },
   {
-    img: "/student-img/testimonials/U3.webp",
+    id: 6,
+    text: "Practice test modules matched the exact assessment pattern of visiting tech firms. Cleared the coding round and secured my dream placement offer.",
     name: "Deepika Nair",
-    role: "Product Manager · Razorpay",
-    text: "No more manual queues or lost attendance sheets. TalentYug just works.",
-  },
-  {
-    img: "/student-img/testimonials/U1.webp",
-    name: "Arjun Patel",
-    role: "Backend Developer · Zepto",
-    text: "Getting my QR pass was instant. Walked in, scanned, and was in the interview room within minutes.",
+    role: "Cloud Support Associate",
+    avatar: "/student-img/testimonials/U3.webp",
   },
 ];
 
 export default function StudentTestimonials() {
-  const [page, setPage] = useState(0);
-  const perPage = 2;
-  const totalPages = Math.ceil(TESTIMONIALS.length / perPage);
-  const visible = TESTIMONIALS.slice(page * perPage, page * perPage + perPage);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const total = REVIEWS.length;
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % total);
+  }, [total]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + total) % total);
+  }, [total]);
+
+  useEffect(() => {
+    if (!isPaused) {
+      timeoutRef.current = setTimeout(() => {
+        nextSlide();
+      }, 4500);
+    }
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [currentIndex, isPaused, nextSlide]);
 
   return (
-    <section
-      style={{
-        padding: "clamp(60px,8vw,160px) 0",
-        background: "#FEF2F2",
-        position: "relative",
-        zIndex: 11,
-      }}
-    >
+    <>
       <style>{`
-        @media (max-width: 1024px) {
-          .st-inner { gap: 40px !important; }
+        .srev-section {
+          position: relative;
+          background: #ffffff;
+          padding: 90px 24px 130px;
+          overflow: hidden;
         }
-        @media (max-width: 768px) {
-          .st-header { margin-bottom: 50px !important; }
-          .st-inner { gap: 30px !important; flex-direction: column !important; }
-          .st-left { max-width: 100% !important; }
-          .st-card-wrap { min-width: unset !important; width: 100% !important; }
+
+        .srev-container {
+          max-width: 1220px;
+          margin: 0 auto;
+        }
+
+        /* Top Header */
+        .srev-header {
+          text-align: center;
+          margin-bottom: 60px;
+        }
+
+        .srev-subheading {
+          font-size: clamp(26px, 3.2vw, 34px);
+          font-weight: 500;
+          color: #71717a;
+          margin: 0 0 6px;
+          letter-spacing: -0.01em;
+        }
+
+        .srev-heading {
+          font-size: clamp(34px, 4.4vw, 48px);
+          font-weight: 600;
+          color: #000000;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          margin: 0 0 16px;
+        }
+
+        .srev-heading span {
+          font-weight: 850;
+        }
+
+        .srev-rating-row {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 6px;
+        }
+
+        .srev-score {
+          font-size: 19px;
+          font-weight: 750;
+          color: #1e293b;
+        }
+
+        .srev-badge-img {
+          display: inline-block;
+          vertical-align: middle;
+          animation: badgeWiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes badgeWiggle {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-5deg); }
+          75% { transform: rotate(5deg); }
+        }
+
+        .srev-reviews-count {
+          font-size: 16px;
+          font-weight: 500;
+          color: #64748b;
+        }
+
+        /* Body Layout */
+        .srev-body {
+          display: flex;
+          align-items: flex-start;
+          gap: 40px;
+          position: relative;
+        }
+
+        /* Left Side */
+        .srev-left {
+          flex: 0 0 200px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-top: 10px;
+        }
+
+        .srev-quote-icon {
+          width: 88px;
+          height: auto;
+          margin-bottom: 24px;
+          animation: quoteFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes quoteFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-7px); }
+        }
+
+        .srev-left-text {
+          font-size: 21px;
+          font-weight: 700;
+          color: #000000;
+          line-height: 1.25;
+          margin: 0 0 32px;
+          letter-spacing: -0.01em;
+        }
+
+        /* Pagination & Arrow */
+        .srev-nav-wrap {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          user-select: none;
+        }
+
+        .srev-current-idx {
+          font-size: 28px;
+          font-weight: 850;
+          color: #000000;
+          line-height: 1;
+        }
+
+        .srev-total-idx {
+          font-size: 16px;
+          font-weight: 600;
+          color: #64748b;
+          line-height: 1;
+          margin-right: 6px;
+        }
+
+        .srev-arrow-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border: none;
+          font-size: 26px;
+          font-weight: 700;
+          color: #000000;
+          cursor: pointer;
+          padding: 2px 8px;
+          line-height: 1;
+          border-radius: 8px;
+          transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .srev-arrow-btn:hover {
+          color: #2280a8;
+          transform: translateX(4px);
+        }
+
+        .srev-arrow-btn-prev {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border: none;
+          font-size: 26px;
+          font-weight: 700;
+          color: #94a3b8;
+          cursor: pointer;
+          padding: 2px 4px;
+          line-height: 1;
+          border-radius: 8px;
+          transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .srev-arrow-btn-prev:hover {
+          color: #2280a8;
+          transform: translateX(-4px);
+        }
+
+        /* Carousel Track Area */
+        .srev-carousel-container {
+          flex: 1;
+          overflow: hidden;
+          padding: 8px 4px 24px;
+        }
+
+        .srev-track {
+          display: flex;
+          gap: 24px;
+          transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+          will-change: transform;
+        }
+
+        .srev-card-item {
+          flex: 0 0 calc((100% - 48px) / 3);
+          min-width: 270px;
+          max-width: 320px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Review Bubble */
+        .srev-bubble {
+          background: #ffffff;
+          border-radius: 22px;
+          border: 1.5px solid #e8eef3;
+          box-shadow: 0 6px 20px rgba(0, 40, 70, 0.05);
+          padding: 24px 22px;
+          min-height: 168px;
+          display: flex;
+          align-items: flex-start;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .srev-bubble:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 28px rgba(0, 40, 70, 0.09);
+          border-color: #cbd5e1;
+        }
+
+        .srev-text {
+          font-size: 13.5px;
+          line-height: 1.55;
+          color: #1e293b;
+          margin: 0;
+          font-weight: 450;
+        }
+
+        /* Author Info */
+        .srev-author {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin-top: 18px;
+          padding-left: 6px;
+        }
+
+        .srev-avatar {
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          object-fit: cover;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          border: 2px solid #ffffff;
+          flex-shrink: 0;
+          transition: transform 0.25s ease;
+        }
+
+        .srev-author:hover .srev-avatar {
+          transform: scale(1.08);
+        }
+
+        .srev-name {
+          font-size: 15.5px;
+          font-weight: 750;
+          color: #000000;
+          margin: 0 0 2px;
+          letter-spacing: -0.01em;
+        }
+
+        .srev-role {
+          font-size: 12.5px;
+          font-weight: 500;
+          color: #64748b;
+          margin: 0;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1040px) {
+          .srev-card-item {
+            flex: 0 0 calc((100% - 24px) / 2);
+            max-width: 340px;
+          }
+        }
+
+        @media (max-width: 820px) {
+          .srev-body {
+            flex-direction: column;
+            gap: 36px;
+          }
+
+          .srev-left {
+            flex: none;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0;
+          }
+
+          .srev-quote-icon {
+            display: none;
+          }
+
+          .srev-left-text {
+            margin: 0;
+            font-size: 24px;
+          }
+
+          .srev-card-item {
+            flex: 0 0 100%;
+            max-width: 100%;
+          }
         }
       `}</style>
-      {/* Header */}
-      <div className="st-header" style={{ textAlign: "center", marginBottom: 100, padding: "0 20px" }}>
-        <p style={{ fontSize: 28, color: "#666" }}>Student Stories</p>
-        <h2 style={{ fontSize: "clamp(28px,4vw,48px)", fontWeight: 800, margin: "10px 0 20px" }}>
-          Students who made it with TalentYug
-        </h2>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 12 }}>
-          <Image src="/student-img/testimonials/star.png" alt="star" width={34} height={34} />
-          <span style={{ fontWeight: 700, fontSize: 20 }}>4.9</span>
-          <span style={{ color: "#7E0000" }}>from 500+ student reviews</span>
-        </div>
-      </div>
 
-      <div
-        className="st-inner"
-        style={{
-          maxWidth: 1310,
-          margin: "auto",
-          display: "flex",
-          gap: 80,
-          padding: "0 clamp(20px,4vw,40px)",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Left quote */}
-        <div className="st-left" style={{ maxWidth: 280, flexShrink: 0 }}>
-          <Image
-            src="/student-img/students/comma.png"
-            alt="quote"
-            width={90}
-            height={90}
-            style={{ marginBottom: 20, opacity: 0.8, width: "auto" }}
-          />
-          <p style={{ fontSize: 26, lineHeight: 1.4 }}>
-            Real students. Real placements. Real results.
-          </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 15, fontSize: 22, marginTop: 30 }}>
-            <span
-              onClick={() => setPage(Math.max(0, page - 1))}
-              style={{ cursor: "pointer", opacity: page === 0 ? 0.3 : 1, userSelect: "none" }}
-            >←</span>
-            <span style={{ fontSize: 36, fontWeight: 800, color: "#7E0000" }}>
-              {String(page + 1).padStart(2, "0")}
-            </span>
-            <span style={{ color: "#aaa" }}>/ {String(totalPages).padStart(2, "0")}</span>
-            <span
-              onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
-              style={{ cursor: "pointer", opacity: page === totalPages - 1 ? 0.3 : 1, userSelect: "none" }}
-            >→</span>
+      <section className="srev-section" id="testimonials">
+        <div className="srev-container">
+          {/* Top Header */}
+          <div className="srev-header">
+            <p className="srev-subheading">Read Reviews,</p>
+            <h2 className="srev-heading">
+              ride with <span>Confidence</span>
+            </h2>
+            <div className="srev-rating-row">
+              <span className="srev-score">4.2/5</span>
+              <Image
+                src="/student-img/testimonials/badge_ribbon.png"
+                alt="Award medal"
+                width={22}
+                height={26}
+                className="srev-badge-img"
+              />
+              <span className="srev-reviews-count">Based on 2026 reviews.</span>
+            </div>
           </div>
-        </div>
 
-        {/* Testimonial cards */}
-        <div style={{ flex: 1, overflow: "hidden" }}>
-          <div style={{ display: "flex", gap: 30, flexWrap: "wrap" }}>
-            {visible.map((t) => (
-              <div key={t.name} className="st-card-wrap" style={{ minWidth: 300, flex: 1 }}>
-                <div
-                  style={{
-                    background: "#fff",
-                    padding: 35,
-                    border: "1px solid rgba(0,0,0,0.2)",
-                    borderRadius: "20px 20px 20px 0",
-                    boxShadow: "10px 10px 10px 0 rgba(0,0,0,0.4)",
-                    minHeight: 180,
-                    display: "flex",
-                    alignItems: "flex-start",
-                  }}
+          {/* Body */}
+          <div
+            className="srev-body"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Left Quote & Navigation */}
+            <div className="srev-left">
+              <Image
+                src="/student-img/testimonials/quote_marks_transparent.png"
+                alt="Quote mark"
+                width={88}
+                height={80}
+                className="srev-quote-icon"
+              />
+              <p className="srev-left-text">
+                What our<br />
+                customers are<br />
+                saying
+              </p>
+              <div className="srev-nav-wrap">
+                <button
+                  type="button"
+                  className="srev-arrow-btn-prev"
+                  aria-label="Previous review"
+                  onClick={prevSlide}
                 >
-                  <p
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 1.6,
-                      color: "#333",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 4,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
-                    {t.text}
-                  </p>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 15, marginTop: 16 }}>
-                  <Image
-                    src={t.img}
-                    alt={t.name}
-                    width={50}
-                    height={50}
-                    style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }}
-                  />
-                  <div>
-                    <p style={{ fontWeight: 700, fontSize: 15 }}>{t.name}</p>
-                    <p style={{ fontSize: 13, color: "#7E0000" }}>{t.role}</p>
-                  </div>
-                </div>
+                  &lt;
+                </button>
+                <span className="srev-current-idx">
+                  {String(currentIndex + 1).padStart(2, "0")}
+                </span>
+                <span className="srev-total-idx">/{String(total).padStart(2, "0")}</span>
+                <button
+                  type="button"
+                  className="srev-arrow-btn"
+                  aria-label="Next review"
+                  onClick={nextSlide}
+                >
+                  &gt;
+                </button>
               </div>
-            ))}
+            </div>
+
+            {/* Carousel Area */}
+            <div className="srev-carousel-container">
+              <div
+                className="srev-track"
+                style={{
+                  transform: `translateX(-${currentIndex * 314}px)`,
+                }}
+              >
+                {/* Render REVIEWS duplicated once to allow smooth infinite loop */}
+                {[...REVIEWS, ...REVIEWS].map((item, idx) => (
+                  <div key={`${item.id}-${idx}`} className="srev-card-item">
+                    <div className="srev-bubble">
+                      <p className="srev-text">{item.text}</p>
+                    </div>
+                    <div className="srev-author">
+                      <Image
+                        src={item.avatar}
+                        alt={item.name}
+                        width={52}
+                        height={52}
+                        className="srev-avatar"
+                      />
+                      <div>
+                        <h4 className="srev-name">{item.name}</h4>
+                        <p className="srev-role">{item.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

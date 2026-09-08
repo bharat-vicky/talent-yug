@@ -1,4 +1,5 @@
 import MarketingNav from "@/components/layout/MarketingNav";
+import ScrollRevealManager from "@/components/common/ScrollRevealManager";
 
 export default function MarketingLayout({
   children,
@@ -7,8 +8,10 @@ export default function MarketingLayout({
 }) {
   return (
     <>
+      <ScrollRevealManager />
       <MarketingNav />
       <main>{children}</main>
     </>
   );
 }
+
