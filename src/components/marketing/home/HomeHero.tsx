@@ -1,73 +1,25 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const HERO_PAD_TOP = 160;
-const HERO_PAD_BOTTOM = 24;
-
 export default function HomeHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-  const [offset, setOffset] = useState(0);
-
-  useLayoutEffect(() => {
-    function recalc() {
-      const el = containerRef.current;
-      if (!el || window.innerWidth <= 1024) {
-        setScale(1);
-        setOffset(0);
-        return;
-      }
-      // offsetHeight (flow-box height) is the right measure of "real" content —
-      // the backdrop ellipse intentionally overflows it for ambient decoration
-      // and is fine to let clip via the section's overflow:hidden, same as it
-      // does at natural scale.
-      const availableHeight = window.innerHeight - (HERO_PAD_TOP + HERO_PAD_BOTTOM);
-      const availableWidth = window.innerWidth - 48; // matches hero-section's 24px side padding
-      const naturalHeight = el.offsetHeight;
-      const naturalWidth = el.offsetWidth;
-      const heightScale = naturalHeight > 0 ? availableHeight / naturalHeight : 1;
-      const widthScale = naturalWidth > 0 ? availableWidth / naturalWidth : 1;
-      // Fill the available height in both directions (shrink on short screens,
-      // grow on tall ones) so there's never dead space — but uniform scale also
-      // grows width, so cap by widthScale too or side cards clip off-screen.
-      const s = Math.min(1.25, heightScale, widthScale);
-      const visualHeight = naturalHeight * s;
-      setScale(s);
-      setOffset(Math.max(0, (availableHeight - visualHeight) / 2));
-    }
-    recalc();
-    window.addEventListener("resize", recalc);
-    return () => window.removeEventListener("resize", recalc);
-  }, []);
-
   return (
     <>
       <style>{`
-        .hero-section {
-          background: #C4E5F5;
+        .hhero-section {
+          background: linear-gradient(180deg, #CEE8F7 0%, #D8EEFA 55%, #E3F3FC 100%);
           width: 100%;
           position: relative;
-          overflow-x: hidden;
+          overflow: hidden;
+          padding: 130px 24px 100px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: flex-start;
-          padding: 140px 24px 80px 24px;
-          font-family: var(--font-geist-sans), Inter, sans-serif;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        @media (min-width: 1025px) {
-          .hero-section {
-            height: 100vh;
-            overflow: hidden;
-            padding: ${HERO_PAD_TOP}px 24px ${HERO_PAD_BOTTOM}px 24px;
-          }
-        }
-
-        .hero-container {
+        .hhero-container {
           width: 100%;
           max-width: 1200px;
           margin: 0 auto;
@@ -75,303 +27,309 @@ export default function HomeHero() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: flex-start;
-          transform-origin: top center;
         }
 
-        .hero-headline {
-          font-size: clamp(34px, 4.8vw, 56px);
+        /* Headline */
+        .hhero-heading {
+          font-size: clamp(34px, 4.4vw, 54px);
           font-weight: 800;
-          color: #005070;
+          color: #0c374d;
           text-align: center;
-          line-height: 1.15;
-          max-width: 850px;
-          margin-bottom: 50px;
-          letter-spacing: -0.02em;
+          line-height: 1.18;
+          letter-spacing: -0.025em;
+          margin: 0 0 36px 0;
+          max-width: 880px;
           z-index: 10;
         }
 
-        /* Center Illustration Area */
-        .hero-center-wrapper {
+        /* Center Stage Area */
+        .hhero-stage {
           position: relative;
           width: 100%;
-          max-width: 600px;
-          height: 480px;
+          max-width: 1040px;
+          min-height: 520px;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 10px;
         }
 
-        .hero-backdrop-ellipse {
+        /* Backdrop Big Cyan Circle */
+        .hhero-circle-backdrop {
           position: absolute;
-          width: 720px;
-          height: 720px;
-          top: 58%;
+          width: 580px;
+          height: 580px;
           left: 50%;
+          top: 50%;
           transform: translate(-50%, -50%);
+          border-radius: 50%;
+          background: radial-gradient(circle at 45% 45%, #62C1EB 0%, #52B5E2 60%, #46A8D6 100%);
+          box-shadow: 0 20px 60px rgba(82, 181, 226, 0.28);
           z-index: 1;
           pointer-events: none;
         }
 
-        .hero-student-img {
+        /* Student Illustration with laptop on pedestal */
+        .hhero-student-wrapper {
           position: absolute;
           width: 320px;
-          height: 320px;
-          bottom: 35px;
+          height: 380px;
           left: 50%;
-          transform: translateX(-50%);
+          top: 50%;
+          transform: translate(-50%, -46%);
           z-index: 2;
+          pointer-events: none;
         }
 
-        /* Glassmorphic buttons container */
-        .hero-glass-buttons {
+        /* Floating Capsule with CTAs */
+        .hhero-cta-capsule {
           position: absolute;
-          bottom: 15px;
+          bottom: 12px;
           left: 50%;
           transform: translateX(-50%);
           background: rgba(255, 255, 255, 0.45);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1.5px solid rgba(255, 255, 255, 0.35);
-          padding: 8px 10px;
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          border: 1.5px solid rgba(255, 255, 255, 0.6);
+          padding: 8px 12px;
           border-radius: 9999px;
           display: flex;
-          gap: 10px;
-          z-index: 10;
-          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.08);
-          white-space: nowrap;
+          align-items: center;
+          gap: 12px;
+          z-index: 15;
+          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.1);
         }
 
-        .hero-btn-primary {
+        .hhero-btn-primary {
           background: #2180A8;
           color: #ffffff;
-          border: none;
-          padding: 12px 28px;
+          padding: 12px 30px;
           border-radius: 9999px;
           font-weight: 700;
           font-size: 15px;
           text-decoration: none;
-          transition: all 0.2s ease;
           white-space: nowrap;
-        }
-        .hero-btn-primary:hover {
-          background: #196687;
-          transform: translateY(-1px);
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 14px rgba(33, 128, 168, 0.35);
         }
 
-        .hero-btn-secondary {
-          background: transparent;
-          color: #005070;
-          border: 1.5px solid #005070;
+        .hhero-btn-primary:hover {
+          background: #196788;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 18px rgba(33, 128, 168, 0.45);
+        }
+
+        .hhero-btn-secondary {
+          background: rgba(255, 255, 255, 0.7);
+          color: #0c374d;
+          border: 1.5px solid rgba(12, 55, 77, 0.3);
           padding: 11px 26px;
           border-radius: 9999px;
           font-weight: 700;
           font-size: 15px;
           text-decoration: none;
-          transition: all 0.2s ease;
           white-space: nowrap;
+          transition: all 0.25s ease;
         }
-        .hero-btn-secondary:hover {
-          background: rgba(0, 80, 112, 0.08);
+
+        .hhero-btn-secondary:hover {
+          background: #ffffff;
+          border-color: #0c374d;
           transform: translateY(-1px);
         }
 
-        /* Left Side Absolute Content */
-        .hero-left-text {
+        /* Left Side Text */
+        .hhero-left-block {
           position: absolute;
-          top: 220px;
-          left: 30px;
-          font-size: clamp(19px, 1.8vw, 24px);
+          left: 10px;
+          top: 38%;
+          transform: translateY(-50%);
+          max-width: 320px;
+          z-index: 10;
+        }
+
+        .hhero-left-desc {
+          font-size: clamp(17px, 1.6vw, 21px);
           font-weight: 600;
-          color: #005070;
-          line-height: 1.4;
-          max-width: 380px;
-          z-index: 10;
-        }
-
-        .hero-card-markets {
-          position: absolute;
-          bottom: 120px;
-          left: -20px;
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          border: 1.5px solid rgba(33, 128, 168, 0.18);
-          border-radius: 16px;
-          padding: 16px 20px;
-          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.06);
-          min-width: 180px;
-          z-index: 10;
-        }
-
-        /* Right Side Absolute Content */
-        .hero-card-unemployed {
-          position: absolute;
-          top: 200px;
-          right: 30px;
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          border: 1.5px solid rgba(33, 128, 168, 0.18);
-          border-radius: 16px;
-          padding: 16px 20px;
-          box-shadow: 0 10px 30px rgba(0, 50, 80, 0.06);
-          min-width: 210px;
-          z-index: 10;
-        }
-
-        .hero-rating-block {
-          position: absolute;
-          bottom: 140px;
-          right: 30px;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          z-index: 10;
-          align-items: flex-start;
-        }
-
-        .hero-stars {
-          display: flex;
-          gap: 4px;
-          align-items: center;
-        }
-
-        /* Stat typography */
-        .stat-num {
-          font-size: 22px;
-          font-weight: 850;
-          color: #005070;
-          margin: 0 0 2px 0;
-        }
-        .stat-label {
-          font-size: 13px;
-          font-weight: 600;
-          color: #477E95;
+          color: #0c374d;
+          line-height: 1.45;
           margin: 0;
         }
 
-        /* Floating animations */
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+        /* Bottom Left Card: 500Cr+ Markets */
+        .hhero-card-markets {
+          position: absolute;
+          left: 0;
+          bottom: 45px;
+          background: rgba(255, 255, 255, 0.65);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1.5px solid rgba(255, 255, 255, 0.7);
+          border-radius: 18px;
+          padding: 16px 24px;
+          box-shadow: 0 10px 28px rgba(0, 50, 80, 0.07);
+          z-index: 10;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        @keyframes float-medium {
+
+        .hhero-card-markets:hover,
+        .hhero-card-unemployed:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 14px 34px rgba(0, 50, 80, 0.12);
+        }
+
+        /* Top Right Card: 1M+ Students */
+        .hhero-card-unemployed {
+          position: absolute;
+          right: 20px;
+          top: 75px;
+          background: rgba(255, 255, 255, 0.65);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1.5px solid rgba(255, 255, 255, 0.7);
+          border-radius: 18px;
+          padding: 16px 24px;
+          box-shadow: 0 10px 28px rgba(0, 50, 80, 0.07);
+          z-index: 10;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hhero-card-stat {
+          font-size: 24px;
+          font-weight: 850;
+          color: #0c374d;
+          margin: 0 0 2px;
+          letter-spacing: -0.01em;
+        }
+
+        .hhero-card-label {
+          font-size: 13.5px;
+          font-weight: 600;
+          color: #2b617a;
+          margin: 0;
+        }
+
+        /* Right Rating Block */
+        .hhero-rating-block {
+          position: absolute;
+          right: 25px;
+          top: 220px;
+          z-index: 10;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .hhero-stars {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .hhero-rating-text {
+          font-size: 14.5px;
+          font-weight: 600;
+          color: #0c374d;
+          margin: 0;
+        }
+
+        .hhero-rating-text strong {
+          font-size: 19px;
+          font-weight: 850;
+          margin-right: 6px;
+        }
+
+        /* Floating animations */
+        @keyframes hheroFloat1 {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+
+        @keyframes hheroFloat2 {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(8px); }
         }
-        .animate-float-1 {
-          animation: float-slow 6s ease-in-out infinite;
-        }
-        .animate-float-2 {
-          animation: float-medium 7s ease-in-out infinite;
+
+        .hhero-anim-float-1 {
+          animation: hheroFloat1 5.5s ease-in-out infinite;
         }
 
-        /* Responsive Styles */
+        .hhero-anim-float-2 {
+          animation: hheroFloat2 6.5s ease-in-out infinite;
+        }
+
+        /* Responsive */
         @media (max-width: 1024px) {
-          .hero-section {
-            padding-top: 140px;
+          .hhero-stage {
             min-height: auto;
+            flex-direction: column;
+            gap: 24px;
           }
-          .hero-container {
-            min-height: auto;
-          }
-          .hero-left-text {
-            position: static;
-            text-align: center;
+          .hhero-circle-backdrop {
+            position: relative;
+            width: 440px;
+            height: 440px;
+            left: auto;
+            top: auto;
+            transform: none;
             margin: 20px 0;
+          }
+          .hhero-student-wrapper {
+            width: 250px;
+            height: 300px;
+          }
+          .hhero-left-block,
+          .hhero-card-markets,
+          .hhero-card-unemployed,
+          .hhero-rating-block {
+            position: static;
+            transform: none !important;
+            text-align: center;
             max-width: 100%;
           }
-          .hero-card-markets, .hero-card-unemployed, .hero-rating-block {
-            position: static;
-            margin: 10px 0;
-            width: 100%;
-            max-width: 280px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-          }
-          .hero-rating-block {
-            align-items: center;
-          }
-          .hero-center-wrapper {
-            margin: 30px 0;
-            height: 380px;
-          }
-          .hero-backdrop-ellipse {
-            width: 520px;
-            height: 520px;
-          }
-          .hero-student-img {
-            width: 220px;
-            height: 220px;
-            bottom: 30px;
-          }
-          .hero-glass-buttons {
-            bottom: 10px;
+          .hhero-stars {
+            justify-content: center;
           }
         }
 
-        @media (max-width: 540px) {
-          .hero-center-wrapper {
+        @media (max-width: 600px) {
+          .hhero-section {
+            padding: 110px 16px 70px;
+          }
+          .hhero-circle-backdrop {
+            width: 320px;
             height: 320px;
           }
-          .hero-backdrop-ellipse {
-            width: 400px;
-            height: 400px;
+          .hhero-student-wrapper {
+            width: 190px;
+            height: 230px;
           }
-          .hero-student-img {
-            width: 185px;
-            height: 185px;
-            bottom: 25px;
-          }
-          .hero-glass-buttons {
-            padding: 8px;
+          .hhero-cta-capsule {
             gap: 8px;
+            padding: 6px 10px;
           }
-          .hero-btn-primary, .hero-btn-secondary {
+          .hhero-btn-primary,
+          .hhero-btn-secondary {
             padding: 10px 18px;
-            font-size: 13px;
+            font-size: 13.5px;
           }
         }
       `}</style>
 
-      <section className="hero-section">
-        <div
-          className="hero-container"
-          ref={containerRef}
-          style={{ transform: `scale(${scale})`, marginTop: offset }}
-        >
-          {/* Centered Headline */}
-          <h1 className="hero-headline">
-            India’s Placement Infrastructure For Tier 2/3 Colleges
+      <section className="hhero-section">
+        <div className="hhero-container">
+          {/* Main Centered Heading */}
+          <h1 className="hhero-heading">
+            India’s Placement Infrastructure<br />
+            For Tier 2/3 Colleges
           </h1>
 
+          {/* Stage Area */}
+          <div className="hhero-stage">
+            {/* Center: Cyan Backdrop Circle */}
+            <div className="hhero-circle-backdrop" />
 
-
-          {/* Left Side: Markets floating card */}
-          <div className="hero-card-markets animate-float-1">
-            <h4 className="stat-num">70%</h4>
-            <p className="stat-label">Success Rate</p>
-          </div>
-
-          {/* Center Illustration Area */}
-          <div className="hero-center-wrapper">
-            {/* Ellipse 78 Background */}
-            <div className="hero-backdrop-ellipse">
-              <Image
-                src="/home-img/landing/Ellipse 78.png"
-                alt="Blue backdrop circle"
-                fill
-                style={{ objectFit: "contain" }}
-                priority
-              />
-            </div>
-
-            {/* Student Image */}
-            <div className="hero-student-img">
+            {/* Center: Student Sitting With Laptop */}
+            <div className="hhero-student-wrapper">
               <Image
                 src="/home-img/landing/image.png"
                 alt="Student with laptop"
@@ -381,21 +339,66 @@ export default function HomeHero() {
               />
             </div>
 
-            {/* Buttons inside Glass container */}
-            <div className="hero-glass-buttons">
-              <Link href="/register" className="hero-btn-primary">
+            {/* Center: Frosted Glass Pill with Get Started & About Us */}
+            <div className="hhero-cta-capsule">
+              <Link href="/register" className="hhero-btn-primary">
                 Get Started
               </Link>
+              <Link href="/about" className="hhero-btn-secondary">
+                About Us
+              </Link>
+            </div>
+
+            {/* Left: Headline Metric Text */}
+            <div className="hhero-left-block">
+              <p className="hhero-left-desc">
+                70% Placements | 5.5L Average<br />
+                Salary | 7-Step Structured<br />
+                Process
+              </p>
+            </div>
+
+            {/* Bottom Left Card: 500Cr+ Markets */}
+            <div className="hhero-card-markets hhero-anim-float-1">
+              <h3 className="hhero-card-stat">500Cr+</h3>
+              <p className="hhero-card-label">Markets</p>
+            </div>
+
+            {/* Top Right Card: 1M+ Students Annual Unemployed */}
+            <div className="hhero-card-unemployed hhero-anim-float-2">
+              <h3 className="hhero-card-stat">1M+ Students</h3>
+              <p className="hhero-card-label">Annual Unemployed</p>
+            </div>
+
+            {/* Right: Star Rating Block */}
+            <div className="hhero-rating-block">
+              <div className="hhero-stars">
+                {/* Star 1 */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0C374D">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                {/* Star 2 */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0C374D">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                {/* Star 3 */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0C374D">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                {/* Star 4 */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0C374D">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                {/* Star 5 (White Star with Crisp Navy Border) */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" stroke="#0C374D" strokeWidth="1.6">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
+              <p className="hhero-rating-text">
+                <strong>70%</strong>Success Rate
+              </p>
             </div>
           </div>
-
-          {/* Right Side: Unemployed floating card */}
-          <div className="hero-card-unemployed animate-float-2">
-            <h4 className="stat-num">1M+ Students</h4>
-            <p className="stat-label">Annual Unemployed</p>
-          </div>
-
-
         </div>
       </section>
     </>
