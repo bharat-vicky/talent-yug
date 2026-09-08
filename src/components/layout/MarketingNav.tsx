@@ -5,40 +5,40 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-// Per-page colour themes matching the original HTML
+// Per-page colour themes
 const PAGE_THEMES: Record<string, {
   bg: string;
   scrolledBg: string;
-  accent: string;          // login border + register background
-  mobileBg: string;        // mobile drawer background
+  accent: string;
+  mobileBg: string;
 }> = {
   "/": {
     bg: "#ffffff",
-    scrolledBg: "rgba(255,255,255,0.9)",
+    scrolledBg: "rgba(255,255,255,0.95)",
     accent: "#005070",
     mobileBg: "#ffffff",
   },
   "/students": {
-    bg: "#FEF2F2",
-    scrolledBg: "rgba(254,242,242,0.9)",
-    accent: "#7E0000",
-    mobileBg: "#FEF2F2",
+    bg: "#ffffff",
+    scrolledBg: "rgba(255,255,255,0.95)",
+    accent: "#2180A8",
+    mobileBg: "#ffffff",
   },
   "/colleges": {
-    bg: "#FFFAF6",
-    scrolledBg: "rgba(254,242,221,0.9)",
-    accent: "#FF9700",
-    mobileBg: "#FFFAF6",
+    bg: "#ffffff",
+    scrolledBg: "rgba(255,255,255,0.95)",
+    accent: "#2180A8",
+    mobileBg: "#ffffff",
   },
   "/companies": {
-    bg: "#E4FBF8",
-    scrolledBg: "rgba(228,251,248,0.9)",
-    accent: "#006F5F",
-    mobileBg: "#E4FBF8",
+    bg: "#ffffff",
+    scrolledBg: "rgba(255,255,255,0.95)",
+    accent: "#2180A8",
+    mobileBg: "#ffffff",
   },
   "/about": {
     bg: "#ffffff",
-    scrolledBg: "rgba(255,255,255,0.9)",
+    scrolledBg: "rgba(255,255,255,0.95)",
     accent: "#1d4ed8",
     mobileBg: "#ffffff",
   },
@@ -50,16 +50,24 @@ const DEFAULT_LINKS = [
   { href: "/companies", label: "Companies" },
 ];
 
+const MARKETING_PAGE_LINKS = [
+  { href: "#features", label: "FEATURES" },
+  { href: "#pricing", label: "PRICE PLAN" },
+  { href: "#testimonials", label: "TESTIMONIALS" },
+];
+
 export default function MarketingNav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const isMarketingPage =
+    pathname === "/students" || pathname === "/companies" || pathname === "/colleges";
   const theme = PAGE_THEMES[pathname] ?? PAGE_THEMES["/"];
-  const links = DEFAULT_LINKS;
+  const links = isMarketingPage ? MARKETING_PAGE_LINKS : DEFAULT_LINKS;
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
+    const handler = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
@@ -70,39 +78,199 @@ export default function MarketingNav() {
   return (
     <>
       <style>{`
-        .ty-nav-link {
-          text-decoration: none;
-          color: #000;
-          font-weight: 500;
-          font-size: 15px;
-          transition: opacity 0.2s;
+        /* Header Base */
+        .ty-main-header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          box-sizing: border-box;
+          background: #ffffff;
+          border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+          padding: 20px 0;
+          transition: padding 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          z-index: 200;
         }
-        .ty-nav-link:hover { opacity: 0.65; }
-        .ty-login-btn {
-          padding: 10px 28px;
-          white-space: nowrap;
-          background: transparent;
+
+        .ty-main-header.is-scrolled {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          padding: 13px 0;
+          border-bottom-color: rgba(226, 232, 240, 0.95);
+          box-shadow: 0 4px 20px rgba(0, 50, 80, 0.05);
+        }
+
+        /* Floating Island Variant for Home & About */
+        .ty-island-header {
+          position: fixed;
+          top: 0;
+          left: 50%;
+          transform: translateY(24px) translateX(-50%);
+          width: 92%;
+          max-width: 1200px;
+          box-sizing: border-box;
+          padding: 14px 28px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: #ffffff;
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
           border-radius: 20px;
-          cursor: not-allowed;
-          font-weight: 600;
-          font-size: 15px;
-          text-decoration: none;
-          transition: all 0.2s;
-          opacity: 0.6;
+          box-shadow: 0 8px 30px rgba(0, 50, 80, 0.05);
+          border: 1.5px solid rgba(33, 128, 168, 0.15);
+          transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+          z-index: 200;
         }
-        .ty-register-btn {
-          padding: 10px 28px;
+
+        .ty-island-header.is-scrolled {
+          transform: translateY(10px) translateX(-50%);
+          padding: 10px 22px;
+          border-radius: 30px;
+          box-shadow: 0 12px 35px rgba(0, 50, 80, 0.12);
+        }
+
+        /* Inner Centered Container for Marketing Pages */
+        .ty-nav-container {
+          max-width: 1340px;
+          margin: 0 auto;
+          padding: 0 clamp(20px, 4vw, 56px);
+          width: 100%;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+        }
+
+        /* Logo */
+        .ty-logo-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          text-decoration: none;
+          flex-shrink: 0;
+        }
+
+        .ty-logo-text {
+          font-size: clamp(20px, 2.4vw, 26px);
+          font-weight: 800;
+          color: #005070;
+          letter-spacing: -0.02em;
+        }
+
+        /* Desktop Nav Group */
+        .ty-desktop-nav {
+          display: flex;
+          align-items: center;
+          gap: clamp(24px, 3.5vw, 48px);
+        }
+
+        .ty-nav-links-wrap {
+          display: flex;
+          align-items: center;
+          gap: clamp(20px, 2.5vw, 36px);
+        }
+
+        /* Nav Item Link */
+        .ty-nav-item {
+          text-decoration: none;
+          color: #243547;
+          font-weight: 700;
+          font-size: 13.5px;
+          letter-spacing: 0.06em;
+          transition: color 0.2s ease, transform 0.2s ease;
+          display: inline-block;
           white-space: nowrap;
-          color: #fff;
-          border: none;
-          border-radius: 20px;
-          cursor: not-allowed;
-          font-weight: 600;
-          font-size: 15px;
-          text-decoration: none;
-          transition: all 0.2s;
-          opacity: 0.6;
         }
+
+        .ty-nav-item:visited {
+          color: #243547;
+        }
+
+        .ty-nav-item:hover {
+          color: #2180A8;
+          transform: translateY(-1px);
+        }
+
+        /* Buttons Group */
+        .ty-btn-group {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          flex-shrink: 0;
+        }
+
+        /* Login Pill Button */
+        .ty-custom-login-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 26px;
+          height: 42px;
+          border-radius: 9999px;
+          border: 1.5px solid #2280A8;
+          background: #ffffff;
+          color: #0f172a;
+          font-size: 14.5px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          cursor: pointer;
+          box-sizing: border-box;
+          line-height: 1;
+        }
+
+        .ty-custom-login-btn:hover {
+          background: #f0f7fb;
+          border-color: #1a6f93;
+          color: #005070;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 14px rgba(34, 128, 168, 0.16);
+        }
+
+        .ty-custom-login-btn:active {
+          transform: translateY(0);
+        }
+
+        /* Register Solid Button */
+        .ty-custom-register-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 28px;
+          height: 42px;
+          border-radius: 21px 21px 21px 4px;
+          border: 1.5px solid #2280A8;
+          background: #2280A8;
+          color: #ffffff;
+          font-size: 14.5px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+          cursor: pointer;
+          box-sizing: border-box;
+          line-height: 1;
+          box-shadow: 0 2px 8px rgba(34, 128, 168, 0.25);
+        }
+
+        .ty-custom-register-btn:hover {
+          background: #1a6f93;
+          border-color: #1a6f93;
+          color: #ffffff;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 18px rgba(34, 128, 168, 0.38);
+        }
+
+        .ty-custom-register-btn:active {
+          transform: translateY(0);
+        }
+
+        /* Hamburger Toggle */
         .ty-hamburger {
           display: none;
           flex-direction: column;
@@ -110,100 +278,150 @@ export default function MarketingNav() {
           cursor: pointer;
           background: none;
           border: none;
-          padding: 4px;
+          padding: 6px;
+          z-index: 205;
         }
+
         .ty-hamburger span {
-          width: 28px;
-          height: 3px;
-          background: #000;
+          width: 26px;
+          height: 2.5px;
+          background: #005070;
           display: block;
           border-radius: 2px;
-          transition: 0.3s;
+          transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        @media (max-width: 768px) {
-          .ty-desktop-nav { display: none !important; }
-          .ty-hamburger { display: flex !important; }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 960px) {
+          .ty-nav-container {
+            padding: 0 16px;
+          }
+          .ty-desktop-nav {
+            display: none !important;
+          }
+          .ty-hamburger {
+            display: flex !important;
+          }
         }
-        @media (min-width: 769px) {
-          .ty-mobile-drawer { display: none !important; }
+
+        @media (min-width: 961px) {
+          .ty-mobile-drawer {
+            display: none !important;
+          }
         }
       `}</style>
 
-      <header
-        style={{
-          position: "fixed",
-          top: 0,
-          left: "50%",
-          transform: scrolled
-            ? "translateX(-50%) translateY(10px)"
-            : "translateX(-50%) translateY(24px)",
-          width: "92%",
-          maxWidth: 1200,
-          padding: scrolled ? "10px 20px" : "14px 28px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: "#ffffff",
-          backdropFilter: "blur(14px)",
-          borderRadius: scrolled ? "30px" : "20px",
-          boxShadow: scrolled ? "0 12px 35px rgba(0, 50, 80, 0.12)" : "0 8px 30px rgba(0, 50, 80, 0.05)",
-          border: "1.5px solid rgba(33, 128, 168, 0.15)",
-          transition: "all 0.35s cubic-bezier(.22,1,.36,1)",
-          zIndex: 200,
-        }}
-      >
-        {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
-          <Image src="/home-img/logo.png" alt="TalentYug" width={40} height={40} style={{ height: 40, width: "auto" }} />
-          <span style={{ fontSize: "clamp(18px,2.5vw,26px)", fontWeight: 800, color: "#005070", letterSpacing: "-0.02em" }}>TalentYug</span>
-        </Link>
+      {isMarketingPage ? (
+        /* Full-Width Structured Header for Marketing Pages (/colleges, /companies, /students) */
+        <header className={`ty-main-header ${scrolled ? "is-scrolled" : ""}`}>
+          <div className="ty-nav-container">
+            {/* Logo */}
+            <Link href="/" className="ty-logo-link">
+              <Image
+                src="/home-img/logo.png"
+                alt="TalentYug Logo"
+                width={38}
+                height={38}
+                style={{ height: 38, width: "auto", objectFit: "contain" }}
+                priority
+              />
+              <span className="ty-logo-text">TalentYug</span>
+            </Link>
 
-        {/* Desktop nav + buttons */}
-        <div className="ty-desktop-nav" style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <nav style={{ display: "flex", gap: 24, alignItems: "center" }}>
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="ty-nav-link"
-                style={{ fontWeight: 700, color: "#374151", fontSize: 14, letterSpacing: "0.02em" }}
-              >
-                {link.label.toUpperCase()}
+            {/* Desktop Nav + Action Buttons */}
+            <div className="ty-desktop-nav">
+              <nav className="ty-nav-links-wrap" aria-label="Page navigation">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="ty-nav-item"
+                  >
+                    {link.label.toUpperCase()}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="ty-btn-group">
+                <Link href="/login" className="ty-custom-login-btn">
+                  Login
+                </Link>
+                <Link href="/register" className="ty-custom-register-btn">
+                  Register
+                </Link>
+              </div>
+            </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              className="ty-hamburger"
+              onClick={() => setMobileOpen((o) => !o)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              type="button"
+            >
+              <span style={{ transform: mobileOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+              <span style={{ opacity: mobileOpen ? 0 : 1 }} />
+              <span style={{ transform: mobileOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+            </button>
+          </div>
+        </header>
+      ) : (
+        /* Floating Island Header for Home (/) and About */
+        <header className={`ty-island-header ${scrolled ? "is-scrolled" : ""}`}>
+          {/* Logo */}
+          <Link href="/" className="ty-logo-link">
+            <Image
+              src="/home-img/logo.png"
+              alt="TalentYug Logo"
+              width={38}
+              height={38}
+              style={{ height: 38, width: "auto", objectFit: "contain" }}
+              priority
+            />
+            <span className="ty-logo-text">TalentYug</span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="ty-desktop-nav">
+            <nav className="ty-nav-links-wrap" aria-label="Main navigation">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="ty-nav-item"
+                >
+                  {link.label.toUpperCase()}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="ty-btn-group">
+              <Link href="/login" className="ty-custom-login-btn">
+                Login
               </Link>
-            ))}
-          </nav>
+              <Link href="/register" className="ty-custom-register-btn">
+                Register
+              </Link>
+            </div>
+          </div>
 
+          {/* Mobile Hamburger */}
           <button
-            className="ty-login-btn"
-            style={{ border: "1.5px solid #2180A8", color: "#2180A8" }}
-            onClick={(e) => e.preventDefault()}
-            disabled
+            className="ty-hamburger"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            type="button"
           >
-            Login
+            <span style={{ transform: mobileOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+            <span style={{ opacity: mobileOpen ? 0 : 1 }} />
+            <span style={{ transform: mobileOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
           </button>
-          <button
-            className="ty-register-btn"
-            style={{ background: "#2180A8" }}
-            onClick={(e) => e.preventDefault()}
-            disabled
-          >
-            Register
-          </button>
-        </div>
+        </header>
+      )}
 
-        {/* Hamburger */}
-        <button
-          className="ty-hamburger"
-          onClick={() => setMobileOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          <span style={{ transform: mobileOpen ? "rotate(45deg) translate(5px,6px)" : "none" }} />
-          <span style={{ opacity: mobileOpen ? 0 : 1 }} />
-          <span style={{ transform: mobileOpen ? "rotate(-45deg) translate(5px,-6px)" : "none" }} />
-        </button>
-      </header>
-
-      {/* Mobile drawer */}
+      {/* Mobile Navigation Drawer */}
       <div
         className="ty-mobile-drawer"
         style={{
@@ -213,28 +431,32 @@ export default function MarketingNav() {
           right: 0,
           background: theme.mobileBg,
           zIndex: 199,
-          paddingTop: 80,
-          paddingBottom: 30,
+          paddingTop: 88,
+          paddingBottom: 28,
           paddingLeft: 24,
           paddingRight: 24,
+          boxSizing: "border-box",
           transform: mobileOpen ? "translateY(0)" : "translateY(-110%)",
-          transition: "transform 0.35s cubic-bezier(.22,1,.36,1)",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+          transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+          boxShadow: "0 20px 40px rgba(0, 50, 80, 0.12)",
+          borderBottom: "1px solid rgba(226, 232, 240, 0.9)",
         }}
       >
-        <nav style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <nav style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => setMobileOpen(false)}
               style={{
                 padding: "12px 16px",
                 borderRadius: 12,
                 textDecoration: "none",
-                color: pathname === link.href ? theme.accent : "#000",
-                fontWeight: pathname === link.href ? 700 : 500,
-                fontSize: 17,
-                background: pathname === link.href ? `${theme.accent}15` : "transparent",
+                color: "#0f172a",
+                fontWeight: 650,
+                fontSize: 16,
+                letterSpacing: "0.04em",
+                transition: "background 0.2s ease, color 0.2s ease",
               }}
             >
               {link.label.toUpperCase()}
@@ -242,49 +464,23 @@ export default function MarketingNav() {
           ))}
         </nav>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 24 }}>
-          <button
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "center",
-              padding: "12px 0",
-              border: "1.5px solid #2180A8",
-              borderRadius: "20px",
-              textDecoration: "none",
-              color: "#2180A8",
-              fontWeight: 600,
-              fontSize: 16,
-              opacity: 0.6,
-              cursor: "not-allowed",
-              background: "transparent",
-            }}
-            onClick={(e) => e.preventDefault()}
-            disabled
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 22 }}>
+          <Link
+            href="/login"
+            className="ty-custom-login-btn"
+            onClick={() => setMobileOpen(false)}
+            style={{ width: "100%", textAlign: "center" }}
           >
             Login
-          </button>
-          <button
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "center",
-              padding: "12px 0",
-              background: "#2180A8",
-              border: "none",
-              borderRadius: "20px",
-              textDecoration: "none",
-              color: "#fff",
-              fontWeight: 600,
-              fontSize: 16,
-              opacity: 0.6,
-              cursor: "not-allowed",
-            }}
-            onClick={(e) => e.preventDefault()}
-            disabled
+          </Link>
+          <Link
+            href="/register"
+            className="ty-custom-register-btn"
+            onClick={() => setMobileOpen(false)}
+            style={{ width: "100%", textAlign: "center", borderRadius: "9999px" }}
           >
             Register
-          </button>
+          </Link>
         </div>
       </div>
     </>
