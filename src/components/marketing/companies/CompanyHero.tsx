@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,147 +7,147 @@ export default function CompanyHero() {
   return (
     <>
       <style>{`
-        .co-hero::after {
-          content: "";
-          position: absolute;
-          right: 30px;
-          top: 120px;
-          width: 900px;
-          height: 650px;
-          background: #006F5F;
-          filter: blur(70px);
-          opacity: 0.2;
-          border-radius: 50%;
-          z-index: 0;
-          pointer-events: none;
+        .co-hero-section {
+          background-color: #ffffff;
+          width: 100%;
+          padding: 140px clamp(20px, 6vw, 90px) 70px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
         }
-        .co-gradient-text {
-          background: linear-gradient(180deg, #00B69B 0%, #006F5F 0.01%, #00A189 37.98%, #007665 45.19%, #00AA91 69.71%, #00B197 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+        .co-hero-container {
+          width: 100%;
+          max-width: 1180px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 48px;
         }
-        .co-cta {
-          display: inline-block;
-          margin-top: 40px;
-          padding: 16px 80px;
-          background: #006F5F;
-          color: #fff;
-          border-radius: 30px;
-          text-decoration: none;
+        .co-hero-left {
+          flex: 1.1;
+          min-width: 320px;
+        }
+        .co-hero-title {
+          font-size: clamp(38px, 4.6vw, 58px);
+          font-weight: 800;
+          line-height: 1.15;
+          letter-spacing: -0.03em;
+          margin: 0;
+        }
+        .co-title-blue {
+          color: #053b50;
+        }
+        .co-title-dark {
+          color: #0f172a;
+        }
+        .co-hero-subtitle {
+          font-size: clamp(15px, 1.35vw, 18px);
           font-weight: 600;
+          color: #1e293b;
+          line-height: 1.5;
+          margin: 36px 0 0 0;
+          letter-spacing: -0.01em;
+          max-width: 480px;
+        }
+        .co-hero-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 40px;
+          padding: 13px 44px;
+          border-radius: 9999px;
+          background: #2280a8;
+          color: #ffffff;
           font-size: 16px;
-          transition: all 0.3s ease;
+          font-weight: 700;
+          text-decoration: none;
+          box-shadow: 0 4px 14px rgba(34, 128, 168, 0.28);
+          transition: all 0.25s ease;
+          border: none;
+          cursor: pointer;
         }
-        .co-cta:hover {
-          background: #0FB79C;
+        .co-hero-cta:hover {
+          background: #19698a;
           transform: translateY(-2px);
-          box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
+          box-shadow: 0 8px 22px rgba(34, 128, 168, 0.38);
         }
-        @media (max-width: 768px) {
-          .co-hero { padding: 30px 20px 60px !important; flex-direction: column !important; text-align: center; }
-          .co-hero-right { display: none !important; }
-          .co-hero-left { min-width: unset !important; width: 100% !important; }
-          .co-stats { justify-content: center !important; gap: 24px !important; }
-          .co-cta { padding: 14px 48px !important; }
+        .co-hero-right {
+          flex: 0.9;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          position: relative;
+        }
+        .co-hero-illustration {
+          width: 100%;
+          max-width: 490px;
+          height: auto;
+          display: block;
+          filter: drop-shadow(0 10px 30px rgba(5, 59, 80, 0.05));
+          transition: transform 0.4s ease;
+        }
+        .co-hero-illustration:hover {
+          transform: translateY(-4px);
+        }
+
+        @media (max-width: 900px) {
+          .co-hero-section {
+            padding: 110px 24px 50px;
+          }
+          .co-hero-container {
+            flex-direction: column;
+            text-align: left;
+            gap: 40px;
+          }
+          .co-hero-left {
+            width: 100%;
+          }
+          .co-hero-right {
+            width: 100%;
+            justify-content: center;
+          }
+          .co-hero-illustration {
+            max-width: 400px;
+          }
         }
       `}</style>
 
-      <div style={{ height: 60, background: "#E4FBF8" }} />
+      <section className="co-hero-section">
+        <div className="co-hero-container">
+          {/* Left Text Column */}
+          <div className="co-hero-left">
+            <h1 className="co-hero-title">
+              <span className="co-title-blue">Hire Pre-Filtered</span>
+              <br />
+              <span className="co-title-blue">Talent</span>{" "}
+              <span className="co-title-dark">From</span>
+              <br />
+              <span className="co-title-dark">Tier 2/3 Colleges.</span>
+            </h1>
 
-      <section
-        className="co-hero"
-        style={{
-          position: "relative",
-          zIndex: 5,
-          background: "#E4FBF8",
-          width: "100%",
-          maxWidth: "100%",
-          margin: "auto",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "50px clamp(20px,8vw,100px) 100px",
-          flexWrap: "wrap",
-          gap: 40,
-        }}
-      >
-        {/* Left text */}
-        <div className="co-hero-left" style={{ flex: 1, minWidth: 280, zIndex: 10 }}>
-          <h1
-            style={{
-              fontSize: "clamp(36px, 5vw, 60px)",
-              fontWeight: 600,
-              lineHeight: 1.1,
-            }}
-          >
-            <span className="co-gradient-text">Hire Pre-Filtered</span>
-            <br />
-            <span className="co-gradient-text">Talent</span> From
-            <br />
-            Tier 2/3 Colleges.
-          </h1>
+            <p className="co-hero-subtitle">
+              Curated Candidate Pools | Fast Hiring | Reduced Time to-Hire
+            </p>
 
-          <p style={{ marginTop: 40, fontSize: "clamp(16px,2vw,25px)", color: "#333" }}>
-            Curated Candidate Pools | Fast Hiring |<br />Reduced Time-to-Hire
-          </p>
-
-          <Link href="/register" className="co-cta">
-            Register
-          </Link>
-
-          {/* Stats */}
-          <div className="co-stats" style={{ display: "flex", gap: 50, marginTop: 40, flexWrap: "wrap" }}>
-            {[
-              { val: "1200+", label: "Hiring Companies" },
-              { val: "500+", label: "Partner Colleges" },
-              { val: "10K+", label: "Placements Done" },
-            ].map((s) => (
-              <div key={s.label}>
-                <h3
-                  style={{
-                    fontSize: 22,
-                    fontWeight: 700,
-                    background: "linear-gradient(180deg,#00B69B 0%,#006F5F 0.01%,#00A189 37.98%,#007665 45.19%,#00AA91 69.71%,#00B197 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    margin: 0,
-                  }}
-                >
-                  {s.val}
-                </h3>
-                <p style={{ fontSize: 14, marginTop: 4, color: "#666" }}>{s.label}</p>
-              </div>
-            ))}
+            <div>
+              <Link href="/register" className="co-hero-cta">
+                Register
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* Right — hero image */}
-        <div
-          className="co-hero-right"
-          style={{
-            flex: 1,
-            minWidth: 280,
-            display: "flex",
-            justifyContent: "flex-end",
-            paddingLeft: 40,
-            zIndex: 10,
-          }}
-        >
-          <Image
-            src="/company-img/companies/landing.webp"
-            alt="Company landing"
-            width={760}
-            height={665}
-            priority
-            style={{
-              maxWidth: "100%",
-              height: "auto",
-              width: "auto",
-              borderRadius: 24,
-            }}
-          />
+          {/* Right Illustration Column */}
+          <div className="co-hero-right">
+            <Image
+              src="/company-img/companies/company-hero-illustration.png"
+              alt="Hire Pre-Filtered Talent From Tier 2/3 Colleges"
+              width={490}
+              height={355}
+              priority
+              className="co-hero-illustration"
+            />
+          </div>
         </div>
       </section>
     </>

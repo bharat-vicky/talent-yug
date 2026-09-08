@@ -1,123 +1,160 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
-const FAQS = [
+interface FAQItem {
+  q: string;
+  a: string;
+  points?: string[];
+}
+
+const FAQS: FAQItem[] = [
   {
     q: "How do I register?",
-    a: "You can register using the invite link shared by your college or directly on our site with your college email, then complete your profile with education, skills and projects.",
+    a: "Registration on TalentYug is quick, seamless, and completely free. You can get started in just three simple steps:",
+    points: [
+      "Sign up using your college email address or the direct placement invite link provided by your institution.",
+      "Complete your student profile by adding your academic records (CGPA/branch), verified technical skills, certifications, and portfolio links.",
+      "Generate your unique digital QR Student Pass, which grants you instant access and 1-tap check-in for all on-campus and virtual placement drives.",
+    ],
   },
   {
     q: "How many opportunities are available?",
-    a: "We have countless opportunities across internships, fresher roles and training-linked programs from companies of different sizes and sectors.",
+    a: "TalentYug connects students to hundreds of verified hiring opportunities updated weekly across diverse domains and company tiers:",
+    points: [
+      "Full-time graduate engineer, software developer, and fresher roles across pan-India tech and business hubs.",
+      "Stipend-backed summer, winter, and semester internships for pre-final and final-year students.",
+      "Exclusive campus placement drives from 500+ partner startups, Fortune 500 enterprises, and IT leaders.",
+      "Fast-track skill challenge drives that let high performers interview directly with founding and engineering teams.",
+    ],
   },
   {
     q: "How does the matching work?",
-    a: "Our platform looks at your skills, interests and eligibility and recommends roles that best fit your profile so you don't waste time on irrelevant openings.",
+    a: "Our intelligent matching engine eliminates irrelevant applications by analyzing your comprehensive profile against real-time recruiter requirements:",
+    points: [
+      "Automated Eligibility Verification: Matches your branch, CGPA, graduation year, and backlog criteria so you never waste time applying to drives you don't qualify for.",
+      "Skill & Project Scoring: Evaluates your GitHub repositories, verified test scores, and project stack to recommend best-fit roles.",
+      "Relevance-First Alerts: Delivers tailored drive notifications directly to your dashboard and email, prioritizing roles where your hire-probability is highest.",
+    ],
   },
   {
     q: "How do I prepare for interviews?",
-    a: "We provide guidance through resources, checklists and occasional workshops with your college to help you prepare for tests, interviews, group discussions and internships.",
+    a: "We provide an end-to-end placement preparation suite integrated directly inside your dashboard:",
+    points: [
+      "AI Mock Interviews: Practice technical and HR rounds with realistic voice/video simulations and receive instant scoring on communication and accuracy.",
+      "Company Question Archives: Access real previous-year interview questions and coding problems curated from top hiring companies.",
+      "ATS Resume Builder: Optimize your resume with industry-approved templates and ATS keyword scoring to pass automated recruiter screeners.",
+      "Aptitude & Coding Sandboxes: Hone your quantitative, logical reasoning, and DSA skills with timed practice tests.",
+    ],
   },
   {
-    q: "What if I don't get selected?",
-    a: "If you aren't selected for a role, you can keep applying to other openings and use feedback from earlier rounds to improve your profile and preparation.",
+    q: "What if I don’t get selected?",
+    a: "Rejection is simply data for growth. TalentYug equips you with the feedback and avenues needed to bounce back stronger:",
+    points: [
+      "Actionable Round Analytics: Receive objective breakdown reports on why a recruiter or assessment stage wasn't cleared.",
+      "Personalized Upskilling Paths: Get curated tutorials, coding drills, and project recommendations targeting your identified weak spots.",
+      "No Cooldown Penalties: Immediately apply to other active and upcoming placement drives across our network without restriction.",
+    ],
   },
   {
     q: "Is there a fee to use?",
-    a: "The platform is free for students; there are no registration or placement charges for you.",
+    a: "TalentYug is 100% free for all students. Our mission is to democratize career opportunities for every graduate:",
+    points: [
+      "Zero registration fees, zero subscription costs, and zero hidden platform charges.",
+      "We never charge any placement commissions or post-selection cuts from your salary.",
+      "All preparation guides, test modules, drive alerts, and digital QR passes are entirely complimentary.",
+    ],
   },
 ];
 
 export default function StudentFAQ() {
   const [openIndex, setOpenIndex] = useState<number>(0);
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? -1 : i);
+
+  const toggle = (i: number) => {
+    setOpenIndex(openIndex === i ? -1 : i);
+  };
 
   return (
     <>
       <style>{`
-        .sfq2-section {
+        .sfq-section {
           position: relative;
-          padding: 190px 20px;
           background: #ffffff;
-          z-index: 11;
-          min-height: 120vh;
+          padding: 80px 24px 120px;
           overflow: hidden;
-          margin-bottom: 0;
         }
 
-        .sfq2-bg {
-          position: absolute;
-          width: 100%;
-          left: 0;
-          bottom: 0;
-          z-index: 1;
-          pointer-events: none;
-          user-select: none;
-        }
-
-        .sfq2-container {
-          max-width: 1300px;
-          width: 90%;
-          margin: auto;
+        .sfq-container {
+          max-width: 1140px;
+          margin: 0 auto;
           display: flex;
           justify-content: space-between;
-          position: relative;
-          z-index: 2;
-          gap: 40px;
+          align-items: stretch;
+          gap: 48px;
         }
 
-        .sfq2-left {
-          max-width: 43%;
-          flex-shrink: 0;
+        /* Left Column */
+        .sfq-left {
+          flex: 0 0 460px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding-top: 100px;
+          padding-bottom: 20px;
         }
 
-        .sfq2-left h1 {
-          font-size: 54px;
+        .sfq-heading {
+          font-size: clamp(40px, 4.8vw, 56px);
           font-weight: 800;
-          line-height: 1.1;
           color: #000000;
+          line-height: 1.12;
+          letter-spacing: -0.025em;
+          margin: 0;
         }
 
-        .sfq2-left h1 span {
-          background: linear-gradient(400deg, #7E0101 0%, #FF009B 49%, #790007 100%);
+        .sfq-heading-accent {
+          display: inline-block;
+          background: linear-gradient(90deg, #00adef 0%, #004d8c 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          color: transparent;
         }
 
-        .sfq2-left p {
-          margin-top: 24px;
-          font-size: 20px;
-          line-height: 1.3;
-          color: #000000;
+        .sfq-desc {
+          margin-top: auto;
+          padding-top: 60px;
+          font-size: 19px;
+          font-weight: 500;
+          color: #1e293b;
+          line-height: 1.45;
         }
 
-        .sfq2-right {
-          max-width: 45%;
+        /* Right Column (Accordion List) */
+        .sfq-right {
           flex: 1;
+          max-width: 540px;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 16px;
         }
 
-        .sfq2-item {
+        .sfq-item {
           background: #ffffff;
-          border-radius: 30px;
-          padding: 20px 30px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+          border-radius: 24px;
+          border: 1.5px solid #e8eef3;
+          box-shadow: 0 6px 20px rgba(0, 40, 70, 0.05);
+          padding: 20px 26px;
           cursor: pointer;
-          transition: 0.3s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .sfq2-item:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+        .sfq-item:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 28px rgba(0, 40, 70, 0.08);
+          border-color: #cbd5e1;
         }
 
-        .sfq2-question {
+        .sfq-header-btn {
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -127,161 +164,239 @@ export default function StudentFAQ() {
           text-align: left;
           padding: 0;
           cursor: pointer;
-          gap: 12px;
+          gap: 16px;
         }
 
-        .sfq2-question h3 {
-          font-size: 20px;
-          font-weight: 700;
+        .sfq-question-text {
+          font-size: 17px;
+          font-weight: 750;
           color: #000000;
-          flex: 1;
+          margin: 0;
+          letter-spacing: -0.01em;
+          line-height: 1.35;
         }
 
-        .sfq2-icon {
-          font-size: 25px;
-          font-weight: 700;
-          color: #000000;
+        .sfq-icon-wrap {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
           flex-shrink: 0;
-          line-height: 1;
+          color: #000000;
         }
 
-        .sfq2-answer {
-          max-height: 0;
+        .sfq-answer {
           overflow: hidden;
-          transition: max-height 0.4s ease;
+          transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-top 0.3s ease;
         }
 
-        .sfq2-answer.open {
-          max-height: 300px;
+        .sfq-answer.closed {
+          max-height: 0;
+          opacity: 0;
+          margin-top: 0;
         }
 
-        .sfq2-answer p {
-          margin-top: 10px;
+        .sfq-answer.open {
+          max-height: 600px;
+          opacity: 1;
+          margin-top: 12px;
+        }
+
+        .sfq-answer-text {
+          font-size: 13px;
+          line-height: 1.55;
+          color: #475569;
+          margin: 0;
+          max-width: 98%;
+        }
+
+        .sfq-points-list {
+          list-style: none;
+          padding: 0;
+          margin: 10px 0 0 0;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .sfq-point-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 12.5px;
+          line-height: 1.5;
+          color: #334155;
+        }
+
+        .sfq-point-bullet {
+          color: #2280a8;
+          font-weight: 800;
           font-size: 15px;
-          color: #555;
-          line-height: 1.6;
+          line-height: 1.2;
+          flex-shrink: 0;
         }
 
-        .sfq2-contact {
+        /* Bottom Help Card */
+        .sfq-help-card {
           background: #ffffff;
-          border-radius: 30px;
-          padding: 30px;
+          border-radius: 24px;
+          border: 1.5px solid #e8eef3;
+          box-shadow: 0 6px 20px rgba(0, 40, 70, 0.05);
+          padding: 22px 26px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
           gap: 20px;
-        }
-
-        .sfq2-contact h3 {
-          font-size: 20px;
-          font-weight: 700;
-          color: #000;
-        }
-
-        .sfq2-contact p {
-          font-size: 14px;
-          color: #666;
           margin-top: 4px;
         }
 
-        .sfq2-cta {
-          display: inline-block;
-          padding: 10px 30px;
-          background: #7E0000;
+        .sfq-help-title {
+          font-size: 16.5px;
+          font-weight: 800;
+          color: #000000;
+          margin: 0 0 4px;
+        }
+
+        .sfq-help-sub {
+          font-size: 12px;
+          font-weight: 500;
+          color: #64748b;
+          margin: 0;
+        }
+
+        .sfq-contact-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #2280a8;
           color: #ffffff;
-          border-radius: 30px;
-          text-decoration: none;
+          padding: 10px 24px;
+          border-radius: 9999px;
+          font-size: 13.5px;
           font-weight: 600;
-          font-size: 15px;
-          transition: all 0.3s ease;
-          white-space: nowrap;
-          flex-shrink: 0;
-          cursor: pointer;
+          text-decoration: none;
           border: none;
+          cursor: pointer;
+          white-space: nowrap;
+          box-shadow: 0 4px 12px rgba(34, 128, 168, 0.25);
+          transition: all 0.2s ease;
         }
 
-        .sfq2-cta:hover {
-          background: #8e0101;
-          transform: translateY(-2px);
-          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+        .sfq-contact-btn:hover {
+          background: #196b8e;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px rgba(34, 128, 168, 0.35);
         }
 
-        @media (max-width: 1024px) {
-          .sfq2-section { padding: 120px 20px; min-height: unset; }
-          .sfq2-container { flex-direction: column; gap: 50px; }
-          .sfq2-left, .sfq2-right { max-width: 100%; width: 100%; }
-          .sfq2-left h1 { font-size: 36px; margin: 0; }
-          .sfq2-left p { margin-top: 20px; font-size: 18px; }
+        @media (max-width: 960px) {
+          .sfq-container {
+            flex-direction: column;
+            gap: 40px;
+          }
+          .sfq-left {
+            flex: none;
+            width: 100%;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          .sfq-desc {
+            margin-top: 20px;
+            padding-top: 0;
+          }
+          .sfq-right {
+            max-width: 100%;
+          }
         }
 
-        @media (max-width: 768px) {
-          .sfq2-section { height: auto; padding: 120px 20px; min-height: unset; }
-          .sfq2-left h1 { font-size: 34px; }
-          .sfq2-contact { flex-direction: column; align-items: flex-start; }
+        @media (max-width: 560px) {
+          .sfq-help-card {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .sfq-contact-btn {
+            width: 100%;
+            text-align: center;
+          }
         }
       `}</style>
 
-      <section className="sfq2-section">
-        {/* Background design image */}
-        <Image
-          src="/student-img/students/designfaq.svg"
-          alt=""
-          className="sfq2-bg"
-          width={1920}
-          height={400}
-          aria-hidden="true"
-          style={{ objectFit: "cover", width: "100%", height: "auto" }}
-        />
+      <section className="sfq-section" id="faq">
+        <div className="sfq-container">
+          {/* Left Column */}
+          <div className="sfq-left">
+            <div>
+              <h2 className="sfq-heading">
+                Frequently Asked<br />
+                <span className="sfq-heading-accent">Questions</span>
+              </h2>
+            </div>
 
-        <div className="sfq2-container">
-
-          {/* LEFT */}
-          <div className="sfq2-left">
-            <h1>
-              Frequently Asked <br />
-              <span>Questions</span>
-            </h1>
-            <p>
-              Here are some common questions about our services to help you understand better
+            <p className="sfq-desc">
+              Here are some common questions<br />
+              about our services to help you<br />
+              understand better
             </p>
           </div>
 
-          {/* RIGHT */}
-          <div className="sfq2-right">
-            {FAQS.map((faq, i) => (
-              <div
-                key={i}
-                className="sfq2-item"
-                onClick={() => toggle(i)}
-              >
-                <button className="sfq2-question" aria-expanded={openIndex === i}>
-                  <h3>{faq.q}</h3>
-                  <span className="sfq2-icon">{openIndex === i ? "−" : "+"}</span>
-                </button>
-                <div className={`sfq2-answer${openIndex === i ? " open" : ""}`}>
-                  <p>{faq.a}</p>
-                </div>
-              </div>
-            ))}
+          {/* Right Column (Accordion List) */}
+          <div className="sfq-right">
+            {FAQS.map((faq, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <div
+                  key={faq.q}
+                  className="sfq-item"
+                  onClick={() => toggle(i)}
+                >
+                  <button
+                    className="sfq-header-btn"
+                    aria-expanded={isOpen}
+                    type="button"
+                  >
+                    <h3 className="sfq-question-text">{faq.q}</h3>
+                    <span className="sfq-icon-wrap">
+                      {isOpen ? (
+                        <svg width="15" height="3" viewBox="0 0 15 3" fill="none" aria-hidden="true">
+                          <rect width="15" height="2.6" rx="1.3" fill="#000000" />
+                        </svg>
+                      ) : (
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                          <rect y="6.2" width="15" height="2.6" rx="1.3" fill="#000000" />
+                          <rect x="6.2" width="2.6" height="15" rx="1.3" fill="#000000" />
+                        </svg>
+                      )}
+                    </span>
+                  </button>
 
-            {/* Contact box */}
-            <div className="sfq2-contact">
+                  <div className={`sfq-answer ${isOpen ? "open" : "closed"}`}>
+                    <p className="sfq-answer-text">{faq.a}</p>
+                    {faq.points && faq.points.length > 0 && (
+                      <ul className="sfq-points-list">
+                        {faq.points.map((pt, idx) => (
+                          <li key={idx} className="sfq-point-item">
+                            <span className="sfq-point-bullet">•</span>
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Bottom Help Card */}
+            <div className="sfq-help-card">
               <div>
-                <h3>Have Questions? We&apos;re Here to Help!</h3>
-                <p>Reach out to our support team for any queries.</p>
+                <h4 className="sfq-help-title">Have Questions? We&apos;re Here to Help!</h4>
+                <p className="sfq-help-sub">Reach out to our support team for any queries or assistance.</p>
               </div>
-              <a
-                href="mailto:connect@talentyug.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sfq2-cta"
-              >
-                Contact Us
+              <a href="#contact" className="sfq-contact-btn">
+                Contact us
               </a>
             </div>
           </div>
-
         </div>
       </section>
     </>

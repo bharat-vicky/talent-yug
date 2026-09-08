@@ -1,282 +1,397 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Link from "next/link";
 
-const FAQS = [
+interface FAQItem {
+  q: string;
+  a: string;
+  points?: string[];
+}
+
+const FAQS: FAQItem[] = [
   {
     q: "What's your candidate quality?",
-    a: "We work with vetted colleges and capture detailed student profiles, projects and assessments so you see candidates who fit your skill, culture and role needs, not generic resumes.",
+    a: "Every candidate entering our pooled drives undergoes automated multi-level vetting to guarantee job-readiness:",
+    points: [
+      "Standardized Technical & Coding Benchmarks: Role-specific tests covering algorithms, system design, and practical programming stacks.",
+      "Authenticated Academic Records: CGPA, degree streams, and backlog histories are verified directly with partner university placement cells.",
+      "Comprehensive Portfolios: Full visibility into candidate GitHub repositories, live projects, and verified internship credentials.",
+    ],
   },
   {
     q: "Which colleges are in your network?",
-    a: "We are connected with Tier 1 to Tier 3 colleges and currently work with 100+ institutions across different regions.",
+    a: "TalentYug partners directly with 50+ accredited regional universities and top Tier 2/3 engineering colleges across India:",
+    points: [
+      "Untapped Regional Talent Hubs: Elite state universities and accredited institutions across Maharashtra, Karnataka, Tamil Nadu, Telangana, and North India.",
+      "High-Demand Disciplines: Pre-screened candidates from Computer Science, Artificial Intelligence, Data Science, Electronics, and IT streams.",
+      "Dedicated TPO Liaison: Close coordination with campus placement officers guarantees high attendance rates and punctual interview drives.",
+    ],
   },
   {
     q: "How fast can we hire?",
-    a: "You can hire a bulk number of students within 48 hours of raising your requirements.",
+    a: "Our digital platform shortens campus recruitment cycles from 6–9 months down to 2–3 weeks:",
+    points: [
+      "Immediate Candidate Delivery: Receive tailored candidate shortlists matched to your job specs within 48 to 72 hours of posting.",
+      "Automated 1-Click Scheduling: Eliminate email ping-pong with calendar-synced interview slots and direct video call links.",
+      "Rapid Offer Rollouts: Structured interview scorecards let hiring teams finalize decisions and release digital offer letters in hours.",
+    ],
   },
   {
     q: "What's the hiring process?",
-    a: "Our team provides you with the best pre-filtered, interview-ready students so your hiring team only spends time with high-potential candidates.",
+    a: "We provide an end-to-end, standardized 6-step recruitment pipeline accessible right from your dashboard:",
+    points: [
+      "Step 1: Create Job Posting using standardized job parameters, skill requirements, and salary compensation bands.",
+      "Step 2: Receive AI-Ranked Candidate Pool matched across our partner college network based on skills and academic fit.",
+      "Step 3: Shortlist & Interview with built-in video links and real-time evaluator feedback.",
+      "Step 4: Make Digital Offers with automated deadline trackers and transparent salary documentation.",
+      "Step 5: Onboard & Track Joining Dates with post-hire feedback loops to measure new employee retention.",
+    ],
+  },
+  {
+    q: "Can we post multiple roles?",
+    a: "Yes, you can post, manage, and interview for unlimited positions simultaneously:",
+    points: [
+      "Diverse Role Openings: Hire simultaneously for software development, QA engineering, data analytics, product support, and sales roles.",
+      "Reusable Job Templates: Duplicate past job postings in 1 click for seasonal or recurring campus hiring cycles.",
+      "Multi-User Hiring Panels: Grant customized access to engineering leads, hiring managers, and HR team members with role-based permissions.",
+    ],
   },
   {
     q: "How does pricing work?",
-    a: "Pricing is flexible and can be based on annual subscription, per-hire success fees, or a hybrid model depending on your hiring volume.",
+    a: "Our flexible, transparent pricing is tailored to match your specific hiring volume:",
+    points: [
+      "Commission Model: ₹15,000 per hire with zero upfront cost — pay only when a candidate successfully accepts and joins.",
+      "Subscription + Commission: ₹2 Lakhs annual platform fee + reduced ₹10,000 per hire, optimized for growing teams hiring 20+ candidates.",
+      "Enterprise Contracts: Volume-tiered pricing with dedicated account managers and customized interview drives for 50+ annual hires.",
+    ],
   },
 ];
 
 export default function CompanyFAQ() {
   const [openIndex, setOpenIndex] = useState<number>(0);
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? -1 : i);
+
+  const toggle = (i: number) => {
+    setOpenIndex(openIndex === i ? -1 : i);
+  };
 
   return (
     <>
       <style>{`
-        .cfq2-section {
+        .cfq-section {
           position: relative;
-          padding: 180px 20px;
           background: #ffffff;
-          z-index: 11;
-          min-height: 120vh;
+          padding: 90px 24px 130px;
           overflow: hidden;
-          margin-bottom: 0;
         }
 
-        .cfq2-bg {
-          position: absolute;
-          max-width: 100%;
-          left: 0;
-          bottom: 0;
-          z-index: 1;
-          pointer-events: none;
-          user-select: none;
-        }
-
-        .cfq2-container {
-          max-width: 1300px;
-          width: 90%;
-          margin: auto;
+        .cfq-container {
+          max-width: 1160px;
+          margin: 0 auto;
           display: flex;
           justify-content: space-between;
-          position: relative;
-          z-index: 2;
-          gap: 40px;
+          align-items: stretch;
+          gap: 56px;
         }
 
-        .cfq2-left {
-          max-width: 43%;
-          flex-shrink: 0;
-        }
-
-        .cfq2-left h1 {
-          font-size: 54px;
-          font-weight: 800;
-          line-height: 1.1;
-          color: #000000;
-        }
-
-        .cfq2-left h1 span {
-          background: linear-gradient(-20deg, #00BAFF, #004483, #00EAFF);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          color: transparent;
-        }
-
-        .cfq2-left p {
-          margin-top: 24px;
-          font-size: 20px;
-          line-height: 1.3;
-          color: #000000;
-        }
-
-        .cfq2-right {
-          max-width: 45%;
-          flex: 1;
+        /* Left Column */
+        .cfq-left {
+          flex: 0 0 440px;
           display: flex;
           flex-direction: column;
-          gap: 25px;
-        }
-
-        .cfq2-item {
-          background: #ffffff;
-          border-radius: 30px;
-          padding: 28px 30px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-          cursor: pointer;
-          transition: 0.3s ease;
-        }
-
-        .cfq2-item:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
-        }
-
-        .cfq2-question {
-          display: flex;
           justify-content: space-between;
-          align-items: center;
+          padding-top: 40px;
+          padding-bottom: 20px;
+        }
+
+        .cfq-heading {
+          font-size: clamp(38px, 4.4vw, 54px);
+          font-weight: 800;
+          color: #000000;
+          line-height: 1.15;
+          letter-spacing: -0.025em;
+          margin: 0;
+        }
+
+        .cfq-heading-accent {
+          display: block;
+          color: #0284c7;
+        }
+
+        .cfq-desc {
+          margin-top: auto;
+          padding-top: 80px;
+          font-size: 17.5px;
+          font-weight: 500;
+          color: #1e293b;
+          line-height: 1.5;
+          max-width: 360px;
+        }
+
+        /* Right Column (Accordion List) */
+        .cfq-right {
+          flex: 1;
+          max-width: 580px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .cfq-card {
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
+          border-radius: 20px;
+          box-shadow: 0 4px 14px rgba(0, 50, 80, 0.04);
+          overflow: hidden;
+          transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cfq-card:hover {
+          border-color: #cbd5e1;
+          box-shadow: 0 6px 20px rgba(0, 50, 80, 0.07);
+        }
+
+        .cfq-card-open {
+          border-color: #b5d5e8;
+          box-shadow: 0 8px 24px rgba(34, 128, 168, 0.1);
+        }
+
+        .cfq-question-btn {
           width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 20px 24px;
           background: transparent;
           border: none;
-          text-align: left;
-          padding: 0;
           cursor: pointer;
-          gap: 12px;
+          text-align: left;
+          font-size: 16.5px;
+          font-weight: 750;
+          color: #0f172a;
+          gap: 16px;
+          transition: color 0.2s ease;
         }
 
-        .cfq2-question h3 {
-          font-size: 20px;
-          font-weight: 700;
-          color: #000000;
-          flex: 1;
+        .cfq-question-btn:hover {
+          color: #2280a8;
         }
 
-        .cfq2-icon {
-          font-size: 25px;
-          font-weight: 700;
-          color: #000000;
+        .cfq-icon {
           flex-shrink: 0;
-          line-height: 1;
-        }
-
-        .cfq2-answer {
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.4s ease;
-        }
-
-        .cfq2-answer.open {
-          max-height: 300px;
-        }
-
-        .cfq2-answer p {
-          margin-top: 15px;
-          font-size: 15px;
-          color: #555;
-          line-height: 1.6;
-        }
-
-        .cfq2-contact {
-          background: #ffffff;
-          border-radius: 30px;
-          padding: 30px;
+          width: 28px;
+          height: 28px;
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+          justify-content: center;
+          color: #0f172a;
+          font-size: 20px;
+          font-weight: 400;
+        }
+
+        .cfq-answer-box {
+          padding: 0 24px 22px;
+          font-size: 14px;
+          line-height: 1.6;
+          color: #334155;
+          animation: faqFadeIn 0.3s ease;
+        }
+
+        @keyframes faqFadeIn {
+          from { opacity: 0; transform: translateY(-4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cfq-answer-text {
+          margin: 0 0 12px;
+          font-weight: 500;
+        }
+
+        .cfq-points {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .cfq-points li {
+          position: relative;
+          padding-left: 18px;
+          font-size: 13.5px;
+          line-height: 1.5;
+          color: #334155;
+        }
+
+        .cfq-points li::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          top: -1px;
+          font-size: 16px;
+          color: #2280a8;
+        }
+
+        /* Support Help Card */
+        .cfq-support-card {
+          margin-top: 10px;
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
+          border-radius: 20px;
+          padding: 20px 24px;
+          box-shadow: 0 4px 14px rgba(0, 50, 80, 0.04);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           gap: 20px;
         }
 
-        .cfq2-contact h3 {
-          font-size: 20px;
-          font-weight: 700;
-          color: #000;
+        .cfq-support-title {
+          font-size: 15.5px;
+          font-weight: 750;
+          color: #0f172a;
+          margin: 0 0 4px;
         }
 
-        .cfq2-contact p {
-          font-size: 14px;
-          color: #666;
-          margin-top: 4px;
+        .cfq-support-sub {
+          font-size: 13px;
+          color: #64748b;
+          margin: 0;
         }
 
-        .cfq2-cta {
-          display: inline-block;
-          padding: 10px 40px;
-          background: #006F5F;
+        .cfq-support-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 24px;
+          border-radius: 9999px;
+          background: #2280a8;
           color: #ffffff;
-          border-radius: 30px;
+          font-size: 13.5px;
+          font-weight: 700;
           text-decoration: none;
-          font-weight: 600;
-          font-size: 15px;
-          transition: all 0.3s ease;
           white-space: nowrap;
-          flex-shrink: 0;
-          cursor: pointer;
-          border: none;
+          transition: all 0.2s ease;
+          box-shadow: 0 4px 12px rgba(34, 128, 168, 0.25);
         }
 
-        .cfq2-cta:hover {
-          background: #0FB79C;
-          transform: translateY(-2px);
-          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+        .cfq-support-btn:hover {
+          background: #19698a;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px rgba(34, 128, 168, 0.35);
         }
 
-        @media (max-width: 1024px) {
-          .cfq2-section { padding: 120px 20px; min-height: unset; }
-          .cfq2-container { flex-direction: column; gap: 50px; }
-          .cfq2-left, .cfq2-right { max-width: 100%; width: 100%; }
-          .cfq2-left h1 { font-size: 36px; margin: 0; }
-          .cfq2-left p { margin-top: 20px; font-size: 18px; }
-        }
-
-        @media (max-width: 768px) {
-          .cfq2-section { height: auto; min-height: unset; padding: 120px 20px; }
-          .cfq2-contact { flex-direction: column; align-items: flex-start; }
+        @media (max-width: 900px) {
+          .cfq-container {
+            flex-direction: column;
+            gap: 40px;
+          }
+          .cfq-left {
+            flex: none;
+            padding-top: 0;
+          }
+          .cfq-desc {
+            padding-top: 24px;
+            max-width: 100%;
+          }
+          .cfq-right {
+            max-width: 100%;
+          }
         }
       `}</style>
 
-      <section className="cfq2-section">
-        {/* Background design image */}
-        <Image
-          src="/company-img/companies/design.svg"
-          alt=""
-          className="cfq2-bg"
-          width={1920}
-          height={400}
-          aria-hidden="true"
-          style={{ objectFit: "cover", width: "100%", height: "auto" }}
-        />
+      <section className="cfq-section" id="faq">
+        <div className="cfq-container">
+          {/* Left Column */}
+          <div className="cfq-left">
+            <h2 className="cfq-heading">
+              Frequently Asked
+              <span className="cfq-heading-accent">Questions</span>
+            </h2>
 
-        <div className="cfq2-container">
-
-          {/* LEFT */}
-          <div className="cfq2-left">
-            <h1>
-              Frequently Asked <br />
-              <span>Questions</span>
-            </h1>
-            <p>
-              Here are some common questions about our services to help you understand better
+            <p className="cfq-desc">
+              Here are some common questions about our services to help you
+              understand better
             </p>
           </div>
 
-          {/* RIGHT */}
-          <div className="cfq2-right">
-            {FAQS.map((faq, i) => (
-              <div
-                key={i}
-                className="cfq2-item"
-                onClick={() => toggle(i)}
-              >
-                <button className="cfq2-question" aria-expanded={openIndex === i}>
-                  <h3>{faq.q}</h3>
-                  <span className="cfq2-icon">{openIndex === i ? "−" : "+"}</span>
-                </button>
-                <div className={`cfq2-answer${openIndex === i ? " open" : ""}`}>
-                  <p>{faq.a}</p>
-                </div>
-              </div>
-            ))}
+          {/* Right Column (Accordion List) */}
+          <div className="cfq-right">
+            {FAQS.map((faq, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <div
+                  key={i}
+                  className={`cfq-card ${isOpen ? "cfq-card-open" : ""}`}
+                >
+                  <button
+                    className="cfq-question-btn"
+                    onClick={() => toggle(i)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.q}</span>
+                    <span className="cfq-icon">
+                      {isOpen ? (
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                        >
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                        >
+                          <line x1="12" y1="5" x2="12" y2="19" />
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                      )}
+                    </span>
+                  </button>
 
-            {/* Contact box */}
-            <div className="cfq2-contact">
+                  {isOpen && (
+                    <div className="cfq-answer-box">
+                      <p className="cfq-answer-text">{faq.a}</p>
+                      {faq.points && (
+                        <ul className="cfq-points">
+                          {faq.points.map((pt, idx) => (
+                            <li key={idx}>{pt}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Have Questions? Support Card */}
+            <div className="cfq-support-card">
               <div>
-                <h3>Have Questions? We&apos;re Here to Help!</h3>
-                <p>Reach out to our support team for any queries.</p>
+                <h4 className="cfq-support-title">
+                  Have Questions? We&apos;re Here to Help!
+                </h4>
+                <p className="cfq-support-sub">
+                  Reach out to our support team for any queries or assistance.
+                </p>
               </div>
-              <a
-                href="mailto:connect@talentyug.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cfq2-cta"
-              >
-                Contact Us
-              </a>
+              <Link href="/register" className="cfq-support-btn">
+                Contact us
+              </Link>
             </div>
           </div>
-
         </div>
       </section>
     </>

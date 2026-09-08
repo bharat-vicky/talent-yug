@@ -4,86 +4,219 @@ import Link from "next/link";
 export default function StudentFooter() {
   return (
     <>
-      {/* Footer spacer with skyline image */}
-      <section
-        style={{
-          backgroundColor: "#ffffff",
-          position: "relative",
-          overflow: "hidden",
-          zIndex: 11,
-          paddingTop: "clamp(60px,12vw,200px)",
-        }}
-        id="footer"
-      >
-        <div style={{ lineHeight: 0 }}>
+      <style>{`
+        .sfoot-wrapper {
+          position: relative;
+          background: #ffffff;
+          overflow: hidden;
+          width: 100%;
+        }
+
+        /* Skyline Graphic */
+        .sfoot-skyline-wrap {
+          width: 100%;
+          line-height: 0;
+          position: relative;
+          background: #ffffff;
+        }
+
+        .sfoot-skyline-img {
+          width: 100%;
+          height: auto;
+          display: block;
+          object-fit: cover;
+          max-height: 220px;
+        }
+
+        /* Footer Main Content */
+        .sfoot-main {
+          background-color: #2280a8;
+          padding: 24px 24px 36px;
+          color: #083a50;
+        }
+
+        .sfoot-container {
+          max-width: 1140px;
+          margin: 0 auto;
+        }
+
+        .sfoot-columns {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 40px;
+          flex-wrap: wrap;
+          padding-bottom: 36px;
+        }
+
+        .sfoot-col {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .sfoot-col-title {
+          font-size: 19px;
+          font-weight: 800;
+          color: #062b3c;
+          margin: 0 0 4px;
+          letter-spacing: -0.01em;
+        }
+
+        .sfoot-link {
+          font-size: 14.5px;
+          font-weight: 550;
+          color: #0a3f56;
+          text-decoration: none;
+          transition: color 0.2s ease, transform 0.2s ease;
+          display: inline-block;
+        }
+
+        .sfoot-link:hover {
+          color: #ffffff;
+          transform: translateX(2px);
+        }
+
+        /* Right Brand Block */
+        .sfoot-brand-col {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          max-width: 320px;
+          overflow: visible;
+        }
+
+        .sfoot-brand-logo {
+          width: 215px;
+          height: auto;
+          display: block;
+          margin-bottom: 2px;
+          max-width: 100%;
+        }
+
+        .sfoot-tagline {
+          font-size: 14px;
+          line-height: 1.5;
+          color: #093c52;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        /* Bottom Copyright Bar */
+        .sfoot-bottom-bar {
+          text-align: center;
+          font-size: 13px;
+          font-weight: 500;
+          color: #083a50;
+          padding-top: 24px;
+          border-top: 1px solid rgba(8, 58, 80, 0.15);
+        }
+
+        .sfoot-legal-link {
+          color: #083a50;
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+
+        .sfoot-legal-link:hover {
+          color: #ffffff;
+          text-decoration: underline;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+          .sfoot-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 36px;
+          }
+          .sfoot-brand-col {
+            grid-column: span 2;
+            max-width: 100%;
+          }
+        }
+
+        @media (max-width: 540px) {
+          .sfoot-columns {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .sfoot-brand-col {
+            grid-column: span 1;
+          }
+        }
+      `}</style>
+
+      <footer className="sfoot-wrapper" id="footer">
+        {/* Skyline transition graphic */}
+        <div className="sfoot-skyline-wrap">
           <Image
-            src="/student-img/students/footerr.png"
-            alt="Footer Background"
-            width={1920}
-            height={400}
-            style={{ width: "100%", display: "block", margin: 0, height: "auto" }}
+            src="/student-img/students/skyline_blue_v3.png"
+            alt="City Skyline"
+            width={2048}
+            height={360}
+            className="sfoot-skyline-img"
+            priority
+            unoptimized
           />
         </div>
-      </section>
 
-      {/* Footer content */}
-      <section style={{ backgroundColor: "#FFBABA", overflow: "hidden" }}>
-        <div
-          style={{
-            maxWidth: 800,
-            margin: "auto",
-            padding: "10px 20px 40px",
-            color: "#f8ffff",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "flex-start",
-              marginBottom: 40,
-              flexWrap: "wrap",
-              gap: 30,
-            }}
-          >
-            {/* Social */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <h3 style={{ fontSize: "clamp(18px,2vw,25px)", fontWeight: 700, margin: 0 }}>Social</h3>
-              <Link href="https://www.instagram.com/talentyug.in" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>Instagram</Link>
-              <Link href="https://x.com/talentyugpvtltd" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>Twitter(X)</Link>
-              <Link href="https://www.linkedin.com/company/talentyug-private-limited/" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>LinkedIn</Link>
-              <Link href="https://www.facebook.com" target="_blank" rel="noopener" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>Facebook</Link>
+        {/* Footer main links & branding */}
+        <div className="sfoot-main">
+          <div className="sfoot-container">
+            <div className="sfoot-columns">
+              {/* Column 1: PLATFORM */}
+              <div className="sfoot-col">
+                <h4 className="sfoot-col-title">PLATFORM</h4>
+                <Link href="/colleges" className="sfoot-link">For Colleges</Link>
+                <Link href="/companies" className="sfoot-link">For Companies</Link>
+                <Link href="/students" className="sfoot-link">For Students</Link>
+                <Link href="/#about" className="sfoot-link">About US</Link>
+              </div>
+
+              {/* Column 2: Features */}
+              <div className="sfoot-col">
+                <h4 className="sfoot-col-title">Features</h4>
+                <Link href="/colleges" className="sfoot-link">Event Management</Link>
+                <Link href="/students" className="sfoot-link">QR Check-In</Link>
+                <Link href="/companies" className="sfoot-link">Analytics</Link>
+              </div>
+
+              {/* Column 3: ACCOUNT */}
+              <div className="sfoot-col">
+                <h4 className="sfoot-col-title">ACCOUNT</h4>
+                <Link href="/login" className="sfoot-link">Sign Up</Link>
+                <Link href="/login" className="sfoot-link">Log In</Link>
+                <Link href="/login" className="sfoot-link">Reset Password</Link>
+              </div>
+
+              {/* Column 4: Brand Logo & Tagline */}
+              <div className="sfoot-brand-col">
+                <Image
+                  src="/student-img/students/footer_logo_v3.png"
+                  alt="TalentYug"
+                  width={424}
+                  height={130}
+                  className="sfoot-brand-logo"
+                  unoptimized
+                />
+                <p className="sfoot-tagline">
+                  Connecting Students, Colleges, And<br />
+                  Companies Through Seamless<br />
+                  Campus Recruitment Events.
+                </p>
+              </div>
             </div>
 
-            {/* Quick Links */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <h3 style={{ fontSize: "clamp(18px,2vw,25px)", fontWeight: 700, margin: 0 }}>Quick Links</h3>
-              <Link href="/colleges" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>For Colleges</Link>
-              <Link href="/companies" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>For Companies</Link>
-              <Link href="/students" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>For Students</Link>
-              <Link href="#footer" style={{ fontSize: 18, color: "#f8ffff", textDecoration: "none" }}>About Us</Link>
+            {/* Bottom Bar */}
+            <div className="sfoot-bottom-bar">
+              Copyright 2026-27 | All Rights Reserved |{" "}
+              <Link href="/privacy" className="sfoot-legal-link">Privacy Policy</Link> |{" "}
+              <Link href="/terms" className="sfoot-legal-link">Terms Of Service</Link>
             </div>
-
-            {/* Contact */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 18 }} id="contact">
-              <h3 style={{ fontSize: "clamp(18px,2vw,25px)", fontWeight: 700, margin: 0 }}>Contacts</h3>
-              <p style={{ fontSize: 18, color: "#f8ffff", margin: 0 }}>Call <a href="tel:+918210597576" style={{ color: "#f8ffff" }}>+91 8210597576</a></p>
-              <p style={{ fontSize: 18, color: "#f8ffff", margin: 0 }}>Email <a href="mailto:connect@talentyug.in" style={{ color: "#f8ffff" }}>connect@talentyug.in</a></p>
-              <p style={{ fontSize: 18, color: "#f8ffff", margin: 0 }}>Bihta, Patna, Bihar-801103</p>
-            </div>
-
-            {/* Logo */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <Image src="/student-img/logo.png" alt="TalentYug" width={60} height={60} style={{ maxWidth: 60 }} />
-              <span style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 700, color: "#1F3F68" }}>TalentYug</span>
-            </div>
-          </div>
-
-          <div style={{ textAlign: "center", fontSize: 18, paddingTop: 10 }}>
-            Copyright 2026-27 | All Rights Reserved | Privacy Policy | Terms Of Service
           </div>
         </div>
-      </section>
+      </footer>
     </>
   );
 }

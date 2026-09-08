@@ -1,285 +1,181 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
-const LEFT_ITEMS = [
+const CHALLENGES = [
   "Manual Placement Processes (Excel/WhatsApp)",
   "Lack of Analytics and Optimization",
   "Weak Network Infrastructure",
   "50–60% placement success rate",
-  "Unstructured student preparation"
+  "Unstructured student preparation",
 ];
 
-const RIGHT_ITEMS = [
+const SOLUTIONS = [
   "Structured 7-step placement model",
   "Real-Time Company & Student Data",
   "Unified digital dashboard",
   "AI-powered talent matching",
-  "Integrated interview and prep support"
+  "Integrated interview and prep support",
 ];
 
 export default function CollegeVS() {
-  const titleRef = useRef<HTMLDivElement>(null);
-  const [titleVisible, setTitleVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setTitleVisible(true); },
-      { threshold: 0.3 }
-    );
-    if (titleRef.current) observer.observe(titleRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section className="covs-wrapper">
+    <>
       <style>{`
-        .covs-wrapper {
-          background-color: #fef5e7;
-          padding: 40px 20px;
-          overflow: hidden;
-          font-family: 'Inter', sans-serif;
-          position: relative;
-          min-height: 100vh;
+        .clvs-section {
+          background-color: #ffffff;
+          padding: 40px 24px 160px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        }
+        .clvs-outer-card {
+          width: 100%;
+          max-width: 1120px;
+          background: #edf6fc;
+          border: 1.5px solid #d3e7f2;
+          border-radius: 30px;
+          padding: 28px;
+          box-shadow: 0 18px 48px rgba(5, 59, 80, 0.08);
+          display: flex;
+          align-items: stretch;
+          gap: 32px;
+        }
+        .clvs-dark-card {
+          background: #053b50;
+          border-radius: 20px;
+          padding: 40px 30px;
+          flex: 0 0 265px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: space-between;
+          color: #ffffff;
         }
-        .covs-header {
-          text-align: center;
-          margin-bottom: 40px;
-          opacity: 0;
-          transform: translateY(40px);
-          transition: all 0.8s cubic-bezier(.22,1,.36,1);
-        }
-        .covs-header.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .covs-header h2 {
-          font-size: clamp(32px, 4vw, 48px);
+        .clvs-dark-title {
+          font-size: 26px;
           font-weight: 800;
-          color: #000;
-          margin: 0 0 12px;
-        }
-        .covs-header p {
-          font-size: clamp(16px, 2vw, 20px);
-          color: #333;
+          line-height: 1.25;
           margin: 0;
+          color: #ffffff;
+          letter-spacing: -0.2px;
         }
-
-        /* Layout */
-        .covs-layout {
-          position: relative;
-          max-width: 1200px;
-          margin: 0 auto;
-          display: flex;
-          align-items: center;
-          height: 500px;
-          width: 100%;
+        .clvs-dark-desc {
+          font-size: 15px;
+          line-height: 1.55;
+          color: rgba(255, 255, 255, 0.9);
+          margin: 64px 0 0;
         }
-
-        /* Center Divider */
-        .covs-divider {
-          position: absolute;
-          left: 50%;
-          top: 20px;
-          bottom: 20px;
-          width: 2px;
-          background-color: #c9bcab;
-          transform: translateX(-50%);
-          z-index: 10;
-        }
-        .covs-vs-badge {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          width: 56px;
-          height: 56px;
-          border-radius: 50%;
-          background-color: #fff;
-          border: 2px solid #c9bcab;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 18px;
-          font-weight: 700;
-          color: #8c8378;
-        }
-
-        /* Sides */
-        .covs-side {
+        .clvs-col {
           flex: 1;
-          position: relative;
-          display: flex;
-          align-items: center;
-        }
-        .covs-side.left {
-          justify-content: flex-start;
-          padding-left: 260px;
-          padding-right: 40px;
-        }
-        .covs-side.right {
-          justify-content: flex-end;
-          padding-right: 260px;
-          padding-left: 40px;
-        }
-
-        /* Big Circles */
-        .covs-big-circle {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 500px;
-          height: 500px;
-          border-radius: 50%;
-          border: 12px solid #ffffff;
-          box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-          display: flex;
-          align-items: center;
-          color: #fff;
-          font-size: 32px;
-          font-weight: 700;
-          line-height: 1.2;
-          z-index: 1;
-        }
-        .covs-big-circle.left {
-          background-color: #F49437;
-          left: -260px;
-          justify-content: flex-end;
-          padding-right: 60px;
-          text-align: left;
-        }
-        .covs-big-circle.right {
-          background-color: #F3D77B;
-          right: -260px;
-          justify-content: flex-start;
-          padding-left: 60px;
-          text-align: center;
-        }
-
-        /* Items List */
-        .covs-items {
+          padding: 12px 18px;
           display: flex;
           flex-direction: column;
-          gap: 36px;
-          width: 100%;
-          z-index: 2;
         }
-        .covs-item {
+        .clvs-col-title {
+          font-size: 22px;
+          font-weight: 800;
+          color: #053b50;
+          line-height: 1.25;
+          margin: 0 0 24px;
+          letter-spacing: -0.2px;
+        }
+        .clvs-col-list {
           display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-        .covs-item.left {
-          flex-direction: row;
-        }
-        .covs-item.right {
-          flex-direction: row;
-          text-align: right;
-        }
-
-        .covs-dot {
-          width: 26px;
-          height: 26px;
-          border-radius: 50%;
-          border: 4px solid #fff;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-          flex-shrink: 0;
-        }
-        .covs-dot.left { background-color: #F49437; }
-        .covs-dot.right { background-color: #F3D77B; }
-
-        .covs-item p {
-          margin: 0;
-          font-size: 15px;
-          font-weight: 700;
-          color: #111;
-          line-height: 1.4;
+          flex-direction: column;
+          justify-content: space-between;
           flex: 1;
-          max-width: 250px;
+          gap: 18px;
         }
-
-        /* Curves effect */
-        .covs-item.left:nth-child(1) { transform: translateX(-54px); }
-        .covs-item.left:nth-child(2) { transform: translateX(-16px); }
-        .covs-item.left:nth-child(3) { transform: translateX(0px); }
-        .covs-item.left:nth-child(4) { transform: translateX(-16px); }
-        .covs-item.left:nth-child(5) { transform: translateX(-54px); }
-
-        .covs-item.right:nth-child(1) { transform: translateX(54px); }
-        .covs-item.right:nth-child(2) { transform: translateX(16px); }
-        .covs-item.right:nth-child(3) { transform: translateX(0px); }
-        .covs-item.right:nth-child(4) { transform: translateX(16px); }
-        .covs-item.right:nth-child(5) { transform: translateX(54px); }
-
-        /* Responsive */
-        @media (max-width: 960px) {
-          .covs-wrapper { min-height: auto; padding: 60px 20px; }
-          .covs-layout { flex-direction: column; gap: 80px; height: auto; margin-top: 20px; }
-          .covs-divider { display: none; }
-          .covs-side { width: 100%; padding: 0 !important; justify-content: center !important; flex-direction: column; }
-          
-          .covs-big-circle { 
-            position: relative; left: auto !important; right: auto !important; top: auto !important; transform: none !important; 
-            width: 300px; height: 300px; border: 8px solid #fff; margin-bottom: 40px; padding: 0 !important; 
-            justify-content: center !important; text-align: center !important; font-size: 28px;
+        .clvs-item {
+          font-size: 15px;
+          font-weight: 600;
+          color: #053b50;
+          line-height: 1.45;
+          margin: 0;
+        }
+        .clvs-divider {
+          width: 1.5px;
+          background: #b5d5e8;
+          margin: 8px 0;
+          align-self: stretch;
+        }
+        @media (max-width: 860px) {
+          .clvs-outer-card {
+            flex-direction: column;
+            padding: 18px;
+            gap: 20px;
           }
-          
-          .covs-items { padding: 0 20px; align-items: center; gap: 24px; }
-          .covs-item { transform: none !important; width: 100%; max-width: 400px; }
-          .covs-item p { max-width: none; }
-          .covs-item.right { flex-direction: row-reverse; text-align: left; }
+          .clvs-dark-card {
+            flex: none;
+            width: 100%;
+            padding: 26px 20px;
+          }
+          .clvs-dark-desc {
+            margin-top: 24px;
+          }
+          .clvs-divider {
+            width: 100%;
+            height: 1.5px;
+            margin: 4px 0;
+          }
+          .clvs-col {
+            padding: 8px 10px;
+          }
         }
       `}</style>
 
-      {/* Header */}
-      <div
-        ref={titleRef}
-        className={`covs-header ${titleVisible ? "visible" : ""}`}
-      >
-        <h2>Redefining Campus Placements</h2>
-        <p>Making hiring smarter, faster, and more transparent with TalentYug.</p>
-      </div>
+      <section className="clvs-section">
+        <div className="clvs-outer-card">
+          {/* Left Dark Card */}
+          <div className="clvs-dark-card">
+            <h3 className="clvs-dark-title">
+              Redefining
+              <br />
+              Campus
+              <br />
+              Placements
+            </h3>
+            <p className="clvs-dark-desc">
+              Making hiring smarter, faster, and more transparent with
+              TalentYug.
+            </p>
+          </div>
 
-      {/* Layout */}
-      <div className="covs-layout">
-        {/* Center divider */}
-        <div className="covs-divider">
-          <div className="covs-vs-badge">VS</div>
-        </div>
+          {/* Middle Column: Current Placement Challenges */}
+          <div className="clvs-col">
+            <h4 className="clvs-col-title">
+              Current Placement
+              <br />
+              Challenges
+            </h4>
+            <div className="clvs-col-list">
+              {CHALLENGES.map((item, idx) => (
+                <p key={idx} className="clvs-item">
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
 
-        {/* Left Side */}
-        <div className="covs-side left">
-          <div className="covs-big-circle left">
-            <span>Current<br />Placement<br />Challenges</span>
-          </div>
-          <div className="covs-items">
-            {LEFT_ITEMS.map((item, i) => (
-              <div className="covs-item left" key={`left-${i}`}>
-                <div className="covs-dot left"></div>
-                <p>{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+          {/* Vertical Divider */}
+          <div className="clvs-divider" aria-hidden="true" />
 
-        {/* Right Side */}
-        <div className="covs-side right">
-          <div className="covs-items">
-            {RIGHT_ITEMS.map((item, i) => (
-              <div className="covs-item right" key={`right-${i}`}>
-                <p>{item}</p>
-                <div className="covs-dot right"></div>
-              </div>
-            ))}
-          </div>
-          <div className="covs-big-circle right">
-            <span>Our<br />Integrated<br />Solution</span>
+          {/* Right Column: Our Integrated Solution */}
+          <div className="clvs-col">
+            <h4 className="clvs-col-title">
+              Our Integrated
+              <br />
+              Solution
+            </h4>
+            <div className="clvs-col-list">
+              {SOLUTIONS.map((item, idx) => (
+                <p key={idx} className="clvs-item">
+                  {item}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

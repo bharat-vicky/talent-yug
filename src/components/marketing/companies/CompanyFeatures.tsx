@@ -1,199 +1,322 @@
+"use client";
+
 import Image from "next/image";
 
 export default function CompanyFeatures() {
   return (
     <>
       <style>{`
-        .cft-section {
+        .cf-section {
           position: relative;
-          z-index: 11;
-          padding: 190px 0 160px;
-          background: #E4FBF8;
-          height: auto;
+          background: #ffffff;
+          padding: 60px 24px 100px;
           overflow: hidden;
         }
 
-        .cft-bg {
-          position: absolute;
-          top: 40px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 200px;
-          font-weight: 700;
-          color: #2D6F66;
-          opacity: 0.66;
-          pointer-events: none;
-          user-select: none;
-          white-space: nowrap;
+        .cf-header {
+          text-align: center;
+          margin-bottom: 40px;
+          position: relative;
+          z-index: 5;
         }
 
-        .cft-container {
-          max-width: 1250px;
-          width: 90%;
+        .cf-title {
+          font-size: clamp(64px, 10vw, 120px);
+          font-weight: 800;
+          color: #005070;
+          line-height: 1;
+          letter-spacing: -0.025em;
+          margin: 0;
+          display: inline-block;
+        }
+
+        .cf-container {
+          max-width: 1180px;
           margin: 0 auto;
           display: flex;
-          gap: 20px;
+          gap: 24px;
           position: relative;
           z-index: 2;
         }
 
-        .cft-col {
+        .cf-col {
           flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 24px;
         }
 
-        .cft-row {
+        .cf-card {
+          border-radius: 28px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cf-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(0, 50, 80, 0.12);
+        }
+
+        /* Card 1: Analytics & Reporting */
+        .cf-card-analytics {
+          background: #cae5ff;
+          padding: 38px 32px;
+          min-height: 380px;
           display: flex;
-          gap: 20px;
-        }
-
-        /* LIGHT CARD */
-        .cft-light {
-          position: relative;
-          height: 455px;
-          padding: 60px;
-          border-radius: 28px;
-          background: #72D8C4;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        }
-
-        .cft-light::before {
-          content: "";
-          position: absolute;
-          top: 0; right: 0; bottom: 0; left: 0;
-          background: url("/company-img/iuy0.png") no-repeat right 40px bottom 0px;
-          background-size: 200px auto;
-          opacity: 0.25;
-          pointer-events: none;
-        }
-
-        /* LIGHTER CARD */
-        .cft-lighter {
-          background: #A7FFF2;
-          padding: 40px;
-          border-radius: 28px;
+          justify-content: space-between;
+          align-items: stretch;
           position: relative;
           overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
-        /* DARK CARD */
-        .cft-dark {
-          background: #004137;
+        .cf-analytics-copy {
+          flex: 1;
+          max-width: 320px;
+          z-index: 2;
+        }
+
+        .cf-analytics-title {
+          font-size: 28px;
+          font-weight: 800;
+          color: #004868;
+          line-height: 1.2;
+          margin: 0 0 24px;
+        }
+
+        .cf-chart-wrapper {
+          position: relative;
+          width: 175px;
+          min-height: 270px;
+          align-self: flex-end;
+          flex-shrink: 0;
+          z-index: 2;
+        }
+
+        /* Card 2: Interview Scheduling */
+        .cf-card-interview {
+          background: #55abce;
+          padding: 38px 32px;
+          min-height: 380px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .cf-interview-title {
+          font-size: 26px;
+          font-weight: 800;
           color: #ffffff;
-          padding: 70px;
-          border-radius: 28px;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          line-height: 1.2;
+          margin: 0 0 24px;
         }
 
-        /* MID CARD */
-        .cft-mid {
-          background: #A7FFF2;
-          color: #006556;
+        .cf-sofa-wrapper {
+          position: absolute;
+          bottom: 0;
+          right: 20px;
+          width: 145px;
+          height: 165px;
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        /* Card 3: Candidate Management */
+        .cf-card-candidate {
+          background: #257291;
+          padding: 40px 36px;
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .cf-candidate-title {
+          font-size: 28px;
+          font-weight: 800;
+          color: #ffffff;
+          line-height: 1.2;
+          margin: 0 0 24px;
+        }
+
+        /* Bottom Row */
+        .cf-bottom-row {
+          display: flex;
+          gap: 24px;
+        }
+
+        /* Card 4: Offer Management */
+        .cf-card-offer {
+          background: #deeefe;
+          padding: 36px 26px;
           flex: 1;
-          padding: 40px;
-          border-radius: 28px;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
         }
 
-        /* TEAL CARD */
-        .cft-teal {
-          background: #07989C;
-          color: #f8ffff;
+        .cf-offer-title {
+          font-size: 24px;
+          font-weight: 800;
+          color: #1f6a89;
+          line-height: 1.25;
+          margin: 0 0 24px;
+        }
+
+        /* Card 5: Job Management */
+        .cf-card-job {
+          background: #aacced;
+          padding: 36px 26px;
           flex: 1;
-          padding: 40px;
-          border-radius: 28px;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
         }
 
-        .cft-card-h3 {
-          font-size: 32px;
-          margin-bottom: 25px;
+        .cf-job-title {
+          font-size: 24px;
+          font-weight: 800;
+          color: #1f6a89;
+          line-height: 1.25;
+          margin: 0 0 24px;
         }
 
-        .cft-card-ul {
-          list-style: disc;
-          padding-left: 20px;
-          line-height: 1.6;
+        /* Custom bullet lists */
+        .cf-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .cf-list li {
+          position: relative;
+          padding-left: 16px;
+          font-size: 14.5px;
+          font-weight: 600;
+          line-height: 1.45;
+        }
+
+        .cf-list li::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          top: -1px;
           font-size: 16px;
         }
 
-        @media (max-width: 1024px) {
-          .cft-section { padding: 120px 20px; }
-          .cft-container { flex-direction: column; }
-          .cft-row { flex-direction: column; }
-          .cft-light { height: auto; }
-          .cft-bg { font-size: 90px; }
+        .cf-list-sm li {
+          font-size: 13.5px;
+          line-height: 1.4;
+          gap: 10px;
         }
 
-        @media (max-width: 768px) {
-          .cft-section { padding: 80px 16px; }
-          .cft-container { width: 100%; }
-          .cft-light { padding: 36px; }
-          .cft-dark { padding: 36px; }
+        @media (max-width: 960px) {
+          .cf-container {
+            flex-direction: column;
+          }
+          .cf-card-analytics,
+          .cf-card-interview,
+          .cf-card-candidate,
+          .cf-card-offer,
+          .cf-card-job {
+            min-height: auto;
+          }
+          .cf-sofa-wrapper {
+            position: relative;
+            bottom: auto;
+            right: auto;
+            margin-top: 16px;
+            align-self: flex-end;
+          }
         }
 
-        @media (max-width: 500px) {
-          .cft-section { padding: 60px 12px 80px; }
-          .cft-bg { font-size: 60px; }
-          .cft-card-h3 { font-size: 22px; }
-          .cft-card-ul { font-size: 14px; }
+        @media (max-width: 600px) {
+          .cf-bottom-row {
+            flex-direction: column;
+          }
+          .cf-card-analytics {
+            flex-direction: column;
+            gap: 20px;
+          }
+          .cf-chart-wrapper {
+            align-self: center;
+            width: 150px;
+            min-height: 220px;
+          }
         }
       `}</style>
 
-      <section className="cft-section" id="features">
-        <div className="cft-bg">Features</div>
+      <section className="cf-section" id="features">
+        {/* Features heading */}
+        <div className="cf-header">
+          <h2 className="cf-title">Features</h2>
+        </div>
 
-        <div className="cft-container">
-
+        <div className="cf-container">
           {/* LEFT COLUMN */}
-          <div className="cft-col">
+          <div className="cf-col">
+            {/* Card 1: Analytics & Reporting */}
+            <div className="cf-card cf-card-analytics">
+              <div className="cf-analytics-copy">
+                <h3 className="cf-analytics-title">
+                  Analytics &amp;
+                  <br />
+                  Reporting
+                </h3>
+                <ul className="cf-list" style={{ color: "#004868" }}>
+                  <li>Time-to-hire by role/college</li>
+                  <li>
+                    Candidate quality scores - Hiring funnel (Applied → Interviewed → Offered → Accepted → Joined)
+                  </li>
+                  <li>ROI: Cost-per-hire vs traditional recruiting</li>
+                  <li>College performance (which colleges send best candidates)</li>
+                </ul>
+              </div>
 
-            {/* Analytics & Reporting — light card */}
-            <div className="cft-light">
-              <h3 className="cft-card-h3">Analytics &amp;<br />Reporting</h3>
-              <ul className="cft-card-ul">
-                <li>Time-to-hire by role/college</li>
-                <li>Candidate quality scores — Hiring funnel (Applied → Interviewed → Offered → Accepted → Joined)</li>
-                <li>ROI: Cost-per-hire vs traditional recruiting</li>
-                <li>College performance (which colleges send best candidates)</li>
-              </ul>
+              <div className="cf-chart-wrapper">
+                <Image
+                  src="/student-img/iuy0.png"
+                  alt="Analytics and Reporting"
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "bottom right" }}
+                />
+              </div>
             </div>
 
-            {/* Interview Scheduling — lighter card */}
-            <div className="cft-lighter">
-              <h3 className="cft-card-h3" style={{ color: "#004137" }}>Interview Scheduling</h3>
-              <ul className="cft-card-ul" style={{ color: "#004137" }}>
+            {/* Card 2: Interview Scheduling */}
+            <div className="cf-card cf-card-interview">
+              <h3 className="cf-interview-title">Interview Scheduling</h3>
+              <ul
+                className="cf-list"
+                style={{
+                  color: "#ffffff",
+                  maxWidth: "340px",
+                  zIndex: 3,
+                  position: "relative",
+                }}
+              >
                 <li>Auto-schedule interviews (no emails)</li>
                 <li>Send interview links (video call integration)</li>
                 <li>Set up interview rounds</li>
                 <li>Receive candidate confirmations</li>
               </ul>
-              <div style={{ position: "absolute", bottom: 0, right: 10, pointerEvents: "none" }}>
+
+              <div className="cf-sofa-wrapper">
                 <Image
-                  src="/company-img/sofa.webp"
-                  alt=""
-                  width={160}
-                  height={120}
-                  style={{ display: "block", height: "auto", width: "auto" }}
+                  src="/student-img/sofa.webp"
+                  alt="Interview Scheduling with video call"
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "bottom right" }}
                 />
               </div>
             </div>
-
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="cft-col">
-
-            {/* Candidate Management — dark card */}
-            <div className="cft-dark">
-              <h3 className="cft-card-h3">Candidate Management</h3>
-              <ul className="cft-card-ul">
+          <div className="cf-col">
+            {/* Card 3: Candidate Management */}
+            <div className="cf-card cf-card-candidate">
+              <h3 className="cf-candidate-title">Candidate Management</h3>
+              <ul className="cf-list" style={{ color: "#ffffff" }}>
                 <li>Browse candidate pool</li>
                 <li>Filter by skills, CGPA, location, batch</li>
                 <li>View candidate profiles (resume, projects, certifications)</li>
@@ -201,12 +324,16 @@ export default function CompanyFeatures() {
               </ul>
             </div>
 
-            {/* Row: Offer Management + Job Management */}
-            <div className="cft-row">
-
-              <div className="cft-mid">
-                <h3 className="cft-card-h3">Offer Management</h3>
-                <ul className="cft-card-ul">
+            {/* Bottom Row: Offer Management & Job Management */}
+            <div className="cf-bottom-row">
+              {/* Card 4: Offer Management */}
+              <div className="cf-card cf-card-offer">
+                <h3 className="cf-offer-title">
+                  Offer
+                  <br />
+                  Management
+                </h3>
+                <ul className="cf-list cf-list-sm" style={{ color: "#1f6a89" }}>
                   <li>Generate offer letters (template-based)</li>
                   <li>Send to candidates via platform</li>
                   <li>Track offer acceptance/rejection</li>
@@ -214,19 +341,22 @@ export default function CompanyFeatures() {
                 </ul>
               </div>
 
-              <div className="cft-teal">
-                <h3 className="cft-card-h3">Job Management</h3>
-                <ul className="cft-card-ul">
+              {/* Card 5: Job Management */}
+              <div className="cf-card cf-card-job">
+                <h3 className="cf-job-title">
+                  Job
+                  <br />
+                  Management
+                </h3>
+                <ul className="cf-list cf-list-sm" style={{ color: "#1f6a89" }}>
                   <li>Create new job postings</li>
                   <li>View past postings</li>
                   <li>Manage multiple open positions</li>
                   <li>Duplicate &amp; edit templates</li>
                 </ul>
               </div>
-
             </div>
           </div>
-
         </div>
       </section>
     </>

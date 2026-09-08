@@ -13,43 +13,39 @@ export default function StudentMarquee() {
         .sm-track {
           display: flex;
           width: max-content;
-          animation: scrollInfiniteS 25s linear infinite;
+          animation: scrollInfiniteS 30s linear infinite;
         }
         .sm-wrapper:hover .sm-track {
           animation-play-state: paused;
         }
         .sm-group {
           display: flex;
+          align-items: center;
         }
         .sm-group span {
-          font-size: clamp(2.5rem, 6vw, 4rem);
+          font-size: clamp(34px, 4.5vw, 58px);
           font-weight: 800;
-          color: #4A0413;
+          color: #083a50;
           white-space: nowrap;
-          padding-right: 60px;
-          text-transform: uppercase;
-          letter-spacing: 2px;
+          padding-right: 64px;
+          letter-spacing: -0.015em;
         }
       `}</style>
 
       <section
         style={{
-          position: "sticky",
-          top: 60,
-          height: 80,
-          maxWidth: "100%",
-          background: "#EE6983",
-          borderTop: "1px solid #C4435F",
-          borderBottom: "1px solid #C4435F",
+          position: "relative",
+          width: "100%",
+          background: "#ffffff",
+          padding: "24px 0 16px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: 99,
+          zIndex: 10,
           overflow: "hidden",
-          cursor: "pointer",
         }}
       >
-        <div className="sm-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
+        <div className="sm-wrapper" style={{ width: "100%", overflow: "hidden" }}>
           <div className="sm-track">
             <div className="sm-group">
               <span>{text}</span>

@@ -1,64 +1,54 @@
 "use client";
 
 export default function CollegeMarquee() {
-  const text = "Connect Talent & Create Future · ";
-  const repeated = text.repeat(8);
+  const text = "Connect Talent & Create Future \u00A0 \u00A0 \u00A0 ";
+  const repeated = text.repeat(6);
 
   return (
     <>
       <style>{`
-        @keyframes scrollInfiniteCollege {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @keyframes scrollMarqueeColleges {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-50%, 0, 0);
+          }
         }
-        .c-marquee-track {
+        .clm-wrapper {
+          width: 100%;
+          background-color: #ffffff;
+          padding: 60px 0 110px;
+          overflow: hidden;
           display: flex;
-          width: max-content;
-          animation: scrollInfiniteCollege 12s linear infinite;
+          align-items: center;
+          user-select: none;
+          cursor: default;
         }
-        .c-marquee-wrapper:hover .c-marquee-track {
+        .clm-track {
+          display: flex;
+          white-space: nowrap;
+          width: max-content;
+          will-change: transform;
+          animation: scrollMarqueeColleges 28s linear infinite;
+        }
+        .clm-wrapper:hover .clm-track {
           animation-play-state: paused;
+        }
+        .clm-text {
+          font-size: clamp(42px, 5.5vw, 76px);
+          font-weight: 800;
+          color: #053b50;
+          letter-spacing: -0.03em;
+          line-height: 1.15;
+          display: inline-block;
         }
       `}</style>
 
-      <div
-        style={{
-          position: "sticky",
-          top: 60,
-          height: "15vh",
-          maxHeight: 90,
-          background: "#FF9700",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 99,
-          overflow: "hidden",
-          cursor: "pointer",
-        }}
-      >
-        <div className="c-marquee-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
-          <div className="c-marquee-track">
-            <span
-              style={{
-                fontSize: "clamp(2rem,6vw,4.5rem)",
-                fontWeight: 800,
-                color: "#984A00",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {repeated}
-            </span>
-            <span
-              style={{
-                fontSize: "clamp(2rem,6vw,4.5rem)",
-                fontWeight: 800,
-                color: "#984A00",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {repeated}
-            </span>
-          </div>
+      <div className="clm-wrapper" aria-hidden="true">
+        <div className="clm-track">
+          <span className="clm-text">{repeated}</span>
+          <span className="clm-text">{repeated}</span>
         </div>
       </div>
     </>

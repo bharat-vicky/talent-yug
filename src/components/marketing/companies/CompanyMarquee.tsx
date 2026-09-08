@@ -1,67 +1,56 @@
 "use client";
 
 export default function CompanyMarquee() {
-  const text = "Connect Talent & Create Future";
+  const text = "Connect Talent & Create Future \u00A0 \u00A0 \u00A0 ";
+  const repeated = text.repeat(6);
 
   return (
     <>
       <style>{`
-        @keyframes scrollInfiniteC {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @keyframes scrollMarqueeCompanies {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-50%, 0, 0);
+          }
+        }
+        .cm-wrapper {
+          width: 100%;
+          background-color: #ffffff;
+          padding: 30px 0;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          user-select: none;
+          cursor: default;
         }
         .cm-track {
           display: flex;
+          white-space: nowrap;
           width: max-content;
-          animation: scrollInfiniteC 25s linear infinite;
+          will-change: transform;
+          animation: scrollMarqueeCompanies 28s linear infinite;
         }
         .cm-wrapper:hover .cm-track {
           animation-play-state: paused;
         }
-        .cm-group {
-          display: flex;
-        }
-        .cm-group span {
-          font-size: clamp(2rem, 5vw, 4rem);
+        .cm-text {
+          font-size: clamp(42px, 5.5vw, 76px);
           font-weight: 800;
-          color: #064E4D; /* Darker teal for better contrast */
-          text-transform: uppercase;
-          letter-spacing: 0.02em;
-          white-space: nowrap;
-          padding-right: 80px;
+          color: #053b50;
+          letter-spacing: -0.03em;
+          line-height: 1.15;
+          display: inline-block;
         }
       `}</style>
 
-      <section
-        style={{
-          position: "relative",
-          width: "100%",
-          background: "#5ED3C1",
-          padding: "24px 0",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 99,
-          overflow: "hidden",
-          borderTop: "2px solid rgba(0,0,0,0.05)",
-          borderBottom: "2px solid rgba(0,0,0,0.05)",
-        }}
-      >
-        <div className="cm-wrapper" style={{ maxWidth: "100%", overflow: "hidden" }}>
-          <div className="cm-track">
-            <div className="cm-group">
-              <span>{text}</span>
-              <span>{text}</span>
-              <span>{text}</span>
-            </div>
-            <div className="cm-group">
-              <span>{text}</span>
-              <span>{text}</span>
-              <span>{text}</span>
-            </div>
-          </div>
+      <div className="cm-wrapper" aria-hidden="true">
+        <div className="cm-track">
+          <span className="cm-text">{repeated}</span>
+          <span className="cm-text">{repeated}</span>
         </div>
-      </section>
+      </div>
     </>
   );
 }

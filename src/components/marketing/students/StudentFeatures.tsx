@@ -1,220 +1,325 @@
+"use client";
+
 import Image from "next/image";
 
 export default function StudentFeatures() {
   return (
     <>
       <style>{`
-        .sft-section {
+        .sf-section {
           position: relative;
-          z-index: 11;
-          padding: 190px 0 160px;
-          background: #FEF2F2;
-          height: auto;
+          background: #ffffff;
+          padding: 60px 24px 100px;
           overflow: hidden;
         }
 
-        .sft-bg {
-          position: absolute;
-          top: 40px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 200px;
-          font-weight: 700;
-          color: #B44D4D;
-          opacity: 0.66;
-          pointer-events: none;
-          user-select: none;
-          white-space: nowrap;
+        .sf-header {
+          text-align: center;
+          margin-bottom: 40px;
+          position: relative;
+          z-index: 5;
         }
 
-        .sft-container {
-          max-width: 1250px;
-          width: 90%;
+        .sf-title {
+          font-size: clamp(64px, 10vw, 120px);
+          font-weight: 800;
+          color: #005070;
+          line-height: 1;
+          letter-spacing: -0.025em;
+          margin: 0;
+          display: inline-block;
+        }
+
+        .sf-container {
+          max-width: 1180px;
           margin: 0 auto;
           display: flex;
-          gap: 20px;
+          gap: 24px;
           position: relative;
           z-index: 2;
         }
 
-        .sft-col {
+        .sf-col {
           flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 24px;
         }
 
-        .sft-row {
+        .sf-card {
+          border-radius: 28px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sf-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(0, 50, 80, 0.12);
+        }
+
+        /* Card 1: Notifications & Alerts */
+        .sf-card-notifications {
+          background: #cae5ff;
+          padding: 38px 32px;
+          min-height: 380px;
           display: flex;
-          gap: 20px;
-        }
-
-        /* LIGHT CARD */
-        .sft-light {
+          justify-content: space-between;
+          align-items: stretch;
           position: relative;
-          height: 430px;
-          padding: 56px;
-          border-radius: 28px;
-          background: #EE6983;
-          color: #ffffff;
           overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
-        .sft-light::before {
-          content: "";
+        .sf-notif-copy {
+          flex: 1;
+          max-width: 290px;
+          z-index: 2;
+        }
+
+        .sf-notif-title {
+          font-size: 28px;
+          font-weight: 800;
+          color: #004868;
+          line-height: 1.2;
+          margin: 0 0 24px;
+        }
+
+        .sf-chart-wrapper {
+          position: relative;
+          width: 175px;
+          min-height: 270px;
+          align-self: flex-end;
+          flex-shrink: 0;
+          z-index: 2;
+        }
+
+        /* Card 2: Interview Preparation */
+        .sf-card-interview {
+          background: #55abce;
+          padding: 38px 32px;
+          min-height: 380px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .sf-interview-title {
+          font-size: 26px;
+          font-weight: 800;
+          color: #ffffff;
+          line-height: 1.2;
+          margin: 0 0 24px;
+        }
+
+        .sf-sofa-wrapper {
           position: absolute;
-          top: 0; right: 0; bottom: 0; left: 0;
-          background: url("/student-img/iuy0.png") no-repeat right 40px bottom 0px;
-          background-size: 200px auto;
-          opacity: 0.25;
+          bottom: 0;
+          right: 20px;
+          width: 145px;
+          height: 165px;
           pointer-events: none;
+          z-index: 2;
         }
 
-        /* LIGHTER CARD */
-        .sft-lighter {
-          background: #FFBABA;
-          padding: 40px;
-          border-radius: 28px;
-          position: relative;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        /* Card 3: Job Discovery */
+        .sf-card-discovery {
+          background: #257291;
+          padding: 40px 36px;
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
         }
 
-        /* DARK CARD */
-        .sft-dark {
-          background: #520000;
+        .sf-discovery-title {
+          font-size: 28px;
+          font-weight: 800;
           color: #ffffff;
-          padding: 70px;
-          border-radius: 28px;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          line-height: 1.2;
+          margin: 0 0 24px;
         }
 
-        /* MID CARD */
-        .sft-mid {
-          background: #FFBABA;
-          color: #6C0202;
-          height: 365px;
+        /* Bottom Row */
+        .sf-bottom-row {
+          display: flex;
+          gap: 24px;
+        }
+
+        /* Card 4: Profile & Applications */
+        .sf-card-profile {
+          background: #deeefe;
+          padding: 36px 26px;
           flex: 1;
-          padding: 40px;
-          border-radius: 28px;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
         }
 
-        /* TEAL CARD */
-        .sft-teal {
-          background: #7E0101;
-          color: #FFA6A6;
-          height: 365px;
+        .sf-profile-title {
+          font-size: 24px;
+          font-weight: 800;
+          color: #1f6a89;
+          line-height: 1.25;
+          margin: 0 0 24px;
+        }
+
+        /* Card 5: Offers & Acceptance */
+        .sf-card-offers {
+          background: #aacced;
+          padding: 36px 26px;
           flex: 1;
-          padding: 40px;
-          border-radius: 28px;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          min-height: 380px;
+          display: flex;
+          flex-direction: column;
         }
 
-        .sft-card-h3 {
-          font-size: 32px;
-          margin-bottom: 25px;
+        .sf-offers-title {
+          font-size: 24px;
+          font-weight: 800;
+          color: #1f6a89;
+          line-height: 1.25;
+          margin: 0 0 24px;
         }
 
-        .sft-card-ul {
-          list-style: disc;
-          padding-left: 20px;
-          line-height: 1.6;
+        /* Custom bullet lists */
+        .sf-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .sf-list li {
+          position: relative;
+          padding-left: 16px;
+          font-size: 14.5px;
+          font-weight: 600;
+          line-height: 1.45;
+        }
+
+        .sf-list li::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          top: -1px;
           font-size: 16px;
         }
 
-        .sft-card:hover {
-          transform: translateY(-6px);
+        .sf-list-sm li {
+          font-size: 13.5px;
+          line-height: 1.4;
+          gap: 10px;
         }
 
-        @media (max-width: 1024px) {
-          .sft-section { padding: 120px 20px; }
-          .sft-container { flex-direction: column; }
-          .sft-row { flex-direction: column; }
-          .sft-light { height: auto; }
-          .sft-mid, .sft-teal { height: auto; }
-          .sft-bg { font-size: 90px; }
+        @media (max-width: 960px) {
+          .sf-container {
+            flex-direction: column;
+          }
+          .sf-card-notifications,
+          .sf-card-interview,
+          .sf-card-discovery,
+          .sf-card-profile,
+          .sf-card-offers {
+            min-height: auto;
+          }
+          .sf-sofa-wrapper {
+            position: relative;
+            bottom: auto;
+            right: auto;
+            margin-top: 16px;
+            align-self: flex-end;
+          }
         }
 
-        @media (max-width: 768px) {
-          .sft-section { padding: 80px 16px; }
-          .sft-container { width: 100%; }
-          .sft-light { padding: 36px; }
-          .sft-dark { padding: 36px; }
-        }
-
-        @media (max-width: 500px) {
-          .sft-section { padding: 60px 12px 80px; }
-          .sft-bg { font-size: 60px; }
-          .sft-card-h3 { font-size: 22px; }
-          .sft-card-ul { font-size: 14px; }
+        @media (max-width: 600px) {
+          .sf-bottom-row {
+            flex-direction: column;
+          }
+          .sf-card-notifications {
+            flex-direction: column;
+            gap: 20px;
+          }
+          .sf-chart-wrapper {
+            align-self: center;
+            width: 150px;
+            min-height: 220px;
+          }
         }
       `}</style>
 
-      <section className="sft-section" id="features">
-        <div className="sft-bg">Features</div>
+      <section className="sf-section" id="features">
+        {/* Properly visible Features heading */}
+        <div className="sf-header">
+          <h2 className="sf-title">Features</h2>
+        </div>
 
-        <div className="sft-container">
-
+        <div className="sf-container">
           {/* LEFT COLUMN */}
-          <div className="sft-col">
+          <div className="sf-col">
+            {/* Card 1: Notifications & Alerts */}
+            <div className="sf-card sf-card-notifications">
+              <div className="sf-notif-copy">
+                <h3 className="sf-notif-title">
+                  Notifications<br />&amp; Alerts
+                </h3>
+                <ul className="sf-list" style={{ color: "#004868" }}>
+                  <li>Interview scheduled → Get notification</li>
+                  <li>Offer received → Get notification</li>
+                  <li>New job matching skills → Get alert</li>
+                  <li>Company updates → Get notification</li>
+                </ul>
+              </div>
 
-            {/* Notifications & Alerts — light card */}
-            <div className="sft-light">
-              <h3 className="sft-card-h3">Notifications &amp;<br /> Alerts</h3>
-              <ul className="sft-card-ul">
-                <li>Interview scheduled → Get notification</li>
-                <li>Offer received → Get notification</li>
-                <li>New job matching skills → Get alert</li>
-                <li>Company updates → Get notification</li>
-              </ul>
+              <div className="sf-chart-wrapper">
+                <Image
+                  src="/student-img/iuy0.png"
+                  alt="Analytics and Charts"
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "bottom right" }}
+                />
+              </div>
             </div>
 
-            {/* Interview Preparation — lighter card */}
-            <div className="sft-lighter">
-              <h3 className="sft-card-h3" style={{ color: "#520000" }}>Interview Preparation</h3>
-              <ul className="sft-card-ul" style={{ color: "#520000" }}>
+            {/* Card 2: Interview Preparation */}
+            <div className="sf-card sf-card-interview">
+              <h3 className="sf-interview-title">Interview Preparation</h3>
+              <ul className="sf-list" style={{ color: "#ffffff", maxWidth: "340px", zIndex: 3, position: "relative" }}>
                 <li>Practice mock interviews (role-specific)</li>
                 <li>Get instant AI feedback</li>
                 <li>Access interview tips &amp; resources</li>
                 <li>Submit questions to TalentYug team</li>
               </ul>
-              <div style={{ position: "absolute", bottom: 0, right: 10, pointerEvents: "none" }}>
+
+              <div className="sf-sofa-wrapper">
                 <Image
                   src="/student-img/sofa.webp"
-                  alt=""
-                  width={160}
-                  height={120}
-                  style={{ display: "block", height: "auto", width: "auto" }}
+                  alt="Candidate practicing interview on laptop"
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "bottom right" }}
                 />
               </div>
             </div>
-
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="sft-col">
-
-            {/* Job Discovery — dark card */}
-            <div className="sft-dark">
-              <h3 className="sft-card-h3">Job Discovery</h3>
-              <ul className="sft-card-ul">
+          <div className="sf-col">
+            {/* Card 3: Job Discovery */}
+            <div className="sf-card sf-card-discovery">
+              <h3 className="sf-discovery-title">Job Discovery</h3>
+              <ul className="sf-list" style={{ color: "#ffffff" }}>
                 <li>Browse all open positions</li>
                 <li>Filter by role, company, salary, location</li>
-                <li>Save jobs to favourites</li>
+                <li>Save jobs to favorites</li>
                 <li>Get job recommendations (AI based)</li>
               </ul>
             </div>
 
-            {/* Row: Profile & Applications + Offers & Acceptance */}
-            <div className="sft-row">
-
-              <div className="sft-mid">
-                <h3 className="sft-card-h3">Profile &amp;<br />Applications</h3>
-                <ul className="sft-card-ul">
+            {/* Bottom Row: Profile & Applications + Offers & Acceptance */}
+            <div className="sf-bottom-row">
+              {/* Card 4: Profile & Applications */}
+              <div className="sf-card sf-card-profile">
+                <h3 className="sf-profile-title">
+                  Profile &amp;<br />Applications
+                </h3>
+                <ul className="sf-list sf-list-sm" style={{ color: "#1f6a89" }}>
                   <li>View/edit student profile</li>
                   <li>See all applications (status: pending, interviewed, offered, rejected)</li>
                   <li>Upload resume/projects</li>
@@ -222,19 +327,20 @@ export default function StudentFeatures() {
                 </ul>
               </div>
 
-              <div className="sft-teal">
-                <h3 className="sft-card-h3" style={{ color: "#FFA6A6" }}>Offers &amp;<br />Acceptance</h3>
-                <ul className="sft-card-ul">
+              {/* Card 5: Offers & Acceptance */}
+              <div className="sf-card sf-card-offers">
+                <h3 className="sf-offers-title">
+                  Offers &amp;<br />Acceptance
+                </h3>
+                <ul className="sf-list sf-list-sm" style={{ color: "#1f6a89" }}>
                   <li>View all received offers</li>
                   <li>Compare offers (salary, role, benefits)</li>
                   <li>Accept/reject offers</li>
                   <li>Download offer letter</li>
                 </ul>
               </div>
-
             </div>
           </div>
-
         </div>
       </section>
     </>

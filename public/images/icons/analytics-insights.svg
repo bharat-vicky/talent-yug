@@ -1,0 +1,24 @@
+<svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bar chart bars -->
+  <rect x="23" y="27" width="5" height="17" rx="1.5" fill="#003750"/>
+  <rect x="31" y="21" width="5" height="23" rx="1.5" fill="#003750"/>
+  <rect x="39" y="16" width="5" height="28" rx="1.5" fill="#003750"/>
+  
+  <!-- Upward Trend Line -->
+  <path d="M21 34L31 24L39 19L47 13" stroke="#003750" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="21" cy="34" r="2.2" fill="#003750"/>
+  <circle cx="31" cy="24" r="2.2" fill="#003750"/>
+  <circle cx="39" cy="19" r="2.2" fill="#003750"/>
+  <circle cx="47" cy="13" r="2.2" fill="#003750"/>
+  
+  <!-- Gear badge -->
+  <circle cx="48" cy="28" r="5.5" stroke="#003750" stroke-width="2" fill="none"/>
+  <circle cx="48" cy="28" r="2" fill="#003750"/>
+  <line x1="48" y1="21" x2="48" y2="23" stroke="#003750" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="48" y1="33" x2="48" y2="35" stroke="#003750" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="41" y1="28" x2="43" y2="28" stroke="#003750" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="53" y1="28" x2="55" y2="28" stroke="#003750" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Supportive Base -->
+  <path d="M16 47C16 45.5 17.5 44 19 44H51C52.5 44 54 45.5 54 47V50C54 51.5 53 52.5 51.5 52.5H18.5C17 52.5 16 51.5 16 50V47Z" fill="#003750"/>
+</svg>

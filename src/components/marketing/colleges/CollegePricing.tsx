@@ -1,253 +1,277 @@
+"use client";
+
+import Link from "next/link";
+
+interface PlanItem {
+  name: string;
+  price: string;
+  subtitle: string;
+  color: string;
+  features: string[];
+}
+
+const PLANS: PlanItem[] = [
+  {
+    name: "Starter",
+    price: "₹2L / Year",
+    subtitle: "Best For Small Colleges",
+    color: "#AACCED",
+    features: [
+      "College Size: Under 500 Students",
+      "Placement Dashboard",
+      "Up To 20 Company Connections",
+      "Basic Placement Analytics",
+      "Email Support",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "₹4L / Year",
+    subtitle: "Ideal For Growing Institutions",
+    color: "#55ABCE",
+    features: [
+      "College Size: 500 – 2,000 Students",
+      "Up To 50 Company Connections",
+      "Advanced Analytics & Reports",
+      "Priority Support",
+      "Phone + Email Support",
+    ],
+  },
+  {
+    name: "Enterprise",
+    price: "₹5–6L / Year",
+    subtitle: "For Large Institutions & Universities",
+    color: "#257291",
+    features: [
+      "College Size: Above 2,000 Students",
+      "Unlimited Company Connections",
+      "Custom Analytics & Reporting",
+      "Dedicated Account Manager",
+      "24/7 Dedicated Support",
+    ],
+  },
+];
+
 export default function CollegePricing() {
   return (
     <>
       <style>{`
-        .clp2-section {
-          position: relative;
-          padding: 220px 0 160px;
-          background: #FEF5E7;
-          overflow: hidden;
-          text-align: center;
-          z-index: 11;
-          transform: scale(0.95);
-          transform-origin: top center;
+        .cp-pricing-section {
+          background: #ffffff;
+          padding: 60px 20px 180px;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        .clp2-bg-text {
-          position: absolute;
-          top: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 200px;
+        .cp-pricing-title {
+          font-size: 48px;
           font-weight: 800;
-          color: #CFAE74;
-          opacity: 0.66;
-          white-space: nowrap;
-          pointer-events: none;
+          color: #053B50;
+          text-align: center;
+          margin: 0 0 60px 0;
+          letter-spacing: -0.5px;
+        }
+
+        .cp-pricing-wrapper {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: stretch;
+          gap: 36px;
+        }
+
+        .cp-pricing-card {
+          flex: 1;
+          max-width: 375px;
+          background: #ffffff;
+          border-radius: 34px;
+          box-shadow: 0 16px 38px rgba(5, 59, 80, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+
+        .cp-pricing-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 24px 48px rgba(5, 59, 80, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Upper elevated floating white container */
+        .cp-card-upper {
+          background: #ffffff;
+          border-radius: 30px;
+          padding: 12px 12px 26px 12px;
+          margin: 0;
+          box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.05);
+          position: relative;
+          z-index: 2;
+        }
+
+        /* Top colored rounded block */
+        .cp-card-header {
+          border-radius: 24px;
+          padding: 18px 20px 26px;
+          min-height: 156px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+        }
+
+        /* Pill Badge (Starter / Professional / Enterprise) */
+        .cp-badge-chip {
+          position: absolute;
+          left: 18px;
+          top: 16px;
+          background: #ffffff;
+          color: #000000;
+          border-radius: 18px;
+          padding: 5px 18px;
+          font-size: 14px;
+          font-weight: 700;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+          letter-spacing: -0.1px;
+        }
+
+        /* Price text */
+        .cp-price-text {
+          font-size: 34px;
+          font-weight: 800;
+          color: #000000;
+          margin: 40px 0 0 0;
+          letter-spacing: -0.4px;
+          text-align: center;
+        }
+
+        /* Subtitle below the colored block */
+        .cp-card-subtitle {
+          font-size: 14.5px;
+          font-weight: 700;
+          color: #000000;
+          text-align: center;
+          margin: 18px 8px 18px 8px;
+          line-height: 1.35;
+        }
+
+        /* CTA Button */
+        .cp-card-cta {
+          display: block;
+          width: 86%;
+          margin: 0 auto;
+          padding: 12px 0;
+          background: #2280A8;
+          color: #ffffff;
+          border-radius: 24px;
+          text-align: center;
+          font-size: 15px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+          box-shadow: 0 4px 12px rgba(34, 128, 168, 0.28);
+          border: none;
+          cursor: pointer;
+        }
+
+        .cp-card-cta:hover {
+          background: #196f94;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(34, 128, 168, 0.4);
+        }
+
+        /* Lower Features List */
+        .cp-card-features {
+          padding: 28px 30px 24px;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+
+        .cp-features-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .cp-feature-item {
+          display: flex;
+          align-items: flex-start;
+          font-size: 14.5px;
+          font-weight: 700;
+          color: #000000;
+          line-height: 1.85;
+          margin-bottom: 4px;
+        }
+
+        .cp-feature-bullet {
+          margin-right: 9px;
+          font-size: 16px;
+          line-height: 1.6;
+          color: #000000;
           user-select: none;
         }
 
-        .clp2-wrapper {
-          position: relative;
-          max-width: 1200px;
-          margin: auto;
-          display: flex;
-          justify-content: center;
-          gap: 40px;
-          z-index: 2;
-        }
-
-        .clp2-card {
-          max-width: 360px;
-          background: #ffffff;
-          border-radius: 38px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-          overflow: hidden;
-          transition: all 0.35s ease;
-          flex: 1;
-        }
-
-        .clp2-card:hover {
-          transform: translateY(-12px) scale(1.02);
-          box-shadow: 0 35px 80px rgba(0, 0, 0, 0.18);
-        }
-
-        .clp2-up {
-          background: #ffffff;
-          border-radius: 50px;
-          padding-bottom: 30px;
-          margin: 0px;
-          position: relative;
-          z-index: 2;
-          box-shadow:
-            0 10px 10px rgba(0, 0, 0, 0.3),
-            0 10px 10px rgba(0, 0, 0, 0.09);
-          transition: all 0.3s ease;
-        }
-
-        .clp2-top {
-          padding: 50px 30px 35px;
-          border-radius: 35px;
-          margin: 10px;
-        }
-
-        .clp2-top-mint   { background: #F7E396; color: #000000; }
-        .clp2-top-orange { background: #FF9F43; color: #000000; }
-        .clp2-top-dark   { background: #FFB976; color: #000000; }
-
-        .clp2-badge {
-          background: #ffffff;
-          padding: 8px 22px;
-          border-radius: 40px;
-          font-size: 16px;
-          font-weight: 600;
-          display: inline-block;
-          margin-bottom: 18px;
-        }
-
-        .clp2-top h3 {
-          font-size: 32px;
-          font-weight: 800;
-          margin: 10px 0;
-        }
-
-        .clp2-caption {
-          padding: 0 20px;
-        }
-
-        .clp2-sub {
-          font-size: 19px;
-          font-weight: 500;
-          margin-bottom: 28px;
-        }
-
-        .clp2-cta {
-          display: inline-block;
-          margin-top: 10px;
-          padding: 16px 80px;
-          background: #FF9700;
-          color: #000000;
-          border-radius: 30px;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          font-weight: 600;
-          font-size: 15px;
-          cursor: pointer;
-          border: none;
-        }
-
-        .clp2-cta:hover {
-          background: #e38f12;
-          transform: translateY(-2px);
-          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .clp2-bottom {
-          padding: 30px 40px 45px;
-          text-align: left;
-          background: #ffffff;
-        }
-
-        .clp2-bottom ul {
-          list-style: disc;
-          padding-left: 18px;
-          line-height: 1.9;
-          font-size: 15px;
-          color: #000000;
-        }
-
-        @media (max-width: 900px) {
-          .clp2-section {
-            padding: 120px 20px;
-            transform: none;
-          }
-          .clp2-wrapper {
+        @media (max-width: 960px) {
+          .cp-pricing-wrapper {
             flex-direction: column;
             align-items: center;
+            gap: 32px;
           }
-          .clp2-card {
-            width: 100%;
-            max-width: 420px;
-          }
-          .clp2-bg-text {
-            font-size: 90px;
-          }
-        }
 
-        @media (max-width: 500px) {
-          .clp2-section { padding: 70px 0 70px; }
-          .clp2-bg-text { font-size: 65px; }
-          .clp2-card { border-radius: 25px; }
-          .clp2-cta {
-            display: block;
+          .cp-pricing-card {
             width: 100%;
-            max-width: 260px;
-            margin: 18px auto;
-            padding: 14px 0;
-            text-align: center;
-            font-size: 14px;
+            max-width: 380px;
+          }
+
+          .cp-pricing-title {
+            font-size: 34px;
+            margin-bottom: 40px;
           }
         }
       `}</style>
 
-      <div style={{ background: "#FEF5E7", width: "100%", overflow: "hidden" }}>
-        <section className="clp2-section" id="pricing">
-        <h1 className="clp2-bg-text">Pricing plans</h1>
+      <section className="cp-pricing-section" id="pricing">
+        <h2 className="cp-pricing-title">Pricing</h2>
 
-        <div className="clp2-wrapper">
+        <div className="cp-pricing-wrapper">
+          {PLANS.map((plan) => (
+            <div key={plan.name} className="cp-pricing-card">
+              {/* Upper elevated floating container */}
+              <div className="cp-card-upper">
+                {/* Header colored block */}
+                <div
+                  className="cp-card-header"
+                  style={{ backgroundColor: plan.color }}
+                >
+                  <div className="cp-badge-chip">{plan.name}</div>
+                  <h3 className="cp-price-text">{plan.price}</h3>
+                </div>
 
-          {/* Starter */}
-          <div className="clp2-card">
-            <div className="clp2-up">
-              <div className="clp2-top clp2-top-mint">
-                <div className="clp2-badge">Starter</div>
-                <h3>₹2L / year</h3>
-              </div>
-              <div className="clp2-caption">
-                <p className="clp2-sub">Best for small colleges</p>
-                <button className="clp2-cta">Get Started</button>
-              </div>
-            </div>
-            <div className="clp2-bottom">
-              <ul>
-                <li>College Size: Under 500 students</li>
-                <li>Placement dashboard</li>
-                <li>Up to 20 company connections</li>
-                <li>Basic placement analytics</li>
-                <li>Email support</li>
-              </ul>
-            </div>
-          </div>
+                {/* Subtitle */}
+                <div className="cp-card-subtitle">{plan.subtitle}</div>
 
-          {/* Professional */}
-          <div className="clp2-card">
-            <div className="clp2-up">
-              <div className="clp2-top clp2-top-orange">
-                <div className="clp2-badge">Professional</div>
-                <h3>₹4L / year</h3>
+                {/* CTA Button */}
+                <Link href="/register" className="cp-card-cta">
+                  Get Started
+                </Link>
               </div>
-              <div className="clp2-caption">
-                <p className="clp2-sub">Ideal for growing institutions</p>
-                <button className="clp2-cta">Get Started</button>
-              </div>
-            </div>
-            <div className="clp2-bottom">
-              <ul>
-                <li>College Size: 500 – 2,000 students</li>
-                <li>Up to 50 company connections</li>
-                <li>Advanced analytics &amp; reports</li>
-                <li>Priority support</li>
-                <li>Phone + Email support</li>
-              </ul>
-            </div>
-          </div>
 
-          {/* Enterprise */}
-          <div className="clp2-card">
-            <div className="clp2-up">
-              <div className="clp2-top clp2-top-dark">
-                <div className="clp2-badge">Enterprise</div>
-                <h3>₹5–6L / year</h3>
-              </div>
-              <div className="clp2-caption">
-                <p className="clp2-sub">For large institutions &amp; universities</p>
-                <button className="clp2-cta">Get Started</button>
+              {/* Lower Section (Bullet Points) */}
+              <div className="cp-card-features">
+                <ul className="cp-features-list">
+                  {plan.features.map((feat, idx) => (
+                    <li key={idx} className="cp-feature-item">
+                      <span className="cp-feature-bullet">•</span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <div className="clp2-bottom">
-              <ul>
-                <li>College Size: Above 2,000 students</li>
-                <li>Unlimited company connections</li>
-                <li>Custom analytics &amp; reporting</li>
-                <li>Dedicated account manager</li>
-                <li>24/7 dedicated support</li>
-              </ul>
-            </div>
-          </div>
-
+          ))}
         </div>
-        </section>
-      </div>
+      </section>
     </>
   );
 }

@@ -17,16 +17,23 @@ export const metadata: Metadata = {
 
 export default function StudentsPage() {
   return (
-    <main style={{ background: "#FEF2F2", overflowX: "hidden" }}>
+    <>
+      <style>{`
+        html {
+          scroll-behavior: smooth;
+        }
+      `}</style>
+      <main style={{ background: "#ffffff", overflowX: "hidden" }}>
       <StudentHero />
       <StudentMarquee />
       <StudentVS />
-      <StudentProcess />
       <StudentFeatures />
+      <StudentProcess />
       <StudentResources />
       <StudentFAQ />
       <StudentTestimonials />
       <StudentFooter />
-    </main>
+      </main>
+    </>
   );
 }

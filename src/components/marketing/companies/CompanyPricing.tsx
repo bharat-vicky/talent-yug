@@ -1,238 +1,293 @@
+"use client";
+
+import Link from "next/link";
+
+interface PricingPlan {
+  id: string;
+  badge: string;
+  priceLines: string[];
+  subtext: string;
+  headerBg: string;
+  features: string[];
+}
+
+const PLANS: PricingPlan[] = [
+  {
+    id: "commission",
+    badge: "Commission",
+    priceLines: ["₹15,000 / Hire"],
+    subtext: "Pay Only When You Hire",
+    headerBg: "#a4c8e8",
+    features: [
+      "Zero Upfront Cost",
+      "Pay Per Successful Hire",
+      "Risk-Free Hiring Model",
+      "Ideal For Hiring 5–50 Candidates / Year",
+    ],
+  },
+  {
+    id: "subscription",
+    badge: "Subscription + Commission",
+    priceLines: ["₹2L / Year +", "₹10K / Hire"],
+    subtext: "Lower Per-Hire Cost",
+    headerBg: "#55abce",
+    features: [
+      "Annual Platform Access",
+      "Reduced ₹10K Per Hire",
+      "Priority Candidate Matching",
+      "Ideal For Hiring 20+ Candidates / Year",
+      "Cost Efficient For Growing Companies",
+    ],
+  },
+  {
+    id: "enterprise",
+    badge: "Enterprise Contract",
+    priceLines: ["Custom Pricing"],
+    subtext: "For High-Volume Hiring",
+    headerBg: "#257291",
+    features: [
+      "Custom Pricing Based On Volume",
+      "Dedicated Account Manager",
+      "Priority Candidate Matching",
+      "Fast-Track Hiring Support",
+      "Ideal For Hiring 50+ Candidates / Year",
+    ],
+  },
+];
+
 export default function CompanyPricing() {
   return (
     <>
       <style>{`
         .cpr-section {
           position: relative;
-          padding: 220px 0 160px;
-          background: #E4FBF8;
+          background: #ffffff;
+          padding: 70px 24px 120px;
           overflow: hidden;
+        }
+
+        .cpr-header {
           text-align: center;
-          z-index: 11;
+          margin-bottom: 50px;
         }
 
-        .cpr-bg-text {
-          position: absolute;
-          top: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 200px;
+        .cpr-title {
+          font-size: clamp(64px, 10vw, 120px);
           font-weight: 800;
-          color: #2D6F66;
-          opacity: 0.66;
-          white-space: nowrap;
-          pointer-events: none;
-          user-select: none;
+          color: #005070;
+          line-height: 1;
+          letter-spacing: -0.025em;
+          margin: 0;
+          display: inline-block;
         }
 
-        .cpr-wrapper {
-          position: relative;
-          max-width: 1200px;
-          width: 90%;
-          margin: auto;
+        .cpr-container {
+          max-width: 1140px;
+          margin: 0 auto;
           display: flex;
           justify-content: center;
-          gap: 40px;
-          z-index: 2;
+          align-items: stretch;
+          gap: 32px;
         }
 
         .cpr-card {
-          max-width: 360px;
           flex: 1;
+          max-width: 350px;
           background: #ffffff;
-          border-radius: 38px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+          border-radius: 36px;
+          box-shadow: 0 14px 40px rgba(0, 50, 80, 0.08);
+          border: 1.5px solid #e2e8f0;
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
           overflow: hidden;
-          transition: all 0.35s ease;
         }
 
         .cpr-card:hover {
-          transform: translateY(-12px) scale(1.02);
-          box-shadow: 0 35px 80px rgba(0, 0, 0, 0.18);
+          transform: translateY(-8px);
+          box-shadow: 0 24px 50px rgba(0, 50, 80, 0.15);
         }
 
-        .cpr-up {
+        /* Top Module Floating Box */
+        .cpr-top-module {
           background: #ffffff;
-          border-radius: 50px;
-          padding-bottom: 30px;
+          border-radius: 32px;
+          box-shadow: 0 12px 24px rgba(0, 50, 80, 0.09);
+          padding: 10px 10px 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           position: relative;
           z-index: 2;
-          box-shadow:
-            0 10px 10px rgba(0, 0, 0, 0.3),
-            0 10px 10px rgba(0, 0, 0, 0.09);
-          transition: all 0.3s ease;
         }
 
-        .cpr-top {
-          padding: 50px 30px 35px;
-          border-radius: 35px;
-          margin: 10px;
+        /* Colored Header */
+        .cpr-colored-box {
+          width: 100%;
+          min-height: 180px;
+          border-radius: 26px;
+          padding: 20px 22px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
-
-        .cpr-top-mint   { background: #7AE2CF; }
-        .cpr-top-light  { background: #A7FFF2; }
-        .cpr-top-dark   { background: #07989C; color: #000000; }
 
         .cpr-badge {
+          align-self: flex-start;
           background: #ffffff;
-          padding: 8px 22px;
-          border-radius: 40px;
+          color: #0f172a;
           font-size: 13px;
-          font-weight: 600;
-          display: inline-block;
-          margin-bottom: 18px;
-          color: #000000;
+          font-weight: 700;
+          padding: 6px 16px;
+          border-radius: 9999px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          white-space: nowrap;
         }
 
-        .cpr-top h3 {
-          font-size: 30px;
+        .cpr-price-wrap {
+          margin-top: 24px;
+        }
+
+        .cpr-price {
+          font-size: clamp(26px, 2.2vw, 31px);
           font-weight: 800;
-          margin: 10px 0;
           color: #000000;
+          line-height: 1.2;
+          margin: 0;
+          letter-spacing: -0.02em;
         }
 
-        .cpr-caption {
-          padding: 0 20px;
+        /* Action Area below colored box */
+        .cpr-action-area {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 16px 16px 0;
         }
 
-        .cpr-sub {
-          font-size: 16px;
-          font-weight: 500;
-          margin-bottom: 28px;
+        .cpr-subtext {
+          font-size: 13.5px;
+          font-weight: 700;
           color: #000000;
+          margin: 0 0 16px;
+          text-align: center;
         }
 
-        .cpr-cta {
-          display: inline-block;
-          margin-top: 30px;
-          padding: 16px 100px;
-          background: #006F5F;
+        .cpr-btn {
+          width: 100%;
+          max-width: 250px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 11px 0;
+          border-radius: 9999px;
+          background: #2280a8;
           color: #ffffff;
-          border-radius: 30px;
+          font-size: 15px;
+          font-weight: 700;
           text-decoration: none;
-          transition: all 0.3s ease;
-          font-weight: 600;
-          font-size: 15px;
-          cursor: pointer;
+          transition: all 0.25s ease;
           border: none;
+          cursor: pointer;
+          box-shadow: 0 4px 14px rgba(34, 128, 168, 0.3);
         }
 
-        .cpr-cta:hover {
-          background: #0FB79C;
+        .cpr-btn:hover {
+          background: #17688c;
           transform: translateY(-2px);
-          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 6px 18px rgba(34, 128, 168, 0.45);
         }
 
-        .cpr-bottom {
-          padding: 30px 40px 45px;
-          text-align: left;
-          background: #ffffff;
+        /* Features List Bottom Area */
+        .cpr-features-area {
+          padding: 30px 28px 40px;
+          flex: 1;
         }
 
-        .cpr-bottom ul {
-          list-style: disc;
-          padding-left: 18px;
-          line-height: 1.9;
-          font-size: 15px;
+        .cpr-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .cpr-list li {
+          position: relative;
+          padding-left: 16px;
+          font-size: 13.5px;
+          font-weight: 700;
+          color: #000000;
+          line-height: 1.45;
+        }
+
+        .cpr-list li::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          top: -1px;
+          font-size: 16px;
           color: #000000;
         }
 
-        @media (max-width: 900px) {
-          .cpr-section { padding: 120px 20px; }
-          .cpr-wrapper { flex-direction: column; align-items: center; }
-          .cpr-card { width: 100%; max-width: 420px; }
-          .cpr-bg-text { font-size: 90px; }
-        }
-
-        @media (max-width: 500px) {
-          .cpr-section { padding: 70px 0 70px; }
-          .cpr-bg-text { font-size: 65px; }
-          .cpr-card { border-radius: 25px; }
-          .cpr-cta {
-            display: block;
+        @media (max-width: 960px) {
+          .cpr-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+          }
+          .cpr-card {
             width: 100%;
-            max-width: 260px;
-            margin: 18px auto;
-            padding: 14px 0;
-            text-align: center;
-            font-size: 14px;
+            max-width: 400px;
           }
         }
       `}</style>
 
-      <section className="cpr-section" id="priceplan">
-        <h1 className="cpr-bg-text">Pricing Plans</h1>
+      <section className="cpr-section" id="pricing">
+        {/* Pricing Heading */}
+        <div className="cpr-header">
+          <h2 className="cpr-title">Pricing</h2>
+        </div>
 
-        <div className="cpr-wrapper">
+        <div className="cpr-container">
+          {PLANS.map((plan) => (
+            <div key={plan.id} className="cpr-card">
+              {/* Top Floating Module */}
+              <div className="cpr-top-module">
+                <div
+                  className="cpr-colored-box"
+                  style={{ backgroundColor: plan.headerBg }}
+                >
+                  <span className="cpr-badge">{plan.badge}</span>
+                  <div className="cpr-price-wrap">
+                    {plan.priceLines.map((line, idx) => (
+                      <h3 key={idx} className="cpr-price">
+                        {line}
+                      </h3>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Commission */}
-          <div className="cpr-card">
-            <div className="cpr-up">
-              <div className="cpr-top cpr-top-mint">
-                <div className="cpr-badge">Commission</div>
-                <h3>₹15,000 / Hire</h3>
+                <div className="cpr-action-area">
+                  <p className="cpr-subtext">{plan.subtext}</p>
+                  <Link href="/register" className="cpr-btn">
+                    Get Started
+                  </Link>
+                </div>
               </div>
-              <div className="cpr-caption">
-                <p className="cpr-sub">Pay Only When You Hire</p>
-                <button className="cpr-cta">Get Started</button>
-              </div>
-            </div>
-            <div className="cpr-bottom">
-              <ul>
-                <li>Zero Upfront Cost</li>
-                <li>Pay Per Successful Hire</li>
-                <li>Risk-Free Hiring Model</li>
-                <li>Ideal For Hiring 5–50 Candidates / Year</li>
-              </ul>
-            </div>
-          </div>
 
-          {/* Subscription + Commission */}
-          <div className="cpr-card">
-            <div className="cpr-up">
-              <div className="cpr-top cpr-top-light">
-                <div className="cpr-badge">Subscription + Commission</div>
-                <h3>₹2L / Year + ₹10K / Hire</h3>
-              </div>
-              <div className="cpr-caption">
-                <p className="cpr-sub">Lower Per-Hire Cost</p>
-                <button className="cpr-cta">Get Started</button>
+              {/* Features List */}
+              <div className="cpr-features-area">
+                <ul className="cpr-list">
+                  {plan.features.map((feat, idx) => (
+                    <li key={idx}>{feat}</li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <div className="cpr-bottom">
-              <ul>
-                <li>Annual Platform Access</li>
-                <li>Reduced ₹10K Per Hire</li>
-                <li>Priority Candidate Matching</li>
-                <li>Ideal For Hiring 20+ Candidates / Year</li>
-                <li>Cost Efficient For Growing Companies</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Enterprise Contract */}
-          <div className="cpr-card">
-            <div className="cpr-up">
-              <div className="cpr-top cpr-top-dark">
-                <div className="cpr-badge">Enterprise Contract</div>
-                <h3>Custom Pricing</h3>
-              </div>
-              <div className="cpr-caption">
-                <p className="cpr-sub">For High-Volume Hiring</p>
-                <button className="cpr-cta">Get Started</button>
-              </div>
-            </div>
-            <div className="cpr-bottom">
-              <ul>
-                <li>Custom Pricing Based On Volume</li>
-                <li>Dedicated Account Manager</li>
-                <li>Priority Candidate Matching</li>
-                <li>Fast-Track Hiring Support</li>
-                <li>Ideal For Hiring 50+ Candidates / Year</li>
-              </ul>
-            </div>
-          </div>
-
+          ))}
         </div>
       </section>
     </>

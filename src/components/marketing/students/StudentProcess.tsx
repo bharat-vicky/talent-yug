@@ -1,217 +1,319 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const STEPS = [
-  { n: "step1", icon: "/student-img/students/step1_s.png", title: "Sign Up", desc: "Student registers with email/college - Completes profile - Full name, email, phone - College, batch year, CGPA - Skills & certifications - Location preferences - Salary expectations", bg: "#f66d88", label: "#8C0E0F", pos: { top: 0, left: 40 } },
-  { n: "step2", icon: "/student-img/students/step2_s.png", title: "Browse Opportunities", desc: "View job listings from 50+ companies - Filter by role, salary, location, skills - See job details + company info - Apply with 1-click (auto-filled profile)", bg: "#FFC2CA", label: "#8C0E0F", pos: { top: 0, left: 720 } },
-  { n: "step3", icon: "/student-img/students/step3_s.png", title: "Prepare for Interview", desc: "Access mock interview platform - Practice with role-specific questions - Get AI-generated feedback - Access interview tips & resources - View tips from TalentYug blog", bg: "#f66d88", label: "#8C0E0F", pos: { top: 150, left: 380 } },
-  { n: "step4", icon: "/student-img/students/step4_s.png", title: "Interview", desc: "Receive interview notification - Interview link provided (video call integration) - Interview conducted with company - Feedback visible after (from interviewer)", bg: "#FFC2CA", label: "#8C0E0F", pos: { top: 300, left: 40 } },
-  { n: "step5", icon: "/student-img/students/step5_s.png", title: "Get Offer", desc: "Receive offer via platform - Accept/reject offer - View offer details (role, salary, joining date, benefits) - Download offer letter", bg: "#f66d88", label: "#8C0E0F", pos: { top: 300, left: 720 } },
-  { n: "step6", icon: "/student-img/students/step6_s.png", title: "Track Progress", desc: "Application status tracker - Interview feedback review - Accepted offer details - Post-hire onboarding support", bg: "#FFC2CA", label: "#8C0E0F", pos: { top: 450, left: 380 } },
+interface Step {
+  id: number;
+  side: "left" | "right";
+  icon: string;
+  title: string;
+  desc: string;
+  delay: string;
+}
+
+const STEPS: Step[] = [
+  {
+    id: 1,
+    side: "left",
+    icon: "/images/icons/apply.svg",
+    title: "Sign Up",
+    desc: "Student registers with email/college - Completes profile - Full name, email, phone - College, batch year, CGPA - Skills & certifications - Location preferences - Salary expectations",
+    delay: "0s",
+  },
+  {
+    id: 2,
+    side: "right",
+    icon: "/images/icons/monitor.svg",
+    title: "Browse Opportunities",
+    desc: "View job listings from 50+ companies - Filter by role, salary, location, skills - See job details + company info - Apply with 1-click (auto-filled profile)",
+    delay: "0.6s",
+  },
+  {
+    id: 3,
+    side: "left",
+    icon: "/images/icons/interview.svg",
+    title: "Prepare for Interview",
+    desc: "Access mock interview platform - Practice with role-specific questions - Get AI-generated feedback - Access interview tips & resources - View tips from TalentYug blog",
+    delay: "1.2s",
+  },
+  {
+    id: 4,
+    side: "right",
+    icon: "/images/icons/user.svg",
+    title: "Interview",
+    desc: "Receive interview notification - Interview link provided (video call integration) - Interview conducted with company - Feedback visible after (from interviewer)",
+    delay: "1.8s",
+  },
+  {
+    id: 5,
+    side: "left",
+    icon: "/images/icons/offer.svg",
+    title: "Get Offer",
+    desc: "Receive offer via platform - Accept/reject offer - View offer details (role, salary, joining date, benefits) - Download offer letter",
+    delay: "2.4s",
+  },
+  {
+    id: 6,
+    side: "right",
+    icon: "/images/icons/graphic-progression.svg",
+    title: "Track Progress",
+    desc: "Application status tracker - Interview feedback review - Accepted offer details - Post-hire onboarding support",
+    delay: "3.0s",
+  },
 ];
 
-const DESKTOP_PATH = "M 200 65 L 800 65 L 800 215 L 280 215 L 280 365 L 800 365 L 800 515 L 540 515";
-
 export default function StudentProcess() {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const dotRef = useRef<SVGCircleElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const animatedRef = useRef(false);
-
-  useEffect(() => {
-    const svg = svgRef.current;
-    const dot = dotRef.current;
-    if (!svg || !dot) return;
-
-    function animateSignal() {
-      const p = svg!.querySelector("path");
-      if (!p) return;
-      const totalLength = p.getTotalLength();
-      const duration = 12000; // 12 seconds per loop
-      const startTime = performance.now();
-
-      function move(now: number) {
-        const progress = ((now - startTime) % duration) / duration;
-        const pt = p!.getPointAtLength(totalLength * progress);
-        dot!.setAttribute("cx", String(pt.x));
-        dot!.setAttribute("cy", String(pt.y));
-        requestAnimationFrame(move);
-      }
-      requestAnimationFrame(move);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && !animatedRef.current) {
-            animateSignal();
-            animatedRef.current = true;
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
       <style>{`
-        .sp-section {
+        .spt-section {
           position: relative;
-          min-height: 100vh;
-          background: #FEF2F2;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 60px 20px;
+          background: #ffffff;
+          padding: 80px 24px 120px;
           overflow: hidden;
-          z-index: 11;
-          font-family: 'Inter', sans-serif;
         }
-        .sp-container {
+
+        .spt-wrapper {
           position: relative;
-          width: 1080px;
-          height: 600px;
-          max-width: 100%;
+          max-width: 1040px;
+          margin: 0 auto;
+        }
+
+        /* Central Spine Line */
+        .spt-spine {
+          position: absolute;
+          top: 34px;
+          bottom: 40px;
+          left: 50%;
+          width: 4px;
+          background: #003750;
+          transform: translateX(-50%);
+          border-radius: 4px;
           z-index: 2;
         }
-        .sp-card {
-          position: absolute;
-          width: 320px;
-          padding: 16px 16px 16px 54px;
-          border-radius: 20px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          z-index: 2;
-          transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .sp-card:hover { 
-          transform: translateY(-4px); 
-          box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
-        }
-        .sp-pill {
-          position: absolute;
-          left: 8px;
-          top: 8px;
-          bottom: 8px;
-          width: 30px;
-          border-radius: 15px;
-          color: white;
-          writing-mode: vertical-rl;
-          transform: rotate(180deg);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 1px;
-        }
-        .sp-svg-d {
+
+        /* Ambient light pulse travelling down spine */
+        .spt-spine::after {
+          content: "";
           position: absolute;
           top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-          pointer-events: none;
-          overflow: visible; /* allows line to extend outside bounds slightly */
+          left: -2px;
+          width: 8px;
+          height: 64px;
+          background: linear-gradient(180deg, transparent, #2180A8, transparent);
+          border-radius: 4px;
+          animation: spineTravel 6s linear infinite;
         }
-        @media (max-width: 1120px) {
-          .sp-section { min-height: auto; padding: 80px 20px; }
-          .sp-container {
+
+        @keyframes spineTravel {
+          0% { top: 0; opacity: 0; }
+          15% { opacity: 1; }
+          85% { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
+        }
+
+        /* Row Layout */
+        .spt-row {
+          position: relative;
+          width: 100%;
+          min-height: 180px;
+        }
+
+        /* Dashed connecting lines */
+        .spt-dashed-left {
+          position: absolute;
+          top: 34px;
+          left: 44px;
+          right: 50%;
+          height: 0;
+          border-top: 2px dashed #b8cdd9;
+          z-index: 1;
+        }
+
+        .spt-dashed-right {
+          position: absolute;
+          top: 34px;
+          left: 50%;
+          right: 44px;
+          height: 0;
+          border-top: 2px dashed #b8cdd9;
+          z-index: 1;
+        }
+
+        /* Floating Animated Badge */
+        .spt-badge {
+          position: absolute;
+          top: 0;
+          width: 68px;
+          height: 68px;
+          border-radius: 50%;
+          background: #d4effc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 6px 20px rgba(0, 55, 80, 0.12);
+          z-index: 4;
+          cursor: pointer;
+          transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, background-color 0.3s ease;
+        }
+
+        .spt-badge-left {
+          left: 10px;
+        }
+
+        .spt-badge-right {
+          right: 10px;
+        }
+
+        .spt-badge:hover {
+          transform: scale(1.18) rotate(6deg) !important;
+          background: #bde4f9;
+          box-shadow: 0 12px 28px rgba(0, 55, 80, 0.25);
+        }
+
+        .spt-icon-img {
+          width: 38px;
+          height: 38px;
+          object-fit: contain;
+          transition: transform 0.3s ease;
+        }
+
+        .spt-badge:hover .spt-icon-img {
+          transform: scale(1.1);
+        }
+
+        /* Ripple effect */
+        .spt-badge::after {
+          content: "";
+          position: absolute;
+          inset: -5px;
+          border-radius: 50%;
+          border: 2px solid rgba(0, 80, 112, 0.28);
+          animation: badgeRipple 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+          pointer-events: none;
+        }
+
+        @keyframes badgeRipple {
+          0% { transform: scale(0.92); opacity: 0.8; }
+          100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        @keyframes iconFloat {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-9px);
+          }
+        }
+
+        /* Text Content Blocks */
+        .spt-content-left {
+          position: absolute;
+          top: 48px;
+          right: calc(50% + 36px);
+          max-width: 380px;
+          text-align: right;
+          z-index: 3;
+        }
+
+        .spt-content-right {
+          position: absolute;
+          top: 48px;
+          left: calc(50% + 36px);
+          max-width: 380px;
+          text-align: left;
+          z-index: 3;
+        }
+
+        .spt-title {
+          font-size: 24px;
+          font-weight: 800;
+          color: #003750;
+          line-height: 1.25;
+          margin: 0 0 12px;
+          letter-spacing: -0.015em;
+        }
+
+        .spt-desc {
+          font-size: 14px;
+          font-weight: 700;
+          color: #003750;
+          line-height: 1.5;
+          margin: 0;
+        }
+
+        /* Mobile & Tablet Responsive */
+        @media (max-width: 820px) {
+          .spt-spine {
+            left: 44px;
+            transform: none;
+          }
+          .spt-row {
+            min-height: auto;
+            margin-bottom: 48px;
             display: flex;
-            flex-direction: column;
-            gap: 40px;
-            height: auto !important;
-            width: 100%;
-            align-items: center;
+            align-items: flex-start;
           }
-          .sp-container::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 20px;
-            bottom: 20px;
-            border-left: 2px dashed #111;
-            transform: translateX(-50%);
-            z-index: 0;
+          .spt-dashed-left, .spt-dashed-right {
+            display: none;
           }
-          .sp-card {
-            position: relative !important;
-            left: auto !important;
+          .spt-badge {
+            position: relative;
+            top: 0 !important;
+            left: 10px !important;
             right: auto !important;
-            top: auto !important;
-            width: 100%;
-            max-width: 360px;
+            flex-shrink: 0;
           }
-          .sp-svg-d { display: none; }
+          .spt-content-left, .spt-content-right {
+            position: relative;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            max-width: 100%;
+            text-align: left !important;
+            padding-left: 28px;
+          }
         }
       `}</style>
 
-      <section ref={sectionRef} className="sp-section">
-        {/* Background blob matching Figma */}
-        <Image
-          src="/student-img/Union.png"
-          alt=""
-          width={1025}
-          height={800}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
-            maxWidth: 1025,
-            width: "100%",
-            height: "auto",
-            opacity: 0.9,
-            zIndex: 1,
-            pointerEvents: "none"
-          }}
-        />
+      <section className="spt-section" id="process">
+        <div className="spt-wrapper">
+          {/* Central spine line */}
+          <div className="spt-spine" />
 
-        <div className="sp-container">
-          {STEPS.map((step, idx) => (
-            <div
-              key={step.n}
-              className="sp-card"
-              style={{ background: step.bg, ...(step.pos as React.CSSProperties) }}
-            >
-              <div className="sp-pill" style={{ background: step.label }}>
-                Step-{idx + 1}
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                <Image src={step.icon} alt={step.title} width={20} height={20} style={{ objectFit: "contain" }} />
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#111" }}>{step.title}</h3>
-              </div>
-              <p style={{ fontSize: 11.5, fontWeight: 500, color: "#222", lineHeight: 1.45, margin: 0 }}>
-                {step.desc}
-              </p>
-            </div>
-          ))}
+          {/* Staggered Rows */}
+          {STEPS.map((step) => {
+            const isLeft = step.side === "left";
+            return (
+              <div key={step.id} className="spt-row">
+                {/* Dashed line */}
+                <div className={isLeft ? "spt-dashed-left" : "spt-dashed-right"} />
 
-          {/* Desktop connecting dashed lines */}
-          <svg
-            ref={svgRef}
-            className="sp-svg-d"
-            viewBox="0 0 1080 600"
-          >
-            <path
-              d={DESKTOP_PATH}
-              stroke="#111"
-              strokeWidth={2}
-              strokeDasharray="6 6"
-              fill="none"
-            />
-            <circle
-              ref={dotRef}
-              r={7}
-              fill="#000"
-              style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.3))" }}
-            />
-          </svg>
+                {/* Animated Badge */}
+                <div
+                  className={`spt-badge ${isLeft ? "spt-badge-left" : "spt-badge-right"}`}
+                  style={{
+                    animation: `iconFloat 4.2s ease-in-out infinite ${step.delay}`,
+                  }}
+                >
+                  <Image
+                    src={step.icon}
+                    alt={step.title}
+                    width={38}
+                    height={38}
+                    className="spt-icon-img"
+                  />
+                </div>
+
+                {/* Content Block */}
+                <div className={isLeft ? "spt-content-left" : "spt-content-right"}>
+                  <h3 className="spt-title">{step.title}</h3>
+                  <p className="spt-desc">{step.desc}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
     </>
