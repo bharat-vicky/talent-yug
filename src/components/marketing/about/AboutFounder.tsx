@@ -387,8 +387,8 @@ export default function AboutFounder() {
 
             {/* Decorative frosted-glass commas — in front of person */}
             <div className="abf-quotes-wrapper">
-              <img src="/images/Vector.png" alt="" className="abf-quote-shape-1" />
-              <img src="/images/Vector (1).png" alt="" className="abf-quote-shape-2" />
+              <Image src="/images/Vector.png" alt="" width={110} height={90} className="abf-quote-shape-1" style={{ width: "auto", height: "auto" }} />
+              <Image src="/images/Vector (1).png" alt="" width={110} height={90} className="abf-quote-shape-2" style={{ width: "auto", height: "auto" }} />
             </div>
 
             {/* Founder photo — framed card */}

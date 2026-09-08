@@ -18,10 +18,26 @@ function XIcon() {
 }
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", icon: Linkedin },
-  { label: "Instagram", icon: Instagram },
-  { label: "X", icon: XIcon },
-  { label: "Facebook", icon: Facebook },
+  {
+    label: "LinkedIn",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/company/talentyug-private-limited/",
+  },
+  {
+    label: "Instagram",
+    icon: Instagram,
+    href: "https://www.instagram.com/talentyug.in?igsi=MXNzemNlZWxvZHhmcQ==",
+  },
+  {
+    label: "X",
+    icon: XIcon,
+    href: "https://x.com/talentyugpvtltd",
+  },
+  {
+    label: "Facebook",
+    icon: Facebook,
+    href: "https://www.facebook.com",
+  },
 ];
 
 const FOOTER_COLUMNS = [
@@ -260,8 +276,15 @@ export default function HomeFooter() {
             </span>
 
             <div className="hf-social-row">
-              {SOCIAL_LINKS.map(({ label, icon: Icon }) => (
-                <a key={label} href="#" aria-label={label} className="hf-social-icon">
+              {SOCIAL_LINKS.map(({ label, icon: Icon, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="hf-social-icon"
+                >
                   <Icon size={16} />
                 </a>
               ))}

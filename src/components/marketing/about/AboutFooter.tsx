@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AboutFooter() {
   return (
@@ -117,9 +118,9 @@ export default function AboutFooter() {
                 Social
               </h3>
               <Link
-                href="https://www.instagram.com/talentyug.in"
+                href="https://www.instagram.com/talentyug.in?igsi=MXNzemNlZWxvZHhmcQ=="
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="ab-footer-link"
               >
                 Instagram
@@ -214,7 +215,7 @@ export default function AboutFooter() {
                 alignItems: "center",
               }}
             >
-              <img src="/home-img/logo.png" alt="TalentYug Logo" style={{ height: "64px", objectFit: "contain" }} />
+              <Image src="/home-img/logo.png" alt="TalentYug Logo" width={180} height={64} style={{ height: "64px", width: "auto", objectFit: "contain" }} />
             </div>
           </div>
 
